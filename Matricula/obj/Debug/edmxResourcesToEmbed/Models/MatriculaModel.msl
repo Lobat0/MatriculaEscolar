@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MatriculaModelStoreContainer" CdmEntityContainer="MatriculaEntities">
+    <EntitySetMapping Name="Aluno">
+      <EntityTypeMapping TypeName="MatriculaModel.Aluno">
+        <MappingFragment StoreEntitySet="Aluno">
+          <ScalarProperty Name="id_aluno" ColumnName="id_aluno" />
+          <ScalarProperty Name="id_pessoa" ColumnName="id_pessoa" />
+          <ScalarProperty Name="situacao" ColumnName="situacao" />
+          <ScalarProperty Name="observacao" ColumnName="observacao" />
+          <ScalarProperty Name="rendimento" ColumnName="rendimento" />
+          <ScalarProperty Name="matricula" ColumnName="matricula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aluno_Materia">
+      <EntityTypeMapping TypeName="MatriculaModel.Aluno_Materia">
+        <MappingFragment StoreEntitySet="Aluno_Materia">
+          <ScalarProperty Name="id_aluno_materia" ColumnName="id_aluno_materia" />
+          <ScalarProperty Name="id_aluno" ColumnName="id_aluno" />
+          <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aluno_Professor_Materia">
+      <EntityTypeMapping TypeName="MatriculaModel.Aluno_Professor_Materia">
+        <MappingFragment StoreEntitySet="Aluno_Professor_Materia">
+          <ScalarProperty Name="id_aluno_prof_mat" ColumnName="id_aluno_prof_mat" />
+          <ScalarProperty Name="id_aluno" ColumnName="id_aluno" />
+          <ScalarProperty Name="id_professor_materia" ColumnName="id_professor_materia" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="data_matricula" ColumnName="data_matricula" />
+          <ScalarProperty Name="frequencia" ColumnName="frequencia" />
+          <ScalarProperty Name="atestado" ColumnName="atestado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funcionario">
+      <EntityTypeMapping TypeName="MatriculaModel.Funcionario">
+        <MappingFragment StoreEntitySet="Funcionario">
+          <ScalarProperty Name="id_funcionario" ColumnName="id_funcionario" />
+          <ScalarProperty Name="id_pessoa" ColumnName="id_pessoa" />
+          <ScalarProperty Name="situacao" ColumnName="situacao" />
+          <ScalarProperty Name="setor" ColumnName="setor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Materia">
+      <EntityTypeMapping TypeName="MatriculaModel.Materia">
+        <MappingFragment StoreEntitySet="Materia">
+          <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="turno" ColumnName="turno" />
+          <ScalarProperty Name="horario" ColumnName="horario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoa">
+      <EntityTypeMapping TypeName="MatriculaModel.Pessoa">
+        <MappingFragment StoreEntitySet="Pessoa">
+          <ScalarProperty Name="id_pessoa" ColumnName="id_pessoa" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="CPF" ColumnName="CPF" />
+          <ScalarProperty Name="RG" ColumnName="RG" />
+          <ScalarProperty Name="telefone1" ColumnName="telefone1" />
+          <ScalarProperty Name="telefone2" ColumnName="telefone2" />
+          <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+          <ScalarProperty Name="endereco" ColumnName="endereco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professor">
+      <EntityTypeMapping TypeName="MatriculaModel.Professor">
+        <MappingFragment StoreEntitySet="Professor">
+          <ScalarProperty Name="id_professor" ColumnName="id_professor" />
+          <ScalarProperty Name="id_pessoa" ColumnName="id_pessoa" />
+          <ScalarProperty Name="situacao" ColumnName="situacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professor_Materia">
+      <EntityTypeMapping TypeName="MatriculaModel.Professor_Materia">
+        <MappingFragment StoreEntitySet="Professor_Materia">
+          <ScalarProperty Name="id_professor_materia" ColumnName="id_professor_materia" />
+          <ScalarProperty Name="id_professor" ColumnName="id_professor" />
+          <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solicitacao">
+      <EntityTypeMapping TypeName="MatriculaModel.Solicitacao">
+        <MappingFragment StoreEntitySet="Solicitacao">
+          <ScalarProperty Name="id_solicitacao" ColumnName="id_solicitacao" />
+          <ScalarProperty Name="id_funcionario" ColumnName="id_funcionario" />
+          <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
+          <ScalarProperty Name="data_pedido" ColumnName="data_pedido" />
+          <ScalarProperty Name="data_emissao" ColumnName="data_emissao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="MatriculaModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_pessoa" ColumnName="id_pessoa" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+          <ScalarProperty Name="permissoes" ColumnName="permissoes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

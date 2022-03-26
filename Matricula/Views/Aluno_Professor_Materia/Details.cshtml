@@ -1,0 +1,66 @@
+﻿@model Matricula.Models.Aluno_Professor_Materia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aluno_Professor_Materia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data_matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.frequencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.frequencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.atestado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.atestado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aluno.situacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aluno.situacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Professor_Materia.id_professor_materia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Professor_Materia.id_professor_materia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_aluno_prof_mat }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
