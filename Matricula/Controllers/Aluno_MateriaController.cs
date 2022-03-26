@@ -39,7 +39,7 @@ namespace Matricula.Controllers
         // GET: Aluno_Materia/Create
         public ActionResult Create()
         {
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "situacao");
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "id_pessoa");
             ViewBag.id_materia = new SelectList(db.Materia, "id_materia", "nome");
             return View();
         }
@@ -58,7 +58,7 @@ namespace Matricula.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "situacao", aluno_Materia.id_aluno);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "id_pessoa", aluno_Materia.id_aluno);
             ViewBag.id_materia = new SelectList(db.Materia, "id_materia", "nome", aluno_Materia.id_materia);
             return View(aluno_Materia);
         }
@@ -75,7 +75,7 @@ namespace Matricula.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "situacao", aluno_Materia.id_aluno);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "id_pessoa", aluno_Materia.id_aluno);
             ViewBag.id_materia = new SelectList(db.Materia, "id_materia", "nome", aluno_Materia.id_materia);
             return View(aluno_Materia);
         }
@@ -93,7 +93,7 @@ namespace Matricula.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "situacao", aluno_Materia.id_aluno);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "id_pessoa", aluno_Materia.id_aluno);
             ViewBag.id_materia = new SelectList(db.Materia, "id_materia", "nome", aluno_Materia.id_materia);
             return View(aluno_Materia);
         }

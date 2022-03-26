@@ -33,5 +33,10 @@ namespace Matricula.Models
         public virtual Pessoa Pessoa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aluno_Professor_Materia> Aluno_Professor_Materia { get; set; }
+
+        public override string ToString()
+        {
+            return Pessoa.nome;
+        }
     }
 }
