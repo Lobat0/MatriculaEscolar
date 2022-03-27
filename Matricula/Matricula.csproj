@@ -135,7 +135,7 @@
     <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\ProfessorsController.cs" />
     <Compile Include="Controllers\Professor_MateriaController.cs" />
-    <Compile Include="Controllers\SolicitacaosController.cs" />
+    <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,11 +284,11 @@
     <Content Include="Views\Professor_Materia\Details.cshtml" />
     <Content Include="Views\Professor_Materia\Edit.cshtml" />
     <Content Include="Views\Professor_Materia\Index.cshtml" />
-    <Content Include="Views\Solicitacaos\Create.cshtml" />
-    <Content Include="Views\Solicitacaos\Delete.cshtml" />
-    <Content Include="Views\Solicitacaos\Details.cshtml" />
-    <Content Include="Views\Solicitacaos\Edit.cshtml" />
-    <Content Include="Views\Solicitacaos\Index.cshtml" />
+    <Content Include="Views\Solicitacao\Create.cshtml" />
+    <Content Include="Views\Solicitacao\Delete.cshtml" />
+    <Content Include="Views\Solicitacao\Details.cshtml" />
+    <Content Include="Views\Solicitacao\Edit.cshtml" />
+    <Content Include="Views\Solicitacao\Index.cshtml" />
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\Details.cshtml" />
