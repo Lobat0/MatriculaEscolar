@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="bg-gray">
+    <head>
+        <meta charset="UTF-8">
+        <title>ProjetoTCC</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- JQuery 12 -->
+        <link href="ss/jQueryUI/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+        <!-- bootstrap 3.0.2 -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- font Awesome -->
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+    </head>
+    <body class="bg-gray">
+
+        <div class="form-box" id="login-box">
+            <div class="header bg-black">Cadastrar</div>
+            <form action="index.php?pag=setUsuario" method="post">
+                <div class="body bg-gray">
+                    <div class='row'>
+                        
+                        <div class="form-group col-md-6">
+                            <input type="text" name="login" class="form-control" placeholder="Login" required=""/>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <input type="password" name="senha" class="form-control" placeholder="Senha" required=""/>
+                        </div>
+                        
+                         <div class="form-group col-md-12">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required=""/>
+                        </div>                     
+                        
+                        <div class="form-group col-md-12">
+                            <input type="text" name="nome" class="form-control" placeholder="Nome" required="" onkeyup="this.value=this.value.replace(/[^A-Za-z\sÃÕÁÉÍÓÚÀÇãõáéíóúàç]/g,'');"/>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <input type="text" name="sobrenome" class="form-control" placeholder="Sobrenome" required="" onkeyup="this.value=this.value.replace(/[^A-Za-z\sÃÕÁÉÍÓÚÀÇãõáéíóúàç]/g,'');"/>
+                        </div>
+                        
+                        <div class="form-group col-md-12">   
+                        <input type="tel" name="datanasc" class="form-control dateptbr" placeholder="Data de Nascimento" required="" data-inputmask='"mask": "99/99/9999"' data-mask/>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <input type="tel" name="telefone" class="form-control" placeholder="Telefone" required="" data-inputmask='"mask": "(999) 9999-9999"' data-mask/>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <input type="tel" name="celular" class="form-control" placeholder="Celular" required="" data-inputmask='"mask": "(999) 99999-9999"' data-mask/>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <input id="cpf" type="tel" name="cpf" class="form-control" placeholder="CPF" required="" data-inputmask='"mask": "999.999.999-99"' data-mask/>
+                        </div>    
+                        
+                        <div class="form-group col-md-12">
+                            <label for="estadocivil">Estado Civil</label>
+                            <select class="form-control" name="estadocivil" id="estadocivil" required>
+                                <option value="">SELECIONE UMA OPÇÃO</option>
+                                <option value="Solteiro(a)">Solteiro(a)</option>
+                                <option value="Casado(a)">Casado(a)</option>
+                                <option value="Divorciado(a)">Divorciado(a)</option>
+                                <option value="Viúvo(a)">Viúvo(a)</option>
+                                <option value="Separado(a)">Separado(a)</option>
+                            </select>
+                        </div> 
+                        
+                        <div class="form-group col-md-12">
+                            <label for="genero">Genero</label>
+                            <label class="radio-inline pull-right"><input type="radio" name="genero" value="Masculino">Masculino</label>
+                            <label class="radio-inline pull-right"><input type="radio" name="genero" value="Feminino">Feminino</label>
+                        </div>     
+                                                                                    
+                    </div>
+                    
+                </div>
+                
+                <div class="footer bg-white">                                                               
+                    <button type="submit" class="btn bg-black btn-block">Cadastrar</button>
+                    
+                    <p><a href="login.html" class="text-center">Voltar</a></p>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- jQuery 2.0.2 -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!-- jQuery UI 1.10.3 -->
+        <script src="css/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- InputMask -->
+        <script src="js/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+        <script src="js/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+        <script src="js/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
+        <!--Scripts-->
+        <script src="js/padrao.js" type="text/javascript"></script>
+    </body>
+</html>
