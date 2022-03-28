@@ -5,7 +5,7 @@ Aplicativo web de matrícula de estudantes, criado na plataforma .NET Framework,
 ## Instruções
 ### Rodar o projeto
 
-1. Dá tem jeito.
+1. Dá teu jeito.
 
 ### Git
 Sempre que for começar a usar o projeto:
