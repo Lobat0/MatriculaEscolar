@@ -44,9 +44,10 @@ body {
 }
 
 main {
-    margin: 3em;
+    max-width: 1280px;
+    margin: 3em auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 420px;
     grid-gap: 1em;
 }
 
