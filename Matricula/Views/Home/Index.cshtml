@@ -1,12 +1,33 @@
-﻿@{
-        ViewBag.Title = "Home Page";
-        var artigos = new[] {
-            ("Alienígenas no Pimentas", "Como pode não haver alienígenas? Existem tantas estrelas apenas nesta galáxia, e tantas galáxias, que as chances de sermos a única vida inteligente no universo parecem pequenas para mim', disse o segundo homem mais rico do Pimentas." ),
-            ("outro teste", "You pode easily achar a teia hosting companhia that oferece the certo mix de features e price para your aplicações." ),
-            ("mais teste", "You pode easily achar a teia hosting companhia that oferece the certo mix de features e price para your aplicações." ),
-            ("último teste", "You pode easily achar a teia hosting companhia that oferece the certo mix de features e price para your aplicações." )
+﻿@using Matricula.Models
+@{
+    ViewBag.Title = "Home Page";
+    Artigo[] artigos = new[] {
+            new Artigo(
+                "Alienígenas no Pimentas",
+                "https://t.ctcdn.com.br/_fw6Mr1AOcO07qok1uWDCQPtKRg=/i278727.jpeg",
+                "Como pode não haver alienígenas? Existem tantas estrelas apenas nesta galáxia, e tantas galáxias, que as chances de sermos a única vida inteligente no universo parecem pequenas para mim', disse o segundo homem mais rico do Pimentas.",
+                true
+            ),
+            new Artigo(
+                "Galinha sem cabeça??!? kkkk",
+                "https://ichef.bbci.co.uk/news/549/amz/worldservice/live/assets/images/2015/09/10/150910030407_chicken_549x549_lifegettyimages.jpg",
+                "Há 70 anos, um fazendeiro decapitou um frango no Colorado, Estados Unidos, mas uma coisa curiosa aconteceu: a ave 'se recusou' a morrer. Mike, como ficou conhecido o fatídico frango, sobreviveu por 18 meses e se tornou famoso. Mas como ele viveu sem a cabeça por tanto tempo?",
+                true
+            ),
+            new Artigo(
+                "mais teste",
+                "https://preview.redd.it/3oqtj9bg5zp81.png?width=640&crop=smart&auto=webp&s=d096575b82d35281f978602781d019d87cdb8a97",
+                "You pode easily achar a teia hosting companhia that oferece the certo mix de features e price para your aplicações.",
+                true
+            ),
+            new Artigo(
+                "último teste",
+                "https://preview.redd.it/ovjxgafirup81.jpg?width=640&crop=smart&auto=webp&s=e6808e1ccfcc56b613b78a8e274f143d331b2c4e",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                true
+            )
         };
-    }
+}
 
 <div class="jumbotron">
     <h1>Matrícula acadêmica</h1>
@@ -16,7 +37,7 @@
 
 <div class="row">
 
-    @foreach (var artigo in artigos)
+    @foreach (Artigo artigo in artigos)
     {
         @Html.Partial("~/Views/Home/Artigos/Artigo.cshtml", artigo)
     }

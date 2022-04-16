@@ -150,6 +150,7 @@
     <Compile Include="Models\Aluno_Professor_Materia.cs">
       <DependentUpon>MatriculaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Artigo.cs" />
     <Compile Include="Models\Funcionario.cs">
       <DependentUpon>MatriculaModel.tt</DependentUpon>
     </Compile>
