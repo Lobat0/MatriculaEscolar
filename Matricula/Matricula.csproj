@@ -134,7 +134,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MateriasController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
-    <Compile Include="Controllers\ProfessorsController.cs" />
+    <Compile Include="Controllers\ProfessoresController.cs" />
     <Compile Include="Controllers\Professor_MateriaController.cs" />
     <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -285,11 +285,11 @@
     <Content Include="Views\Pessoas\Details.cshtml" />
     <Content Include="Views\Pessoas\Edit.cshtml" />
     <Content Include="Views\Pessoas\Index.cshtml" />
-    <Content Include="Views\Professors\Create.cshtml" />
-    <Content Include="Views\Professors\Delete.cshtml" />
-    <Content Include="Views\Professors\Details.cshtml" />
-    <Content Include="Views\Professors\Edit.cshtml" />
-    <Content Include="Views\Professors\Index.cshtml" />
+    <Content Include="Views\Professores\Create.cshtml" />
+    <Content Include="Views\Professores\Delete.cshtml" />
+    <Content Include="Views\Professores\Details.cshtml" />
+    <Content Include="Views\Professores\Edit.cshtml" />
+    <Content Include="Views\Professores\Index.cshtml" />
     <Content Include="Views\Professor_Materia\Create.cshtml" />
     <Content Include="Views\Professor_Materia\Delete.cshtml" />
     <Content Include="Views\Professor_Materia\Details.cshtml" />
@@ -306,6 +306,7 @@
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\Artigos\Artigo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

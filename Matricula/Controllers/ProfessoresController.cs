@@ -10,7 +10,7 @@ using Matricula.Models;
 
 namespace Matricula.Controllers
 {
-    public class ProfessorsController : Controller
+    public class ProfessoresController : Controller
     {
         private MatriculaEntities db = new MatriculaEntities();
 

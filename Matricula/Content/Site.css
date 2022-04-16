@@ -5,8 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 50px 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +20,27 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.navbar-logo {
+    color: #eb0500;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar-logo:hover {
+    text-decoration: none;
+}
+
+.navbar-logo:focus {
+    outline: 0;
+}
+
+.navbar-logo:hover, .navbar-logo:focus {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
 }

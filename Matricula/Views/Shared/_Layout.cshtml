@@ -17,21 +17,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Matrícula acadêmica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Matrícula acadêmica", "Index", "Home", new { area = "" }, new { @class = "navbar-logo" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Pessoa", "Index", "Pessoas")</li>
                     <li>@Html.ActionLink("Usuário", "Index", "Usuarios")</li>
                     <li>@Html.ActionLink("Aluno", "Index", "Aluno")</li>
-                    <li>@Html.ActionLink("Professor", "Index", "Professors")</li>
-                    <li>@Html.ActionLink("Funcionários", "Index", "Funcionarios")</li>
+                    <li>@Html.ActionLink("Professor", "Index", "Professores")</li>
+                    <li>@Html.ActionLink("Funcionário", "Index", "Funcionarios")</li>
                     <li>@Html.ActionLink("Matéria", "Index", "Materias")</li>
                     <li>@Html.ActionLink("Aluno/Matéria", "Index", "Aluno_Materia")</li>
                     <li>@Html.ActionLink("Professor/Matéria", "Index", "Professor_Materia")</li>
                     <li>@Html.ActionLink("Aluno/Professor/Matéria", "Index", "Aluno_Professor_Materia")</li>
-                    <li>@Html.ActionLink("Solicitações", "Index", "Solicitacao")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Solicitação", "Index", "Solicitacao")</li>
+                    <li>@Html.ActionLink("Entrar", "Index", "Login")</li>
                 </ul>
             </div>
         </div>
@@ -40,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Matrícula acadêmica - ASP.NET</p>
         </footer>
     </div>
 
