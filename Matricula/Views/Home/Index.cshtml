@@ -35,11 +35,15 @@
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Faça sua matrícula &raquo;</a></p>
 </div>
 
-<div class="row">
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
 
-    @foreach (Artigo artigo in artigos)
-    {
-        @Html.Partial("~/Views/Home/Artigos/Artigo.cshtml", artigo)
-    }
 
+        @foreach (Artigo artigo in artigos)
+        {
+            @Html.Partial("~/Views/Home/Artigos/Artigo.cshtml", artigo)
+        }
+
+    </div>
 </div>
