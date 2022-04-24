@@ -5,7 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding: 50px 15px;
+    padding-top: 50px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -42,14 +42,38 @@
 }
 
 
-img {
-    width:auto;
-    height:auto;
-    max-width: 100%;
-    max-height: 100%;
+.artigo-img-container {
+    height: 240px;
+    width: auto;
+    overflow: hidden;
 }
 
-.square {
-    height: 240px;
-    width: 240px;
+.artigo-img-container img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+.artigo-conteudo-container {
+
+}
+
+.artigo-conteudo-container h2 {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artigo-txt-container {
+    overflow: hidden;
+    height: 100px;
+}
+
+.artigo-txt-container p {
+    text-overflow: ellipsis;
+}
+
+.artigo-botao {
+    padding: 15px 0;
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Matricula.Models;
 
 namespace Matricula.Controllers
@@ -15,16 +8,20 @@ namespace Matricula.Controllers
 
         private MatriculaEntities db = new MatriculaEntities();
 
-        // GET: Usuarios
+        // GET: Página de Cadastro
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: CadastroLogin
+        // GET: Página de Cadastro com sucesso
+        public ActionResult SucessoCadastro()
+        {
+            return View();
+        }
 
-        // GET: CadastroLogin/Details/5
-        public ActionResult Details(int id)
+        // GET: Página de Cadastro com erro
+        public ActionResult ErroCadastro()
         {
             return View();
         }
@@ -34,77 +31,24 @@ namespace Matricula.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "nome,senha")] Usuario usuario)
+        public ActionResult Index(string nome, string senha)
         {
             if (ModelState.IsValid)
             {
-                db.Usuario.Add(usuario);
+                Usuario newUsuario = new Usuario
+                {
+                    id_pessoa = 1,
+                    nome = nome,
+                    senha = senha,
+                    permissoes = "sei la cara"
+                };
+
+                db.Usuario.Add(newUsuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SucessoCadastro");
             }
 
-            ViewBag.id_pessoa = new SelectList(db.Pessoa, "id_pessoa", "nome", usuario.id_pessoa);
-            return View(usuario);
-        }
-
-        // POST: CadastroLogin/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CadastroLogin/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CadastroLogin/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CadastroLogin/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CadastroLogin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("ErroCadastro");
         }
     }
 }

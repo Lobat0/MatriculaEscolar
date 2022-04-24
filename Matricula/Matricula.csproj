@@ -192,9 +192,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Matricula.mdf" />
-    <Content Include="App_Data\Matricula_log.ldf">
-      <DependentUpon>Matricula.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -246,6 +243,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Views\CadastroLogin\ErroCadastro.cshtml" />
+    <None Include="Views\CadastroLogin\SucessoCadastro.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
