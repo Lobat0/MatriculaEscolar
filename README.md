@@ -19,3 +19,10 @@ git add .
 git commit -m "mensagem"
 git push origin main
 ```
+
+Se o projeto implicar com o pacote roslyn:
+- Ferramentas >> Gerenciador de Pacotes do NuGet >> Console do Gerenciador de Pacotes
+```shell
+Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+```
+

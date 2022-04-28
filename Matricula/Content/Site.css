@@ -17,7 +17,6 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 
-
 .navbar-logo {
     color: #eb0500;
     float: left;
@@ -49,6 +48,7 @@
 }
 
 .artigo-img-container img {
+    min-height: 100%;
     width: auto;
     height: auto;
     max-width: 100%;
