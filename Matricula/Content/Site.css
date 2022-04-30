@@ -5,7 +5,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -16,64 +17,8 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-
-.navbar-logo {
-    color: #eb0500;
-    float: left;
-    height: 50px;
-    padding: 15px 15px;
-    font-size: 18px;
-    line-height: 20px;
-}
-
-.navbar-logo:hover {
-    text-decoration: none;
-}
-
-.navbar-logo:focus {
-    outline: 0;
-}
-
-.navbar-logo:hover, .navbar-logo:focus {
-    color: #fff;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-
-.artigo-img-container {
-    height: 240px;
-    width: auto;
-    overflow: hidden;
-}
-
-.artigo-img-container img {
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-}
-
-.artigo-conteudo-container {
-
-}
-
-.artigo-conteudo-container h2 {
-    white-space: nowrap;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.artigo-txt-container {
-    overflow: hidden;
-    height: 100px;
-}
-
-.artigo-txt-container p {
-    text-overflow: ellipsis;
-}
-
-.artigo-botao {
-    padding: 15px 0;
+input,
+select,
+textarea {
+    max-width: 280px;
 }

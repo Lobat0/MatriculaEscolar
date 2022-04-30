@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.32126.315
+VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matricula", "Matricula\Matricula.csproj", "{8D1A8975-8E27-4CF6-9238-1C9E65D54DB8}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Matricula", "Matricula\Matricula.vbproj", "{0592AEB0-56F4-4B38-A9DE-2D4DFEBCF148}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D1A8975-8E27-4CF6-9238-1C9E65D54DB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D1A8975-8E27-4CF6-9238-1C9E65D54DB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D1A8975-8E27-4CF6-9238-1C9E65D54DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D1A8975-8E27-4CF6-9238-1C9E65D54DB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0592AEB0-56F4-4B38-A9DE-2D4DFEBCF148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0592AEB0-56F4-4B38-A9DE-2D4DFEBCF148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0592AEB0-56F4-4B38-A9DE-2D4DFEBCF148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0592AEB0-56F4-4B38-A9DE-2D4DFEBCF148}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {20A4294F-B869-4983-8063-8579386ED47C}
+		SolutionGuid = {3A409100-C6CB-4C63-A221-7CC490271279}
 	EndGlobalSection
 EndGlobal
