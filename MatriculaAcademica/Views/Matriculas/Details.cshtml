@@ -1,0 +1,42 @@
+﻿@model MatriculaAcademica.Models.Matricula
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Matricula</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.data_matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aluno.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aluno.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Professor.nome_professor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Professor.nome_professor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_matricula }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
