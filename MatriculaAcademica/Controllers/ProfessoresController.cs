@@ -17,8 +17,7 @@ namespace MatriculaAcademica.Controllers
         // GET: Professores
         public ActionResult Index()
         {
-            var professor = db.Professor.Include(p => p.Disciplina);
-            return View(professor.ToList());
+            return View(db.Professor.ToList());
         }
 
         // GET: Professores/Details/5
@@ -39,7 +38,6 @@ namespace MatriculaAcademica.Controllers
         // GET: Professores/Create
         public ActionResult Create()
         {
-            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_professor,nome_professor,CPF,telefone,id_disciplina")] Professor professor)
+        public ActionResult Create([Bind(Include = "id_professor,nome_professor,CPF,telefone")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace MatriculaAcademica.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professor.id_disciplina);
             return View(professor);
         }
 
@@ -73,7 +70,6 @@ namespace MatriculaAcademica.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professor.id_disciplina);
             return View(professor);
         }
 
@@ -82,7 +78,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_professor,nome_professor,CPF,telefone,id_disciplina")] Professor professor)
+        public ActionResult Edit([Bind(Include = "id_professor,nome_professor,CPF,telefone")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace MatriculaAcademica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professor.id_disciplina);
             return View(professor);
         }
 

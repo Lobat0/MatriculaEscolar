@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -12,25 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.senha)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.nome_aluno)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.telefone)
+            @Html.DisplayNameFor(model => model.CPF)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.nascimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CPF)
         </th>
         <th></th>
     </tr>
@@ -38,25 +27,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.senha)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.nome_aluno)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.telefone)
+            @Html.DisplayFor(modelItem => item.CPF)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nascimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CPF)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id_aluno }) |

@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{44509EB8-4575-4357-B322-125E8F436D48}</ProjectGuid>
+    <ProjectGuid>{4E72530D-B265-4803-BA71-706ACF2D1A21}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44370</IISExpressSSLPort>
+    <IISExpressSSLPort>44323</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -128,48 +128,52 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\DisciplinasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\ProfessoresController.cs" />
+    <Compile Include="Controllers\ProfessoresDisciplinasController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Admin.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Aluno.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Curso.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Disciplina.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Matricula.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MatriculaAcademicaModel.Context.cs">
+    <Compile Include="Models\MatriculaAcademicaModelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MatriculaAcademicaModel.Context.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MatriculaAcademicaModel.cs">
+    <Compile Include="Models\MatriculaAcademicaModelo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MatriculaAcademicaModel.Designer.cs">
+    <Compile Include="Models\MatriculaAcademicaModelo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MatriculaAcademicaModel.edmx</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Professor.cs">
-      <DependentUpon>MatriculaAcademicaModel.tt</DependentUpon>
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProfessorDisciplina.cs">
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -186,24 +190,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\MatriculaAcademicaModel.Context.tt">
+    <Content Include="Models\MatriculaAcademicaModelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MatriculaAcademicaModel.Context.cs</LastGenOutput>
-      <DependentUpon>MatriculaAcademicaModel.edmx</DependentUpon>
+      <LastGenOutput>MatriculaAcademicaModelo.Context.cs</LastGenOutput>
+      <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\MatriculaAcademicaModel.tt">
+    <Content Include="Models\MatriculaAcademicaModelo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MatriculaAcademicaModel.edmx</DependentUpon>
-      <LastGenOutput>MatriculaAcademicaModel.cs</LastGenOutput>
+      <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
+      <LastGenOutput>MatriculaAcademicaModelo.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\MatriculaAcademicaModel.edmx">
+    <EntityDeploy Include="Models\MatriculaAcademicaModelo.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MatriculaAcademicaModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>MatriculaAcademicaModelo.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MatriculaAcademicaModel.edmx.diagram">
-      <DependentUpon>MatriculaAcademicaModel.edmx</DependentUpon>
+    <Content Include="Models\MatriculaAcademicaModelo.edmx.diagram">
+      <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -230,11 +234,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Admins\Create.cshtml" />
-    <Content Include="Views\Admins\Delete.cshtml" />
-    <Content Include="Views\Admins\Details.cshtml" />
-    <Content Include="Views\Admins\Edit.cshtml" />
-    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Alunos\Create.cshtml" />
     <Content Include="Views\Alunos\Delete.cshtml" />
     <Content Include="Views\Alunos\Details.cshtml" />
@@ -245,21 +249,26 @@
     <Content Include="Views\Cursos\Details.cshtml" />
     <Content Include="Views\Cursos\Edit.cshtml" />
     <Content Include="Views\Cursos\Index.cshtml" />
-    <Content Include="Views\Disciplinas\Create.cshtml" />
-    <Content Include="Views\Disciplinas\Delete.cshtml" />
-    <Content Include="Views\Disciplinas\Details.cshtml" />
-    <Content Include="Views\Disciplinas\Edit.cshtml" />
-    <Content Include="Views\Disciplinas\Index.cshtml" />
-    <Content Include="Views\Professores\Create.cshtml" />
-    <Content Include="Views\Professores\Delete.cshtml" />
-    <Content Include="Views\Professores\Details.cshtml" />
-    <Content Include="Views\Professores\Edit.cshtml" />
-    <Content Include="Views\Professores\Index.cshtml" />
     <Content Include="Views\Matriculas\Create.cshtml" />
     <Content Include="Views\Matriculas\Delete.cshtml" />
     <Content Include="Views\Matriculas\Details.cshtml" />
     <Content Include="Views\Matriculas\Edit.cshtml" />
     <Content Include="Views\Matriculas\Index.cshtml" />
+    <Content Include="Views\Professores\Create.cshtml" />
+    <Content Include="Views\Professores\Delete.cshtml" />
+    <Content Include="Views\Professores\Details.cshtml" />
+    <Content Include="Views\Professores\Edit.cshtml" />
+    <Content Include="Views\Professores\Index.cshtml" />
+    <Content Include="Views\Disciplinas\Create.cshtml" />
+    <Content Include="Views\Disciplinas\Delete.cshtml" />
+    <Content Include="Views\Disciplinas\Details.cshtml" />
+    <Content Include="Views\Disciplinas\Edit.cshtml" />
+    <Content Include="Views\Disciplinas\Index.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Create.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Delete.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Details.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Edit.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -294,9 +303,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61001</DevelopmentServerPort>
+          <DevelopmentServerPort>62674</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44370/</IISUrl>
+          <IISUrl>https://localhost:44323/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

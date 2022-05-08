@@ -46,7 +46,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_aluno,email,login,senha,nome_aluno,telefone,nascimento,CPF")] Aluno aluno)
+        public ActionResult Create([Bind(Include = "id_aluno,nome_aluno,CPF,nascimento")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_aluno,email,login,senha,nome_aluno,telefone,nascimento,CPF")] Aluno aluno)
+        public ActionResult Edit([Bind(Include = "id_aluno,nome_aluno,CPF,nascimento")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {

@@ -17,7 +17,7 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
-            var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Professor);
+            var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Curso);
             return View(matricula.ToList());
         }
 
@@ -39,8 +39,8 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas/Create
         public ActionResult Create()
         {
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "email");
-            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_aluno,id_professor")] Matricula matricula)
+        public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace MatriculaAcademica.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "email", matricula.id_aluno);
-            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", matricula.id_professor);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
             return View(matricula);
         }
 
@@ -75,8 +75,8 @@ namespace MatriculaAcademica.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "email", matricula.id_aluno);
-            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", matricula.id_professor);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
             return View(matricula);
         }
 
@@ -85,7 +85,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_matricula,data_matricula,id_aluno,id_professor")] Matricula matricula)
+        public ActionResult Edit([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
@@ -93,8 +93,8 @@ namespace MatriculaAcademica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "email", matricula.id_aluno);
-            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", matricula.id_professor);
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
             return View(matricula);
         }
 

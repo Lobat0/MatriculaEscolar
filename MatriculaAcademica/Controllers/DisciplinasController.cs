@@ -48,7 +48,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_disciplina,nome_disciplina,inicio,fim,id_curso")] Disciplina disciplina)
+        public ActionResult Create([Bind(Include = "id_disciplina,nome_disciplina,id_curso")] Disciplina disciplina)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_disciplina,nome_disciplina,inicio,fim,id_curso")] Disciplina disciplina)
+        public ActionResult Edit([Bind(Include = "id_disciplina,nome_disciplina,id_curso")] Disciplina disciplina)
         {
             if (ModelState.IsValid)
             {

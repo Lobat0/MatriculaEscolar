@@ -21,13 +21,9 @@ namespace MatriculaAcademica.Models
         }
     
         public int id_aluno { get; set; }
-        public string email { get; set; }
-        public string login { get; set; }
-        public string senha { get; set; }
         public string nome_aluno { get; set; }
-        public string telefone { get; set; }
-        public System.DateTime nascimento { get; set; }
         public string CPF { get; set; }
+        public System.DateTime nascimento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matricula> Matricula { get; set; }
