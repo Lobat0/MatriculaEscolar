@@ -12,7 +12,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class CursosController : Controller
     {
-        private MatriculaAcademicadbEntities db = new MatriculaAcademicadbEntities();
+        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Cursos
         public ActionResult Index()

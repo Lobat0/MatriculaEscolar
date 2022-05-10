@@ -17,14 +17,15 @@ namespace MatriculaAcademica.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Disciplina()
         {
+            this.CursoDisciplina = new HashSet<CursoDisciplina>();
             this.ProfessorDisciplina = new HashSet<ProfessorDisciplina>();
         }
     
         public int id_disciplina { get; set; }
         public string nome_disciplina { get; set; }
-        public int id_curso { get; set; }
     
-        public virtual Curso Curso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CursoDisciplina> CursoDisciplina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfessorDisciplina> ProfessorDisciplina { get; set; }
     }

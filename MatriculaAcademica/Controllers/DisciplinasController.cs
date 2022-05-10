@@ -12,13 +12,12 @@ namespace MatriculaAcademica.Controllers
 {
     public class DisciplinasController : Controller
     {
-        private MatriculaAcademicadbEntities db = new MatriculaAcademicadbEntities();
+        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Disciplinas
         public ActionResult Index()
         {
-            var disciplina = db.Disciplina.Include(d => d.Curso);
-            return View(disciplina.ToList());
+            return View(db.Disciplina.ToList());
         }
 
         // GET: Disciplinas/Details/5
@@ -39,7 +38,6 @@ namespace MatriculaAcademica.Controllers
         // GET: Disciplinas/Create
         public ActionResult Create()
         {
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_disciplina,nome_disciplina,id_curso")] Disciplina disciplina)
+        public ActionResult Create([Bind(Include = "id_disciplina,nome_disciplina")] Disciplina disciplina)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace MatriculaAcademica.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", disciplina.id_curso);
             return View(disciplina);
         }
 
@@ -73,7 +70,6 @@ namespace MatriculaAcademica.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", disciplina.id_curso);
             return View(disciplina);
         }
 
@@ -82,7 +78,7 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_disciplina,nome_disciplina,id_curso")] Disciplina disciplina)
+        public ActionResult Edit([Bind(Include = "id_disciplina,nome_disciplina")] Disciplina disciplina)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace MatriculaAcademica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", disciplina.id_curso);
             return View(disciplina);
         }
 

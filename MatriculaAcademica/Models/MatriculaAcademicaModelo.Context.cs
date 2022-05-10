@@ -13,10 +13,10 @@ namespace MatriculaAcademica.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MatriculaAcademicadbEntities : DbContext
+    public partial class MatriculaAcademicadbEntities1 : DbContext
     {
-        public MatriculaAcademicadbEntities()
-            : base("name=MatriculaAcademicadbEntities")
+        public MatriculaAcademicadbEntities1()
+            : base("name=MatriculaAcademicadbEntities1")
         {
         }
     
@@ -27,6 +27,7 @@ namespace MatriculaAcademica.Models
     
         public virtual DbSet<Aluno> Aluno { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
+        public virtual DbSet<CursoDisciplina> CursoDisciplina { get; set; }
         public virtual DbSet<Disciplina> Disciplina { get; set; }
         public virtual DbSet<Matricula> Matricula { get; set; }
         public virtual DbSet<Professor> Professor { get; set; }

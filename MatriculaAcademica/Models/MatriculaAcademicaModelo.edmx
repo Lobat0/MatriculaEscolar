@@ -23,13 +23,20 @@
           <Property Name="duracao" Type="time" Precision="7" Nullable="false" />
           <Property Name="turno" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CursoDisciplina">
+          <Key>
+            <PropertyRef Name="id_curso_disciplina" />
+          </Key>
+          <Property Name="id_curso_disciplina" Type="int" Nullable="false" />
+          <Property Name="id_curso" Type="int" Nullable="false" />
+          <Property Name="id_disciplina" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Disciplina">
           <Key>
             <PropertyRef Name="id_disciplina" />
           </Key>
           <Property Name="id_disciplina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nome_disciplina" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="id_curso" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Matricula">
           <Key>
@@ -67,15 +74,27 @@
           <Property Name="senha" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="tipo" Type="char" MaxLength="10" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Disciplina_Curso">
+        <Association Name="FK_CursoDisciplina_Curso">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
-          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="*" />
+          <End Role="CursoDisciplina" Type="Self.CursoDisciplina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Curso">
               <PropertyRef Name="id_curso" />
             </Principal>
-            <Dependent Role="Disciplina">
+            <Dependent Role="CursoDisciplina">
               <PropertyRef Name="id_curso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoDisciplina_Disciplina">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="CursoDisciplina" Type="Self.CursoDisciplina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="id_disciplina" />
+            </Principal>
+            <Dependent Role="CursoDisciplina">
+              <PropertyRef Name="id_disciplina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -130,14 +149,19 @@
         <EntityContainer Name="MatriculaAcademicadbModelStoreContainer">
           <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CursoDisciplina" EntityType="Self.CursoDisciplina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Disciplina" EntityType="Self.Disciplina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matricula" EntityType="Self.Matricula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfessorDisciplina" EntityType="Self.ProfessorDisciplina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Disciplina_Curso" Association="Self.FK_Disciplina_Curso">
+          <AssociationSet Name="FK_CursoDisciplina_Curso" Association="Self.FK_CursoDisciplina_Curso">
             <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoDisciplina" EntitySet="CursoDisciplina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoDisciplina_Disciplina" Association="Self.FK_CursoDisciplina_Disciplina">
             <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="CursoDisciplina" EntitySet="CursoDisciplina" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Aluno" Association="Self.FK_Matricula_Aluno">
             <End Role="Aluno" EntitySet="Aluno" />
@@ -179,8 +203,18 @@
           <Property Name="nome_curso" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="duracao" Type="Time" Nullable="false" Precision="7" />
           <Property Name="turno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Disciplina" Relationship="Self.FK_Disciplina_Curso" FromRole="Curso" ToRole="Disciplina" />
+          <NavigationProperty Name="CursoDisciplina" Relationship="Self.FK_CursoDisciplina_Curso" FromRole="Curso" ToRole="CursoDisciplina" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+        </EntityType>
+        <EntityType Name="CursoDisciplina">
+          <Key>
+            <PropertyRef Name="id_curso_disciplina" />
+          </Key>
+          <Property Name="id_curso_disciplina" Type="Int32" Nullable="false" />
+          <Property Name="id_curso" Type="Int32" Nullable="false" />
+          <Property Name="id_disciplina" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_CursoDisciplina_Curso" FromRole="CursoDisciplina" ToRole="Curso" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.FK_CursoDisciplina_Disciplina" FromRole="CursoDisciplina" ToRole="Disciplina" />
         </EntityType>
         <EntityType Name="Disciplina">
           <Key>
@@ -188,8 +222,7 @@
           </Key>
           <Property Name="id_disciplina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nome_disciplina" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_curso" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Curso" Relationship="Self.FK_Disciplina_Curso" FromRole="Disciplina" ToRole="Curso" />
+          <NavigationProperty Name="CursoDisciplina" Relationship="Self.FK_CursoDisciplina_Disciplina" FromRole="Disciplina" ToRole="CursoDisciplina" />
           <NavigationProperty Name="ProfessorDisciplina" Relationship="Self.FK_ProfessorDisciplina_Disciplina" FromRole="Disciplina" ToRole="ProfessorDisciplina" />
         </EntityType>
         <EntityType Name="Matricula">
@@ -245,14 +278,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Disciplina_Curso">
+        <Association Name="FK_CursoDisciplina_Curso">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
-          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="*" />
+          <End Role="CursoDisciplina" Type="Self.CursoDisciplina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Curso">
               <PropertyRef Name="id_curso" />
             </Principal>
-            <Dependent Role="Disciplina">
+            <Dependent Role="CursoDisciplina">
               <PropertyRef Name="id_curso" />
             </Dependent>
           </ReferentialConstraint>
@@ -266,6 +299,18 @@
             </Principal>
             <Dependent Role="Matricula">
               <PropertyRef Name="id_curso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoDisciplina_Disciplina">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="CursoDisciplina" Type="Self.CursoDisciplina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="id_disciplina" />
+            </Principal>
+            <Dependent Role="CursoDisciplina">
+              <PropertyRef Name="id_disciplina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -293,9 +338,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MatriculaAcademicadbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MatriculaAcademicadbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aluno" EntityType="Self.Aluno" />
           <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="CursoDisciplina" EntityType="Self.CursoDisciplina" />
           <EntitySet Name="Disciplina" EntityType="Self.Disciplina" />
           <EntitySet Name="Matricula" EntityType="Self.Matricula" />
           <EntitySet Name="Professor" EntityType="Self.Professor" />
@@ -305,13 +351,17 @@
             <End Role="Aluno" EntitySet="Aluno" />
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
-          <AssociationSet Name="FK_Disciplina_Curso" Association="Self.FK_Disciplina_Curso">
+          <AssociationSet Name="FK_CursoDisciplina_Curso" Association="Self.FK_CursoDisciplina_Curso">
             <End Role="Curso" EntitySet="Curso" />
-            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="CursoDisciplina" EntitySet="CursoDisciplina" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Curso" Association="Self.FK_Matricula_Curso">
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoDisciplina_Disciplina" Association="Self.FK_CursoDisciplina_Disciplina">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="CursoDisciplina" EntitySet="CursoDisciplina" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfessorDisciplina_Disciplina" Association="Self.FK_ProfessorDisciplina_Disciplina">
             <End Role="Disciplina" EntitySet="Disciplina" />
@@ -327,7 +377,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MatriculaAcademicadbModelStoreContainer" CdmEntityContainer="MatriculaAcademicadbEntities">
+        <EntityContainerMapping StorageEntityContainer="MatriculaAcademicadbModelStoreContainer" CdmEntityContainer="MatriculaAcademicadbEntities1">
           <EntitySetMapping Name="Aluno">
             <EntityTypeMapping TypeName="MatriculaAcademicadbModel.Aluno">
               <MappingFragment StoreEntitySet="Aluno">
@@ -348,12 +398,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CursoDisciplina">
+            <EntityTypeMapping TypeName="MatriculaAcademicadbModel.CursoDisciplina">
+              <MappingFragment StoreEntitySet="CursoDisciplina">
+                <ScalarProperty Name="id_curso_disciplina" ColumnName="id_curso_disciplina" />
+                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
+                <ScalarProperty Name="id_disciplina" ColumnName="id_disciplina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Disciplina">
             <EntityTypeMapping TypeName="MatriculaAcademicadbModel.Disciplina">
               <MappingFragment StoreEntitySet="Disciplina">
                 <ScalarProperty Name="id_disciplina" ColumnName="id_disciplina" />
                 <ScalarProperty Name="nome_disciplina" ColumnName="nome_disciplina" />
-                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

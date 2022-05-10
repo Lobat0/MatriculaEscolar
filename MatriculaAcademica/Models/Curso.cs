@@ -17,7 +17,7 @@ namespace MatriculaAcademica.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Curso()
         {
-            this.Disciplina = new HashSet<Disciplina>();
+            this.CursoDisciplina = new HashSet<CursoDisciplina>();
             this.Matricula = new HashSet<Matricula>();
         }
     
@@ -27,7 +27,7 @@ namespace MatriculaAcademica.Models
         public string turno { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Disciplina> Disciplina { get; set; }
+        public virtual ICollection<CursoDisciplina> CursoDisciplina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matricula> Matricula { get; set; }
     }

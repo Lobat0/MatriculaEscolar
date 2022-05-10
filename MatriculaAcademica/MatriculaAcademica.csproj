@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
+    <Compile Include="Controllers\CursosDisciplinasController.cs" />
     <Compile Include="Controllers\DisciplinasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
@@ -143,6 +144,9 @@
       <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Curso.cs">
+      <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CursoDisciplina.cs">
       <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Disciplina.cs">
@@ -192,8 +196,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\MatriculaAcademicaModelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MatriculaAcademicaModelo.Context.cs</LastGenOutput>
       <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
+      <LastGenOutput>MatriculaAcademicaModelo.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\MatriculaAcademicaModelo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -249,6 +253,11 @@
     <Content Include="Views\Cursos\Details.cshtml" />
     <Content Include="Views\Cursos\Edit.cshtml" />
     <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Disciplinas\Create.cshtml" />
+    <Content Include="Views\Disciplinas\Delete.cshtml" />
+    <Content Include="Views\Disciplinas\Details.cshtml" />
+    <Content Include="Views\Disciplinas\Edit.cshtml" />
+    <Content Include="Views\Disciplinas\Index.cshtml" />
     <Content Include="Views\Matriculas\Create.cshtml" />
     <Content Include="Views\Matriculas\Delete.cshtml" />
     <Content Include="Views\Matriculas\Details.cshtml" />
@@ -259,16 +268,16 @@
     <Content Include="Views\Professores\Details.cshtml" />
     <Content Include="Views\Professores\Edit.cshtml" />
     <Content Include="Views\Professores\Index.cshtml" />
-    <Content Include="Views\Disciplinas\Create.cshtml" />
-    <Content Include="Views\Disciplinas\Delete.cshtml" />
-    <Content Include="Views\Disciplinas\Details.cshtml" />
-    <Content Include="Views\Disciplinas\Edit.cshtml" />
-    <Content Include="Views\Disciplinas\Index.cshtml" />
     <Content Include="Views\ProfessoresDisciplinas\Create.cshtml" />
     <Content Include="Views\ProfessoresDisciplinas\Delete.cshtml" />
     <Content Include="Views\ProfessoresDisciplinas\Details.cshtml" />
     <Content Include="Views\ProfessoresDisciplinas\Edit.cshtml" />
     <Content Include="Views\ProfessoresDisciplinas\Index.cshtml" />
+    <Content Include="Views\CursosDisciplinas\Create.cshtml" />
+    <Content Include="Views\CursosDisciplinas\Delete.cshtml" />
+    <Content Include="Views\CursosDisciplinas\Details.cshtml" />
+    <Content Include="Views\CursosDisciplinas\Edit.cshtml" />
+    <Content Include="Views\CursosDisciplinas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
