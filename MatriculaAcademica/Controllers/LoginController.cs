@@ -19,6 +19,18 @@ namespace MatriculaAcademica.Controllers
             return View();
         }
 
+        // GET: Sucesso
+        public ActionResult Sucesso()
+        {
+            return View();
+        }
+
+        // GET: Erro
+        public ActionResult Erro()
+        {
+            return View();
+        }
+
         // POST: Login
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -44,8 +56,15 @@ namespace MatriculaAcademica.Controllers
                 ViewBag.Status = e;
                 return View("Erro");
             }
-            ViewBag.Status = "501";
+            ViewBag.Status = "401";
             return View("Erro");
+        }
+
+        // Safu
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }
