@@ -26,5 +26,12 @@ namespace MatriculaAcademica.Controllers
 
             return View();
         }
+
+        // Sair
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
     }
 }

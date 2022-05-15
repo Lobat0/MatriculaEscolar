@@ -60,7 +60,7 @@ namespace MatriculaAcademica.Controllers
             return View("Erro");
         }
 
-        // Safu
+        // Sair
         public ActionResult Logout()
         {
             Session.Clear();
