@@ -11,7 +11,15 @@ namespace MatriculaAcademica.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

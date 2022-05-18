@@ -17,28 +17,52 @@ namespace MatriculaAcademica.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.Usuario.ToList());
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    return View(db.Usuario.ToList());
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Usuario usuario = db.Usuario.Find(id);
+                    if (usuario == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(usuario);
+                }
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuarios/Create
@@ -48,29 +72,45 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_usuario,login,email,senha,tipo")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Usuario.Add(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Usuario.Add(usuario);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
 
-            return View(usuario);
+                    return View(usuario);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Usuario usuario = db.Usuario.Find(id);
+                    if (usuario == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(usuario);
+                }
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuarios/Edit/5
@@ -80,28 +120,44 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_usuario,login,email,senha,tipo")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(usuario).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    return View(usuario);
+                }
             }
-            return View(usuario);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Usuario usuario = db.Usuario.Find(id);
+                    if (usuario == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(usuario);
+                }
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuarios/Delete/5
@@ -109,10 +165,18 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            db.Usuario.Remove(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    Usuario usuario = db.Usuario.Find(id);
+                    db.Usuario.Remove(usuario);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

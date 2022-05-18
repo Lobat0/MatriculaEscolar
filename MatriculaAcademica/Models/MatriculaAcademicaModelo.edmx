@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MatriculaAcademicadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MatriculaAcademicadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aluno">
           <Key>
             <PropertyRef Name="id_aluno" />
@@ -20,7 +20,7 @@
           </Key>
           <Property Name="id_curso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nome_curso" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="duracao" Type="time" Precision="7" Nullable="false" />
+          <Property Name="duracao" Type="int" Nullable="false" />
           <Property Name="turno" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CursoDisciplina">
@@ -46,6 +46,7 @@
           <Property Name="data_matricula" Type="datetime" Nullable="false" />
           <Property Name="id_curso" Type="int" Nullable="false" />
           <Property Name="id_aluno" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Professor">
           <Key>
@@ -122,6 +123,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Matricula_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProfessorDisciplina_Disciplina">
           <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
           <End Role="ProfessorDisciplina" Type="Self.ProfessorDisciplina" Multiplicity="*" />
@@ -171,6 +184,10 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Usuario" Association="Self.FK_Matricula_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProfessorDisciplina_Disciplina" Association="Self.FK_ProfessorDisciplina_Disciplina">
             <End Role="Disciplina" EntitySet="Disciplina" />
             <End Role="ProfessorDisciplina" EntitySet="ProfessorDisciplina" />
@@ -180,8 +197,7 @@
             <End Role="ProfessorDisciplina" EntitySet="ProfessorDisciplina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MatriculaAcademicadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -201,7 +217,7 @@
           </Key>
           <Property Name="id_curso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nome_curso" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="duracao" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="duracao" Type="Int32" Nullable="false" />
           <Property Name="turno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CursoDisciplina" Relationship="Self.FK_CursoDisciplina_Curso" FromRole="Curso" ToRole="CursoDisciplina" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
@@ -235,6 +251,8 @@
           <Property Name="id_aluno" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Aluno" Relationship="Self.FK_Matricula_Aluno" FromRole="Matricula" ToRole="Aluno" />
           <NavigationProperty Name="Curso" Relationship="Self.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="MatriculaAcademicadbModel.FK_Matricula_Usuario" FromRole="Matricula" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Professor">
           <Key>
@@ -265,6 +283,7 @@
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="senha" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Matricula" Relationship="MatriculaAcademicadbModel.FK_Matricula_Usuario" FromRole="Usuario" ToRole="Matricula" />
         </EntityType>
         <Association Name="FK_Matricula_Aluno">
           <End Role="Aluno" Type="Self.Aluno" Multiplicity="1" />
@@ -371,7 +390,23 @@
             <End Role="Professor" EntitySet="Professor" />
             <End Role="ProfessorDisciplina" EntitySet="ProfessorDisciplina" />
           </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Usuario" Association="MatriculaAcademicadbModel.FK_Matricula_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Matricula_Usuario">
+          <End Type="MatriculaAcademicadbModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="MatriculaAcademicadbModel.Matricula" Role="Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -418,6 +453,7 @@
           <EntitySetMapping Name="Matricula">
             <EntityTypeMapping TypeName="MatriculaAcademicadbModel.Matricula">
               <MappingFragment StoreEntitySet="Matricula">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
                 <ScalarProperty Name="id_matricula" ColumnName="id_matricula" />
                 <ScalarProperty Name="data_matricula" ColumnName="data_matricula" />
                 <ScalarProperty Name="id_curso" ColumnName="id_curso" />

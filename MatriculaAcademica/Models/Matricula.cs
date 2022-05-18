@@ -18,8 +18,10 @@ namespace MatriculaAcademica.Models
         public System.DateTime data_matricula { get; set; }
         public int id_curso { get; set; }
         public int id_aluno { get; set; }
+        public int id_usuario { get; set; }
     
         public virtual Aluno Aluno { get; set; }
         public virtual Curso Curso { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

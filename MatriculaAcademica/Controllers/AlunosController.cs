@@ -17,28 +17,52 @@ namespace MatriculaAcademica.Controllers
         // GET: Alunos
         public ActionResult Index()
         {
-            return View(db.Aluno.ToList());
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    return View(db.Aluno.ToList());
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Alunos/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Aluno aluno = db.Aluno.Find(id);
+                    if (aluno == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(aluno);
+                }
             }
-            Aluno aluno = db.Aluno.Find(id);
-            if (aluno == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aluno);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Alunos/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Alunos/Create
@@ -48,29 +72,45 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_aluno,nome_aluno,CPF,nascimento")] Aluno aluno)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Aluno.Add(aluno);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Aluno.Add(aluno);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
 
-            return View(aluno);
+                    return View(aluno);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Alunos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Aluno aluno = db.Aluno.Find(id);
+                    if (aluno == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(aluno);
+                }
             }
-            Aluno aluno = db.Aluno.Find(id);
-            if (aluno == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aluno);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Alunos/Edit/5
@@ -80,28 +120,45 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_aluno,nome_aluno,CPF,nascimento")] Aluno aluno)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Entry(aluno).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(aluno).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    return View(aluno);
+                }
             }
-            return View(aluno);
+            return RedirectToAction("Index", "Home");
+
         }
 
         // GET: Alunos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Aluno aluno = db.Aluno.Find(id);
+                    if (aluno == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(aluno);
+                }
             }
-            Aluno aluno = db.Aluno.Find(id);
-            if (aluno == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aluno);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Alunos/Delete/5
@@ -109,10 +166,18 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Aluno aluno = db.Aluno.Find(id);
-            db.Aluno.Remove(aluno);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    Aluno aluno = db.Aluno.Find(id);
+                    db.Aluno.Remove(aluno);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

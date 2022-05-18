@@ -23,7 +23,7 @@ namespace MatriculaAcademica.Models
     
         public int id_curso { get; set; }
         public string nome_curso { get; set; }
-        public System.TimeSpan duracao { get; set; }
+        public int duracao { get; set; }
         public string turno { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

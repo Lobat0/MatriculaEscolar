@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Curso.nome_curso)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.login)
+        </th>
         <th></th>
     </tr>
 
@@ -34,6 +37,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Curso.nome_curso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.login)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id_matricula }) |

@@ -19,6 +19,7 @@
         <AssociationConnector Association="MatriculaAcademicadbModel.FK_CursoDisciplina_Disciplina" ManuallyRouted="false" />
         <AssociationConnector Association="MatriculaAcademicadbModel.FK_ProfessorDisciplina_Disciplina" ManuallyRouted="false" />
         <AssociationConnector Association="MatriculaAcademicadbModel.FK_ProfessorDisciplina_Professor" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculaAcademicadbModel.FK_Matricula_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

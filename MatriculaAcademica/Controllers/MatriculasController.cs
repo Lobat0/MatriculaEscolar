@@ -17,31 +17,57 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
-            var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Curso);
-            return View(matricula.ToList());
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Curso).Include(m => m.Usuario);
+                    return View(matricula.ToList());
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Matriculas/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Matricula matricula = db.Matricula.Find(id);
+                    if (matricula == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(matricula);
+                }
             }
-            Matricula matricula = db.Matricula.Find(id);
-            if (matricula == null)
-            {
-                return HttpNotFound();
-            }
-            return View(matricula);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Matriculas/Create
         public ActionResult Create()
         {
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
-            return View();
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
+                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
 
         // POST: Matriculas/Create
@@ -49,35 +75,53 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno")] Matricula matricula)
+        public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno,id_usuario")] Matricula matricula)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Matricula.Add(matricula);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Matricula.Add(matricula);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
 
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-            return View(matricula);
+                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
+                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                    return View(matricula);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Matriculas/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Matricula matricula = db.Matricula.Find(id);
+                    if (matricula == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
+                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                    return View(matricula);
+                }
             }
-            Matricula matricula = db.Matricula.Find(id);
-            if (matricula == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-            return View(matricula);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Matriculas/Edit/5
@@ -85,32 +129,49 @@ namespace MatriculaAcademica.Controllers
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno")] Matricula matricula)
+        public ActionResult Edit([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno,id_usuario")] Matricula matricula)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                db.Entry(matricula).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(matricula).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
+                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                    return View(matricula);
+                }
             }
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-            return View(matricula);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Matriculas/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Matricula matricula = db.Matricula.Find(id);
+                    if (matricula == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(matricula);
+                }
             }
-            Matricula matricula = db.Matricula.Find(id);
-            if (matricula == null)
-            {
-                return HttpNotFound();
-            }
-            return View(matricula);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Matriculas/Delete/5
@@ -118,10 +179,18 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Matricula matricula = db.Matricula.Find(id);
-            db.Matricula.Remove(matricula);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["tipo"] != null)
+            {
+                string permissao = (Session["tipo"] as string).Trim();
+                if (string.Equals(permissao, "admin"))
+                {
+                    Matricula matricula = db.Matricula.Find(id);
+                    db.Matricula.Remove(matricula);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
