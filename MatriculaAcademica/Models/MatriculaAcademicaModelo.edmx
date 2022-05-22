@@ -27,7 +27,7 @@
           <Key>
             <PropertyRef Name="id_curso_disciplina" />
           </Key>
-          <Property Name="id_curso_disciplina" Type="int" Nullable="false" />
+          <Property Name="id_curso_disciplina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_curso" Type="int" Nullable="false" />
           <Property Name="id_disciplina" Type="int" Nullable="false" />
         </EntityType>

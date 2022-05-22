@@ -19,7 +19,7 @@ namespace MatriculaAcademica.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
