@@ -4,43 +4,88 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nome_aluno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CPF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nascimento)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome_aluno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CPF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nascimento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_aluno }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_aluno }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_aluno })
-        </td>
-    </tr>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+   
+    <table class="table table-striped table-bordered" id="TabelaAluno">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nome_aluno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CPF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nascimento)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nome_aluno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CPF)
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(item.nascimento).ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id_aluno }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id_aluno }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id_aluno })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable({
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Procurar",
+                    "paginate": { "previous": "Retorna", "next": "Avança" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                }
+            });
+        });
+    </script>
+
+
+
 }
 
-</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#TabelaAluno").DataTable({
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            }
+        });
+    });
+</script>
