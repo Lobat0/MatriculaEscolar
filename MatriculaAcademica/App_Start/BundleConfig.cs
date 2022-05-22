@@ -25,7 +25,7 @@ namespace MatriculaAcademica
                       "~/Scripts/DataTables/jquery.dataTables.min.js",
                       "~/Content/DataTables/css/jquery.dataTables.min.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }
