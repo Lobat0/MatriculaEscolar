@@ -9,8 +9,6 @@
     <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-
-
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -50,7 +48,7 @@
                                     @Session["nome"]
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownUsuario">
-                                    <div class="btn bg-black btn-block"><a href="/Home/Logout">Sair</a></div>
+                                    <div class="dropdown-item"><a href="/Home/Logout">Sair</a></div>
                                 </div>
                             }
                             else

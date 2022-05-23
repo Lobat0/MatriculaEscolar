@@ -349,7 +349,6 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -365,7 +364,6 @@
       <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
       <LastGenOutput>MatriculaAcademicaModelo.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\MatriculaAcademicaModelo.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -378,6 +376,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -459,11 +458,22 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.counterup.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.mixitup.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\slick.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\jquery.fancybox.pack.js" />
+    <Content Include="Scripts\slick.js" />
+    <Content Include="Scripts\waypoints.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -475,8 +485,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
