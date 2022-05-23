@@ -33,13 +33,10 @@ namespace MatriculaAcademica
             bundles.Add(new StyleBundle("~/Content/home").Include(   
                         "~/Content/assets/img/favicon.ico",
                         "~/Content/assets/css/font-awesome.css",
-                        "~/Content/assets/css/bootstrap.css",
                         "~/Content/assets/css/slick.css",
                         "~/Content/assets/css/jquery.fancybox.css",
                         "~/Content/assets/css/theme-color/default-theme.css",
                         "~/Content/assets/css/style.css",
-                        "~/Content/assets/js/jquery.min.js",
-                        "~/Content/assets/js/bootstrap.js",
                         "~/Content/assets/js/slick.js",
                         "~/Content/assets/js/waypoints.js",
                         "~/Content/assets/js/jquery.counterup.js",

@@ -5,9 +5,9 @@
 }
 
 <head>
-    <link href="~/Content/AdminLTE.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Content/AdminLTE.css" rel="stylesheet" />
+    <link href="/Content/font-awesome.css" rel="stylesheet" />
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 @using (Html.BeginForm())
@@ -40,7 +40,7 @@
                     @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="footer">
+            <div class="footer bg-gray" >
                 <button type="submit" value="Entrar" class="btn bg-black btn-block">Entrar</button>
 
                 <div class="btn bg-black btn-block">
