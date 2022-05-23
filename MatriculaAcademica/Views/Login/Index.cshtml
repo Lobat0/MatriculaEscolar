@@ -1,4 +1,9 @@
 ﻿@model MatriculaAcademica.Models.Usuario
+
+@{
+    ViewBag.Title = "Login";
+}
+
 <head>
     <link href="~/Content/AdminLTE.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
@@ -36,7 +41,7 @@
                 </div>
             </div>
             <div class="footer">
-                <button type="submit" value="Entrar" class="btn bg-black btn-block">Logar</button>
+                <button type="submit" value="Entrar" class="btn bg-black btn-block">Entrar</button>
 
                 <div class="btn bg-black btn-block">
                     @Html.ActionLink("Voltar", "../Home")

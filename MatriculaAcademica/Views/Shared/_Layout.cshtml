@@ -27,20 +27,20 @@
 
                     @if (Session.Count != 0)
                     {
+                        <li class="nav-item">@Html.ActionLink("Aluno", "Index", "Alunos")</li>
+                        <li class="nav-item">@Html.ActionLink("Professor", "Index", "Professores")</li>
+                        <li class="nav-item">@Html.ActionLink("Curso", "Index", "Cursos")</li>
+                        <li class="nav-item">@Html.ActionLink("Curso-Disciplina", "Index", "CursoDisciplinas")</li>
+                        <li class="nav-item">@Html.ActionLink("Disciplina", "Index", "Disciplinas")</li>
+                        <li class="nav-item">@Html.ActionLink("Professor-Disciplina", "Index", "ProfessoresDisciplinas")</li>
+                        <li class="nav-item">@Html.ActionLink("Matrícula", "Index", "Matriculas")</li>
                         if (Session["Tipo"].ToString().ToUpper().Trim() == "ADMIN")
                         {
-
-                            <li class="nav-item">@Html.ActionLink("Aluno", "Index", "Alunos")</li>
-                            <li class="nav-item">@Html.ActionLink("Professor", "Index", "Professores")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso", "Index", "Cursos")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso-Disciplina", "Index", "CursoDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Disciplina", "Index", "Disciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Professor-Disciplina", "Index", "ProfessoresDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Matrícula", "Index", "Matriculas")</li>
                             <li class="nav-item">@Html.ActionLink("Usuário", "Index", "Usuarios")</li>
                         }
                     }
-
+                    @if (ViewBag.Title != "Login")
+                    {
                         <li class="nav-item dropdown" style="float:right;">
                             @if (!string.IsNullOrEmpty(Session["nome"] as string))
                             {
@@ -57,8 +57,8 @@
                             }
 
                         </li>
-
-                    </ul>
+                    }
+                </ul>
             </div>
         </div>
     </nav>

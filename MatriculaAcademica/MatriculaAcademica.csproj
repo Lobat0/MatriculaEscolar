@@ -126,7 +126,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\CursoDisciplinasController.cs" />
@@ -513,7 +512,6 @@
     <Content Include="Views\ProfessoresDisciplinas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Cursos\Create.cshtml" />
     <Content Include="Views\Cursos\Delete.cshtml" />
     <Content Include="Views\Cursos\Details.cshtml" />
