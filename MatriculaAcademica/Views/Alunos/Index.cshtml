@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Index</h2>
 
@@ -10,7 +10,6 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

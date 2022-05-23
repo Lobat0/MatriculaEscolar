@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
@@ -12,11 +12,20 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.data_matricula)
+            Identificador da Matricula
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.data_matricula)
+            @Html.DisplayFor(model => Model.id_matricula)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.data_matricula)
+        </dt>
+        <dd>
+            @{
+                string data_matricula = Model.data_matricula.Date.ToShortDateString();
+            }
+            @Html.DisplayTextFor(m => data_matricula)
         </dd>
 
         <dt>

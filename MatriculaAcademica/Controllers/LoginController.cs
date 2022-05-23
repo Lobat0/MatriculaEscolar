@@ -47,17 +47,17 @@ namespace MatriculaAcademica.Controllers
                         Session["nome"] = usuario.login;
                         Session["tipo"] = usuario.tipo;
                         ViewBag.Status = "200";
-                        return View("Sucesso");
+                        return RedirectToAction("index", "Home");                    
                     }
                 }
             }
             catch (Exception e)
             {
                 ViewBag.Status = e;
-                return View("Erro");
+                return View("Index");
             }
-            ViewBag.Status = "401";
-            return View("Erro");
+            ViewBag.Status = "Invalido";
+            return View("Index");
         }
 
         // Sair

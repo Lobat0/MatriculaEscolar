@@ -10,11 +10,11 @@ using MatriculaAcademica.Models;
 
 namespace MatriculaAcademica.Controllers
 {
-    public class CursosDisciplinasController : Controller
+    public class CursoDisciplinasController : Controller
     {
         private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
-        // GET: CursosDisciplinas
+        // GET: CursoDisciplinas
         public ActionResult Index()
         {
             if (Session["tipo"] != null)
@@ -29,7 +29,7 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: CursosDisciplinas/Details/5
+        // GET: CursoDisciplinas/Details/5
         public ActionResult Details(int? id)
         {
             if (Session["tipo"] != null)
@@ -52,7 +52,7 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: CursosDisciplinas/Create
+        // GET: CursoDisciplinas/Create
         public ActionResult Create()
         {
             if (Session["tipo"] != null)
@@ -68,12 +68,12 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: CursosDisciplinas/Create
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CursoDisciplinas/Create
+        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
+        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_curso_disciplina,id_curso,id_disciplina")] CursoDisciplina cursoDisciplina)
+        public ActionResult Create([Bind(Include = "id_curso,id_disciplina")] CursoDisciplina cursoDisciplina)
         {
             if (Session["tipo"] != null)
             {
@@ -95,7 +95,7 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: CursosDisciplinas/Edit/5
+        // GET: CursoDisciplinas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (Session["tipo"] != null)
@@ -120,9 +120,9 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: CursosDisciplinas/Edit/5
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CursoDisciplinas/Edit/5
+        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
+        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_curso_disciplina,id_curso,id_disciplina")] CursoDisciplina cursoDisciplina)
@@ -146,7 +146,7 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: CursosDisciplinas/Delete/5
+        // GET: CursoDisciplinas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (Session["tipo"] != null)
@@ -169,23 +169,15 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: CursosDisciplinas/Delete/5
+        // POST: CursoDisciplinas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["tipo"] != null)
-            {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    CursoDisciplina cursoDisciplina = db.CursoDisciplina.Find(id);
-                    db.CursoDisciplina.Remove(cursoDisciplina);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            return RedirectToAction("Index", "Home");
+            CursoDisciplina cursoDisciplina = db.CursoDisciplina.Find(id);
+            db.CursoDisciplina.Remove(cursoDisciplina);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

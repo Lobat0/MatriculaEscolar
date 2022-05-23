@@ -44,7 +44,7 @@ namespace MatriculaAcademica.Controllers
                     if (professor == null)
                     {
                         return HttpNotFound();
-                    }
+                    }            
                     return View(professor);
                 }
             }

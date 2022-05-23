@@ -24,6 +24,8 @@ namespace MatriculaAcademica
                       "~/Scripts/jquery-3.4.1.js",
                       "~/Scripts/DataTables/jquery.dataTables.min.js",
                       "~/Content/DataTables/css/jquery.dataTables.min.css"));
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

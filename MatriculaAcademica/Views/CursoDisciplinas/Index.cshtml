@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -31,19 +31,19 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Curso.nome_curso)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id_curso_disciplina }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id_curso_disciplina }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id_curso_disciplina })
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.nome_curso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id_curso_disciplina }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id_curso_disciplina }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id_curso_disciplina })
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit</h2>
@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.nome_aluno, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.nome_aluno, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.nome_aluno, new { htmlAttributes = new { @class = "form-control", @required = "" } })
                 @Html.ValidationMessageFor(model => model.nome_aluno, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", @required = "" } })
                 @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.nascimento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.nascimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.nascimento, new { htmlAttributes = new { @class = "form-control", @required = "", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.nascimento, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -1,41 +1,52 @@
 ﻿@model MatriculaAcademica.Models.Usuario
+<head>
+    <link href="~/Content/AdminLTE.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+</head>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-box" id="login-box">
-        <div class="header bg-black">Efetuar Login</div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="body bg-gray">
-            <div class="form-group">
-                @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Login", @required = "" } })
-                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Senha", @required = "" } })
-                @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
-            </div>
+    if (ViewBag.Status == "Invalido")
+    {
+
+
+        <div class="alert alert-warning alert-dismissible " role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Login ou Senha inválidos</strong> @ViewBag.erroLogin
         </div>
-        <div class="footer">
-            <div class="btn bg-black btn-block">
+
+    }
+
+    <body class="bg-gray">
+
+        <div class="form-box" id="login-box">
+            <div class="header bg-black">Efetuar Login</div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="body bg-gray">
+                <div class="form-group">
+                    @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Login", @required = "" } })
+                    @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Senha", @required = "" } })
+                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="footer">
                 <button type="submit" value="Entrar" class="btn bg-black btn-block">Logar</button>
+
+                <div class="btn bg-black btn-block">
+                    @Html.ActionLink("Voltar", "../Home")
+                </div>
+
             </div>
 
-            <div class="btn bg-black btn-block">
-                @Html.ActionLink("Cadastrar", "../CadastroLogin")
-            </div>
-
-            <div class="btn bg-black btn-block">
-                @Html.ActionLink("Voltar", "../Home")
-            </div>
         </div>
-
-    </div>
+    </body>
 }
-
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
