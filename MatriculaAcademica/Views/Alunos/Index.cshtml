@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Index</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button onclick="location.href='@Url.Action("Create", "Alunos")';return false;" class="btn btn-primary btn-lg active">Cadastrar novo aluno</button>
 </p>
 
 @using (Html.BeginForm())
@@ -60,7 +60,7 @@
             "language": {
                 "lengthMenu": "Exibe _MENU_ Registros por página",
                 "search": "Procurar",
-                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "paginate": { "previous": "Retornar", "next": "Avançar" },
                 "zeroRecords": "Nada foi encontrado",
                 "info": "Exibindo página _PAGE_ de _PAGES_",
                 "infoEmpty": "Sem registros",
