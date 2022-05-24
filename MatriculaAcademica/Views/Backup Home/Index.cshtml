@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head>
@@ -36,49 +36,8 @@
 
 </head>
 <body>
-    <section id="mu-menu" class="mx-auto">
-        <nav class="navbar navbar-collapse mx-auto" role="navigation">
-            <div class="container">
-                <!-- LOGO -->
-                <!-- TEXT BASED LOGO -->
-                <div class="navbar-brand" style="background-color: darkblue; border-radius: 25px; margin-top: 10px;"><i class="fa fa-university" style="color: white;"></i><button onclick="location.href='@Url.Action("Index", "Home")';return false;" style="color: white; border: none; outline: none; background: none;">Escola Saber</button></div>
-                <!-- IMG BASED LOGO  -->
-                <!-- <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt="logo"></a> -->
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-                        @if (Session.Count != 0)
-                        {
-                            <li class="nav-item">@Html.ActionLink("Aluno", "Index", "Alunos")</li>
-                            <li class="nav-item">@Html.ActionLink("Professor", "Index", "Professores")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso", "Index", "Cursos")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso-Disciplina", "Index", "CursoDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Disciplina", "Index", "Disciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Professor-Disciplina", "Index", "ProfessoresDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Matrícula", "Index", "Matriculas")</li>
-                            if (Session["Tipo"].ToString().ToUpper().Trim() == "ADMIN")
-                            {
-                                <li class="nav-item">@Html.ActionLink("Usuário", "Index", "Usuarios")</li>
-                            }
-                        }
 
-                        @if (ViewBag.Title != "Login")
-                        {
-                            if (!string.IsNullOrEmpty(Session["nome"] as string))
-                            {
-                                <li class="nav-item" style="float:right;">@Html.ActionLink("Logout", "Logout", "Home")</li>
-                            }
-                            else
-                            {
-                                <li class="nav-item" style="float:right;">@Html.ActionLink("Entrar", "Index", "Login")</li>
-                            }
-                        }
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-    </section>
-
-    <section id="mu-slider" style="height: 500px;">
+    <section id="mu-slider">
         <!-- Start single slider item -->
         <div class="mu-slider-single">
             <div class="mu-slider-img">
@@ -178,7 +137,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="mu-about-us-right">
-                                    <a href="https://www.youtube.com/watch?v=VjjV8ROzMho">
+                                    <a id="mu-abtus-video" href="https://www.youtube.com/watch?v=VjjV8ROzMho" target="mutube-video">
                                         <img src="/Content/assets/img/about-us.jpg" alt="img">
                                     </a>
                                 </div>
