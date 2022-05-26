@@ -4,47 +4,47 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Aluno</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador do Aluno
+            </dt>
 
-<div>
-    <h4>Aluno</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Identificador do Aluno
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_aluno)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nome_aluno)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => Model.id_aluno)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_aluno)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nome_aluno)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nome_aluno)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CPF)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CPF)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CPF)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nascimento)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nascimento)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nascimento)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nascimento)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_aluno }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_aluno }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -4,40 +4,40 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Detalhes</h2>
 
-<h2>Detalhes</h2>
+    <div>
+        <h4>Ligação Curso Disciplina</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador do Curso Disciplina
+            </dt>
 
-<div>
-    <h4>Ligação Curso Disciplina</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-           Identificador do Curso Disciplina
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_curso_disciplina)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => Model.id_curso_disciplina)
-        </dd>
+            <dt>
+                Nome do Curso
+            </dt>
 
-        <dt>
-            Nome do Curso
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Curso.nome_curso)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Curso.nome_curso)
-        </dd>
+            <dt>
+                Nome da Disciplina
+            </dt>
 
-        <dt>
-            Nome da Disciplina
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Disciplina.nome_disciplina)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Disciplina.nome_disciplina)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_curso_disciplina }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_curso_disciplina }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

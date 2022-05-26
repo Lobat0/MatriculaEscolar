@@ -4,46 +4,46 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Professor</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador do Professor
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_professor)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nome_professor)
+            </dt>
 
-<div>
-    <h4>Professor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Identificador do Professor
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.id_professor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_professor)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nome_professor)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nome_professor)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CPF)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CPF)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CPF)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.telefone)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.telefone)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.telefone)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.telefone)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_professor }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_professor }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

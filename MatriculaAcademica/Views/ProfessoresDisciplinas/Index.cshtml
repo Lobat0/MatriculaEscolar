@@ -4,63 +4,64 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
 
-<h2>Index</h2>
+    <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <table class="table table-striped table-bordered" id="TabelaProfessorDisciplina">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Disciplina.nome_disciplina)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Professor.nome_professor)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <table class="table table-striped table-bordered" id="TabelaProfessorDisciplina">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Professor.nome_professor)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id_professor_disciplina })
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Disciplina.nome_disciplina)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Professor.nome_professor)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#TabelaProfessorDisciplina").DataTable({
-            "language": {
-                "lengthMenu": "Exibe _MENU_ Registros por página",
-                "search": "Procurar",
-                "paginate": { "previous": "Retorna", "next": "Avança" },
-                "zeroRecords": "Nada foi encontrado",
-                "info": "Exibindo página _PAGE_ de _PAGES_",
-                "infoEmpty": "Sem registros",
-                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
-            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Professor.nome_professor)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id_professor_disciplina })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#TabelaProfessorDisciplina").DataTable({
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Procurar",
+                    "paginate": { "previous": "Retorna", "next": "Avança" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                }
+            });
         });
-    });
-</script>
+    </script>

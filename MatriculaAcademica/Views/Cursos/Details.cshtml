@@ -4,47 +4,47 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Curso</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador do Curso
+            </dt>
 
-<div>
-    <h4>Curso</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Identificador do Curso
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_curso)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nome_curso)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => Model.id_curso)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_curso)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nome_curso)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nome_curso)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.duracao)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duracao)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.duracao)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.duracao)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.turno)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.turno)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.turno)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.turno)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_curso }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_curso }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

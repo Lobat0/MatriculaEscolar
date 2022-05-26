@@ -4,31 +4,31 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Disciplina</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador da Disciplina
+            </dt>
 
-<div>
-    <h4>Disciplina</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Identificador da Disciplina
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_disciplina)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nome_disciplina)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => Model.id_disciplina)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_disciplina)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nome_disciplina)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nome_disciplina)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_disciplina }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_disciplina }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

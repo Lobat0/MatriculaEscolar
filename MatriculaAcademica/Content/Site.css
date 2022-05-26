@@ -23,3 +23,14 @@ textarea {
     max-width: 280px;
 }*/
 
+.margin-custom1 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;
+}
+
+.margin-custom2 {
+    margin-left: 80px;
+}
+

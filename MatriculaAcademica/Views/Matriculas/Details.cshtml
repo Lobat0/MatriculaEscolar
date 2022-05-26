@@ -4,57 +4,57 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Matricula</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Identificador da Matricula
+            </dt>
 
-<div>
-    <h4>Matricula</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Identificador da Matricula
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.id_matricula)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.data_matricula)
+            </dt>
+            <dd>
+                @{
+                    string data_matricula = Model.data_matricula.Date.ToShortDateString();
+                }
+                @Html.DisplayTextFor(m => data_matricula)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => Model.id_matricula)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.data_matricula)
-        </dt>
-        <dd>
-            @{
-                string data_matricula = Model.data_matricula.Date.ToShortDateString();
-            }
-            @Html.DisplayTextFor(m => data_matricula)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aluno.nome_aluno)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Aluno.nome_aluno)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Aluno.nome_aluno)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Aluno.nome_aluno)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Curso.nome_curso)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Curso.nome_curso)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Curso.nome_curso)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Curso.nome_curso)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Usuario.login)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario.login)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Usuario.login)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.login)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_matricula }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_matricula }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

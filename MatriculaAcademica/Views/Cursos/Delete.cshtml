@@ -4,46 +4,47 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="margin-custom1">
+    <h2>Delete</h2>
 
-<h2>Delete</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Curso</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.nome_curso)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Curso</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_curso)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nome_curso)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nome_curso)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.duracao)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duracao)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.duracao)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.duracao)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.turno)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.turno)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.turno)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.turno)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
