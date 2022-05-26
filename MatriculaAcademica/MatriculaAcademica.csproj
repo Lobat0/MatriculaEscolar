@@ -207,6 +207,7 @@
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\assets\img\about-us.jpg" />
     <Content Include="Content\assets\img\counter-bg.jpg" />
+    <Content Include="Content\assets\img\cursos.jpg" />
     <Content Include="Content\assets\img\favicon.ico" />
     <Content Include="Content\assets\img\gallery\big\1.jpg" />
     <Content Include="Content\assets\img\gallery\big\2.jpg" />
@@ -234,9 +235,11 @@
     <Content Include="Content\assets\img\gallery\small\9.jpg" />
     <Content Include="Content\assets\img\loader.gif" />
     <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\professores.jpg" />
     <Content Include="Content\assets\img\slider\1.jpg" />
     <Content Include="Content\assets\img\slider\2.jpg" />
     <Content Include="Content\assets\img\slider\3.jpg" />
+    <Content Include="Content\assets\img\sobre-nos.jpg" />
     <Content Include="Content\assets\img\teachers\teacher-01.png" />
     <Content Include="Content\assets\img\teachers\teacher-02.png" />
     <Content Include="Content\assets\img\teachers\teacher-03.png" />
@@ -416,6 +419,7 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\alert.css" />
+    <Content Include="Content\background.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

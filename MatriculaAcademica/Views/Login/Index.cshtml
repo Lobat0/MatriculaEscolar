@@ -10,6 +10,7 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/font-awesome.css" rel="stylesheet" />
     <link href="/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/background.css")" rel="stylesheet" asp-append-version="true">
 </head>
 
 @using (Html.BeginForm())
@@ -17,7 +18,7 @@
     @Html.AntiForgeryToken()
 
 
-<body class="bg-gray">
+<body class="mu-login">
 
     @if (ViewBag.Status == "Invalido")
     {
@@ -27,7 +28,7 @@
     </div>
     }
 
-    <div class="form-box" id="login-box">
+    <div class="form-box mu-bg-texto" id="login-box">
         <div class="header bg-black">Efetuar Login</div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="body bg-gray">
