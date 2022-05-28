@@ -11,6 +11,9 @@
     <link href="/Content/font-awesome.css" rel="stylesheet" />
     <link href="/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/background.css")" rel="stylesheet" asp-append-version="true">
+
+    <link href="@Url.Content("~/Content/assets/css/font-awesome.css")" rel="stylesheet" asp-append-version="true">
+
 </head>
 
 @using (Html.BeginForm())
@@ -19,13 +22,12 @@
 
 
 <body class="mu-login">
-
     @if (ViewBag.Status == "Invalido")
     {
-    <div class="alert danger-alert bg-red fancybox-overlay-fixed">
-        <h3>Login ou Senha inválidos</h3>
-        <a class="close">&times;</a>
-    </div>
+        <div class="alert danger-alert bg-red fancybox-overlay-fixed">
+            <h3>Login ou Senha inválidos</h3>
+            <a class="close">&times;</a>
+        </div>
     }
 
     <div class="form-box mu-bg-texto" id="login-box">
