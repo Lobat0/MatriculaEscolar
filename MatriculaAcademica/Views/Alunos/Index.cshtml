@@ -2,71 +2,146 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<head>
+
+</head>
 
 <div class="margin-custom1">
 
-<p>
-    <button onclick="location.href='@Url.Action("Create", "Alunos")';return false;" class="btn btn-primary btn-lg">Cadastrar novo aluno</button>
-</p>
-<br/>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <table class="table table-striped table-bordered" id="TabelaAluno">
-        <thead>
-            <tr>
-                <th>
-                    Nome do Aluno
-                </th>
-                <th>
-                    CPF
-                </th>
-                <th>
-                    Data de Nascimento
-                </th>
-                <th></th>
-            </tr>
-        </thead>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
+        Adicionar Novo Aluno
+    </button>
+    <hr />
 
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <hr />
+
+
+    @using (Html.BeginForm("Create", "Alunos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <!-- Modal -->
+        <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalCadastro">Cadastro de Aluno</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control" type="text" name="nome_aluno" id="nome_aluno" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control col-md-10" type="text" name="CPF" id="CPF" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Nascimento", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control col-md-10" type="date" name="nascimento" id="nascimento" style="border-color:red" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-striped table-bordered" id="TabelaAluno">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nome_aluno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CPF)
-                    </td>
-                    <td>
-                        @Convert.ToDateTime(item.nascimento).ToString("dd/MM/yyyy")
-                    </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.id_aluno }) |
-                        @Html.ActionLink("Detalhes", "Details", new { id = item.id_aluno }) |
-                        @Html.ActionLink("Deletar", "Delete", new { id = item.id_aluno })
-                    </td>
+                    <th>
+                        Nome do Aluno
+                    </th>
+                    <th>
+                        CPF
+                    </th>
+                    <th>
+                        Data de Nascimento
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#TabelaAluno").DataTable({
-            "language": {
-                "lengthMenu": "Exibe _MENU_ Registros por página",
-                "search": "Procurar",
-                "paginate": { "previous": "Retornar", "next": "Avançar" },
-                "zeroRecords": "Nada foi encontrado",
-                "info": "Exibindo página _PAGE_ de _PAGES_",
-                "infoEmpty": "Sem registros",
-                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
-            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nome_aluno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CPF)
+                        </td>
+                        <td>
+                            @Convert.ToDateTime(item.nascimento).ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.id_aluno }) |
+                            <a href="" data-toggle="modal" data-target="#modalDetalhes">
+                                Detalhes
+                            </a> |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.id_aluno }) |
+                            <!-- Começo do deletar -->
+                            <a href="" data-toggle="modal" data-target="#modalDeletar">
+                                Deletar
+                            </a> |
+                            @using (Html.BeginForm("Delete", "Alunos", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalDeletar" tabindex="-1" role="dialog" aria-labelledby="modalDeletarLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="modalDeletar">Deletar Aluno</h4>
+                                                Tem certeza que quer deletar:  @item.id_aluno
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                                <button type="submit" value="" name="id" id="id" class="btn btn-primary">Deletar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!-- Fim do deletar -->
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#TabelaAluno").DataTable({
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Procurar",
+                    "paginate": { "previous": "Retornar", "next": "Avançar" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                }
+            });
         });
-    });
-</script>
+    </script>
+
+
+
+  
