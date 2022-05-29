@@ -84,9 +84,17 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Matricula.Add(matricula);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.Matricula.Add(matricula);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e);
+                            return RedirectToAction("Index");
+                        }
                     }
 
                     ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);

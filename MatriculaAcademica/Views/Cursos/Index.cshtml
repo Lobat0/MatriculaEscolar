@@ -45,6 +45,29 @@
     }
     <!-- End Modal Cadastro-->
 
+    <!-- Start Modal Delete-->
+    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDeletarTitulo">Deletar Curso</h4>
+                    Tem certeza que quer deletar: <b id="nomeItemDeletar"></b>?
+                </div>
+                <div class="modal-footer">
+                    @using (Html.BeginForm("Delete", "Cursos", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="idInputDeletar" name="id" value="">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Deletar</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Delete-->
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -81,7 +104,9 @@
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id_curso }) |
                             @Html.ActionLink("Details", "Details", new { id = item.id_curso }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id_curso })
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_curso data-nome=@item.nome_curso>
+                                Deletar
+                            </a> |
                         </td>
                     </tr>
                 }
@@ -102,5 +127,16 @@
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
             });
+            $("#modalDeletar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDeletando = botao.data('id');
+                var NomeItemDeletando = botao.data('nome');
+                // seta as informações na modal fixa
+                $("#nomeItemDeletar").text(NomeItemDeletando);
+                $("input#idInputDeletar").val(IDItemDeletando);
+            });
         });
     </script>
+
+</div>
