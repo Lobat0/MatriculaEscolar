@@ -2,13 +2,31 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
 }
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Matrícula Escolar</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/home")
+    <script src="@Url.Content("~/Scripts/jquery.min.js")" asp-append-version="true"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="@Url.Content("~/Scripts/bootstrap.js")" asp-append-version="true"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+@Scripts.Render("~/bundles/bootstrap")
+
 <div class="margin-custom1">
-    <h2>Details</h2>
+    <h2>Matricula da Escola Saber</h2>
 
     <div>
-        <h4>Matricula</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -55,6 +73,5 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.id_matricula }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar", "Index")
     </p>
