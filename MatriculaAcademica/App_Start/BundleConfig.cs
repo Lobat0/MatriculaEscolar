@@ -28,7 +28,7 @@ namespace MatriculaAcademica
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/home").Include(   
                         "~/Content/assets/img/favicon.ico",
