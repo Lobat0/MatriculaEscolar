@@ -1,5 +1,5 @@
 ﻿.mu-sobrenos {
-    background-color: #66cccc;
+    background-color: #333333; /*#66cccc*/
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -19,13 +19,13 @@
 
 
 .mu-cursos {
-    background-color: #66cccc;
+    background-color: #333333; /*#66cccc*/
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .mu-bg-texto {
-    background-color: #E7E7E7;
+    background-color: #E7E7E7; /*#E7E7E7*/
     border-radius: 25px;
     border: 20px solid #E7E7E7;
 }

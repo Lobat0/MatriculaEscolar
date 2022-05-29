@@ -37,8 +37,63 @@
     }
     <!-- End Modal Cadastro-->
 
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes da Disciplina</h4>
+                </div>
+                <div class="modal-body form-horizontal">
+                    <div class="form-group form-inline">
+                        <dl class="dl-horizontal">
+                            <dt>Identificador da Disciplina</dt>
+                            <dd id="idInputDetalhes"></dd>
+
+                            <dt>Nome da Disciplina</dt>
+                            <dd id="nomeInputDetalhes"></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "Disciplinas", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Disciplina</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            <input type="hidden" id="idInputEditar" name="id_disciplina" value="">
+                            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control" type="text" id="nomeInputEditar" name="nome_disciplina" value="" style="border-color:red" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,7 +107,7 @@
                         @Html.AntiForgeryToken()
                         <input type="hidden" id="idInputDeletar" name="id" value="">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Deletar</button>
+                        <button type="submit" class="btn btn-primary" value="Delete">Deletar</button>
                     }
                 </div>
             </div>
@@ -82,9 +137,13 @@
                             @Html.DisplayFor(modelItem => item.nome_disciplina)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_disciplina }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id_disciplina }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_disciplina data-nome=@item.nome_disciplina>
+                            <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_disciplina data-nome="@item.nome_disciplina">
+                                Detalhes
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_disciplina data-nome="@item.nome_disciplina">
+                                Editar
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_disciplina data-nome="@item.nome_disciplina">
                                 Deletar
                             </a> |
                         </td>
@@ -106,6 +165,24 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDetalhes = botao.data('id');
+                var NomeItemDetalhes = botao.data('nome');
+                // seta as informações na modal fixa
+                $("#idInputDetalhes").text(IDItemDetalhes);
+                $("#nomeInputDetalhes").text(NomeItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemEditando = botao.data('id');
+                var NomeItemEditando = botao.data('nome');
+                // seta as informações na modal fixa
+                $("input#idInputEditar").val(IDItemEditando);
+                $("input#nomeInputEditar").val(NomeItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
