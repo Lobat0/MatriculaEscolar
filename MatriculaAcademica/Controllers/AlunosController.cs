@@ -79,12 +79,19 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Aluno.Add(aluno);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.Aluno.Add(aluno);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e);
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
                     }
-
-                    return View(aluno);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -102,12 +109,20 @@ namespace MatriculaAcademica.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
-                    Aluno aluno = db.Aluno.Find(id);
-                    if (aluno == null)
+                    try
                     {
-                        return HttpNotFound();
+                        Aluno aluno = db.Aluno.Find(id);
+                        if (aluno == null)
+                        {
+                            return HttpNotFound();
+                        }
+                        return RedirectToAction("Index");
                     }
-                    return View(aluno);
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -127,15 +142,23 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Entry(aluno).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.Entry(aluno).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e);
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
                     }
-                    return View(aluno);
+                    Console.WriteLine(ModelState);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
-
         }
 
         // GET: Alunos/Delete/5
@@ -150,12 +173,20 @@ namespace MatriculaAcademica.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
-                    Aluno aluno = db.Aluno.Find(id);
-                    if (aluno == null)
+                    try
                     {
-                        return HttpNotFound();
+                        Aluno aluno = db.Aluno.Find(id);
+                        if (aluno == null)
+                        {
+                            return HttpNotFound();
+                        }
+                        return RedirectToAction("Index");
                     }
-                    return View(aluno);
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -171,10 +202,18 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
-                    Aluno aluno = db.Aluno.Find(id);
-                    db.Aluno.Remove(aluno);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        Aluno aluno = db.Aluno.Find(id);
+                        db.Aluno.Remove(aluno);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");

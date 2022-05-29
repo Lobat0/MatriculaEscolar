@@ -17,40 +17,108 @@
     <hr />
     @using (Html.BeginForm("Create", "Alunos", FormMethod.Post))
     {
-        @Html.AntiForgeryToken()
-        <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalCadastro">Cadastro de Aluno</h4>
+                </div>
+                <div class="modal-body form-horizontal">
+                    <div class="form-group form-inline">
+                        @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <input class="form-control" type="text" name="nome_aluno" id="nome_aluno" style="border-color:red" />
+                    </div>
+                    <div class="form-group form-inline">
+                        @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <input class="form-control col-md-10" type="text" name="CPF" id="CPF" style="border-color:red" />
+                    </div>
+                    <div class="form-group form-inline">
+                        @Html.Label("Nascimento", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <input class="form-control col-md-10" type="date" name="nascimento" id="nascimento" style="border-color:red" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <!-- End Modal Cadastro-->
+
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Aluno</h4>
+                </div>
+                <div class="modal-body">
+                    <dl class="dl-horizontal">
+                        <dt>Identificador do Aluno</dt>
+                        <dd id="idDDDetalhes"></dd>
+
+                        <dt>Nome do Aluno</dt>
+                        <dd id="nomeDDDetalhes"></dd>
+
+                        <dt>CPF do Aluno</dt>
+                        <dd id="cpfDDDetalhes"></dd>
+
+                        <dt>Nascimento do Aluno</dt>
+                        <dd id="nascimentoDDDetalhes"></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "Alunos", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modalCadastro">Cadastro de Aluno</h4>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Cadastro do Aluno</h4>
                     </div>
                     <div class="modal-body form-horizontal">
                         <div class="form-group form-inline">
+                            <input type="hidden" id="idInputEditar" name="id_aluno" value="">
+
                             @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control" type="text" name="nome_aluno" id="nome_aluno" style="border-color:red" />
+                            <input class="form-control" type="text" name="nome_aluno" id="nomeInputEditar" value="" style="border-color:red" />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="text" name="CPF" id="CPF" style="border-color:red" />
+                            <input class="form-control col-md-10" type="text" name="CPF" id="cpfInputEditar" value="" style="border-color:red" />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Nascimento", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="date" name="nascimento" id="nascimento" style="border-color:red" />
+                            <input class="form-control col-md-10" type="date" name="nascimento" id="nascimentoInputEditar" value="" style="border-color:red" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                     </div>
-                </div>
+                }
             </div>
         </div>
-    }
-    <!-- End Modal Cadastro-->
+    </div>
+    <!-- End Modal Edit-->
 
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,10 +129,10 @@
                 <div class="modal-footer">
                     @using (Html.BeginForm("Delete", "Alunos", FormMethod.Post))
                     {
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" id="idInputDeletar" name="id" value="">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Deletar</button>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="idInputDeletar" name="id" value="">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Deletar</button>
                     }
                 </div>
             </div>
@@ -74,50 +142,61 @@
 
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
-        <table class="table table-striped table-bordered" id="TabelaAluno">
-            <thead>
-                <tr>
-                    <th>
-                        Nome do Aluno
-                    </th>
-                    <th>
-                        CPF
-                    </th>
-                    <th>
-                        Data de Nascimento
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+    @Html.AntiForgeryToken()
+    <table class="table table-striped table-bordered" id="TabelaAluno">
+        <thead>
+            <tr>
+                <th>
+                    Nome do Aluno
+                </th>
+                <th>
+                    CPF
+                </th>
+                <th>
+                    Data de Nascimento
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nome_aluno)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CPF)
-                        </td>
-                        <td>
-                            @Convert.ToDateTime(item.nascimento).ToString("dd/MM/yyyy")
-                        </td>
-                        <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.id_aluno }) |
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.id_aluno }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_aluno data-nome=@item.nome_aluno>
-                                Deletar
-                            </a> |
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_aluno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.nascimento).ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_aluno data-nome="@item.nome_aluno" data-cpf="@item.CPF" data-nascimento=@item.nascimento>
+                        Detalhes
+                    </a> |
+                    <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_aluno data-nome="@item.nome_aluno" data-cpf="@item.CPF" data-nascimento=@item.nascimento>
+                        Editar
+                    </a> |
+                    <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_aluno data-nome="@item.nome_aluno">
+                        Deletar
+                    </a> |
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
     }
 
     <script type="text/javascript">
+        function FormataStringData(data) {
+            var dia = data.split("/")[0];
+            var mes = data.split("/")[1];
+            var ano = data.split("/")[2];
+
+            return ano + '-' + ("0" + mes).slice(-2) + '-' + ("0" + dia).slice(-2);
+        }
         $(document).ready(function () {
             $("#TabelaAluno").DataTable({
                 "language": {
@@ -129,6 +208,34 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDetalhes = botao.data('id');
+                var NomeItemDetalhes = botao.data('nome');
+                var CPFItemDetalhes = botao.data('cpf');
+                var NascimentoItemDetalhes = botao.data('nascimento');
+                // seta as informações na modal fixa
+                $("#idDDDetalhes").text(IDItemDetalhes);
+                $("#nomeDDDetalhes").text(NomeItemDetalhes);
+                $("#cpfDDDetalhes").text(CPFItemDetalhes);
+                $("#nascimentoDDDetalhes").text(NascimentoItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemEditando = botao.data('id');
+                var NomeItemEditando = botao.data('nome');
+                var CPFItemEditando = botao.data('cpf');
+                var NascimentoItemEditando = botao.data('nascimento');
+                // trata a data pra aparecer no input
+                NascimentoItemEditando = FormataStringData(NascimentoItemEditando);
+                // seta as informações na modal fixa
+                $("input#idInputEditar").val(IDItemEditando);
+                $("input#nomeInputEditar").val(NomeItemEditando);
+                $("input#cpfInputEditar").val(CPFItemEditando);
+                $("input#nascimentoInputEditar").val(NascimentoItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
