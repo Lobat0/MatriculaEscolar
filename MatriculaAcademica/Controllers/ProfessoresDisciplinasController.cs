@@ -17,6 +17,9 @@ namespace MatriculaAcademica.Controllers
         // GET: ProfessoresDisciplinas
         public ActionResult Index()
         {
+            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
+            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
+
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();

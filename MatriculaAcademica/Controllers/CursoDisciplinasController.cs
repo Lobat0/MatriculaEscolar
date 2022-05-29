@@ -17,6 +17,9 @@ namespace MatriculaAcademica.Controllers
         // GET: CursoDisciplinas
         public ActionResult Index()
         {
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+            ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
+
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();

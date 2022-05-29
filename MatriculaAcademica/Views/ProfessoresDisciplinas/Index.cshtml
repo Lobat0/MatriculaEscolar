@@ -6,11 +6,65 @@
 }
 <div class="margin-custom1">
 
-    <h2>Index</h2>
+    <!-- Start Modal Cadastro-->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
+        Adicionar Ligação de Professor e Disciplina
+    </button>
+    <hr />
+    @using (Html.BeginForm("Create", "ProfessoresDisciplinas", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalCadastro">Cadastro de Ligação de Professor e Disciplina</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso" })
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_professor", null, htmlAttributes: new { @class = "form-control", @name = "id_aluno", @id = "id_aluno" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" value="Create" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- End Modal Cadastro-->
+    <!-- Start Modal Delete-->
+    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalDeletarTitulo">Deletar Matrícula</h4>
+                    Tem certeza que quer deletar a ligação professor e disciplina: <b id="idItemDeletar"></b>?
+                </div>
+                <div class="modal-footer">
+                    @using (Html.BeginForm("Delete", "ProfessoresDisciplinas", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="idInputDeletar" name="id" value="">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Deletar</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Delete-->
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
 
     @using (Html.BeginForm())
     {
@@ -42,8 +96,9 @@
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
                             @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id_professor_disciplina })
-                        </td>
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor_disciplina data-nome=@item.id_professor_disciplina>
+                                Deletar
+                            </a> |
                     </tr>
                 }
             </tbody>
@@ -62,6 +117,15 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDeletar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDeletando = botao.data('id');
+                var NomeItemDeletando = botao.data('nome');
+                // seta as informações na modal fixa
+                $("#idItemDeletar").text(NomeItemDeletando);
+                $("input#idInputDeletar").val(IDItemDeletando);
             });
         });
     </script>

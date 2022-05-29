@@ -17,6 +17,10 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
+            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
+            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+            ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
+
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
@@ -77,6 +81,8 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno,id_usuario")] Matricula matricula)
         {
+            ViewBag.teste = "teste";
+
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
@@ -105,6 +111,7 @@ namespace MatriculaAcademica.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
 
         // GET: Matriculas/Edit/5
         public ActionResult Edit(int? id)
