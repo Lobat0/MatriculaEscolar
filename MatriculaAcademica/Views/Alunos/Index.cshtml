@@ -10,19 +10,14 @@
 
 <div class="margin-custom1">
 
-
+    <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Novo Aluno
     </button>
     <hr />
-
-    <hr />
-
-
     @using (Html.BeginForm("Create", "Alunos", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <!-- Modal -->
         <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -52,9 +47,7 @@
             </div>
         </div>
     }
-
-
-    <br />
+    <!-- End Modal Cadastro-->
 
     @using (Html.BeginForm())
     {
@@ -90,35 +83,8 @@
                         </td>
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.id_aluno }) |
-                            <a href="" data-toggle="modal" data-target="#modalDetalhes">
-                                Detalhes
-                            </a> |
                             @Html.ActionLink("Detalhes", "Details", new { id = item.id_aluno }) |
-                            <!-- Começo do deletar -->
-                            <a href="" data-toggle="modal" data-target="#modalDeletar">
-                                Deletar
-                            </a> |
-                            @using (Html.BeginForm("Delete", "Alunos", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                <!-- Modal -->
-                                <div class="modal fade" id="modalDeletar" tabindex="-1" role="dialog" aria-labelledby="modalDeletarLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="modalDeletar">Deletar Aluno</h4>
-                                                Tem certeza que quer deletar:  @item.id_aluno
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                                <button type="submit" value="" name="id" id="id" class="btn btn-primary">Deletar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            <!-- Fim do deletar -->
+                            @Html.ActionLink("Deletar", "Delete", new { id = item.id_aluno })
                         </td>
                     </tr>
                 }
@@ -143,5 +109,3 @@
     </script>
 
 
-
-  

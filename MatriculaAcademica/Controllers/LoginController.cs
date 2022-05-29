@@ -46,6 +46,8 @@ namespace MatriculaAcademica.Controllers
                     {
                         Session["nome"] = usuario.login;
                         Session["tipo"] = usuario.tipo;
+                        Session["id_usuario"] = usuario.id_usuario;
+                        Session["dataAtual"] = DateTime.Now.ToString("yyyy-MM-dd");
                         ViewBag.Status = "200";
                         return RedirectToAction("index", "Home");                    
                     }

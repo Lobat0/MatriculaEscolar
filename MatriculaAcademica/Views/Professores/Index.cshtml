@@ -6,11 +6,44 @@
 }
 <div class="margin-custom1">
 
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <!-- Start Modal Cadastro-->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
+        Adicionar Novo Professor
+    </button>
+    <hr />
+    @using (Html.BeginForm("Create", "Professores", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalCadastro">Cadastro de Professor</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control" type="text" name="nome_professor" id="nome_professor" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control col-md-10" type="text" name="CPF" id="CPF" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Telefone", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input class="form-control col-md-10" type="text" name="telefone" id="telefone" style="border-color:red" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- End Modal Cadastro-->
 
     @using (Html.BeginForm())
     {
