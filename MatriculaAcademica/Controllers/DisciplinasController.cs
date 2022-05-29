@@ -170,10 +170,18 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
-                    Disciplina disciplina = db.Disciplina.Find(id);
-                    db.Disciplina.Remove(disciplina);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        Disciplina disciplina = db.Disciplina.Find(id);
+                        db.Disciplina.Remove(disciplina);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");
