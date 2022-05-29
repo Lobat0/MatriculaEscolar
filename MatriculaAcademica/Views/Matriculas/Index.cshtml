@@ -6,10 +6,6 @@
 }
 <div class="margin-custom1">
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Nova Matricula
@@ -26,27 +22,20 @@
                         <h4 class="modal-title" id="modalCadastro">Cadastro de Matriculas</h4>
                     </div>
                     <div class="modal-body form-horizontal">
+                            <input class="form-control col-md-10" type="hidden" name="data_matricula" id="data_matricula" value=@Session["dataAtual"] style="border-color:red" />
                         <div class="form-group form-inline">
-                            @Html.Label("Data da Matricula", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="date" name="data_matricula" id="data_matricula" value=@Session["dataAtual"] style="border-color:red" disabled />
+                            @Html.Label("Nome do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_curso", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso" })
                         </div>
                         <div class="form-group form-inline">
-                            @Html.Label("ID do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="id_curso" id="id_curso" style="border-color:red" />
+                            @Html.Label("Nome do Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_aluno", null, htmlAttributes: new { @class = "form-control", @name = "id_aluno", @id = "id_aluno" })
                         </div>
-                        <div class="form-group form-inline">
-                            @Html.Label("ID do Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="id_aluno" id="id_aluno" style="border-color:red" />
-                        </div>
-                        <div class="form-group form-inline">
-                            @Html.Label("ID do Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="id_usuario" id="id_usuario" value=@Session["id_usuario"] style="border-color:red" disabled />
-                        </div>
-
+                            <input class="form-control col-md-10" type="hidden" name="id_usuario" id="id_usuario" value=@Session["id_usuario"] style="border-color:red" hidden/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" value="Create" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -121,7 +110,7 @@
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id_matricula }) |
                             @Html.ActionLink("Details", "Details", new { id = item.id_matricula }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.id_aluno>
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.id_matricula>
                                 Deletar
                             </a> |
                         </td>
