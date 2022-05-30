@@ -550,6 +550,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.counterup.js" />
+    <Content Include="Scripts\jquery.inputmask.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.mixitup.js" />
     <Content Include="Scripts\jquery.validate.js" />

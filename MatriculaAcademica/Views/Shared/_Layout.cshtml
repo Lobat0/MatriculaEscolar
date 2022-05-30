@@ -19,6 +19,12 @@
 </head>
 <body>
 
+    <!-- Reseta a variavel erro toda vez que muda de view-->
+    @if (Convert.ToString(Session["errodb.Msg"]) != "")
+    {
+        Session["errodb.Msg"] = "";
+    }
+
     <section style="background-color: white;">
         <nav class="navbar navbar-collapse" role="navigation" style="border: solid 20px white; margin-left: -20px; ">
             <div class="container">
@@ -72,6 +78,21 @@
         $(this)
             .parent(".alert")
             .fadeOut();
+           @if (Convert.ToString(Session["errodb.Msg"]) != "")
+            {
+                Session["errodb.Msg"] = "";
+            }
+    });
+    $(document).ready(function () {
+
+        $("#CPF").inputmask("999.999.999-99");
+
+        $("#cpfInputEditar").inputmask("999.999.999-99");
+
+        $('#telefone').inputmask("(99)9999[9]-9999");
+
+        $('#telefoneInputEditar').inputmask("(99)9999[9]-9999");
+
     });
 </script>
 

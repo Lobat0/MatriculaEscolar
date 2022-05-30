@@ -7,6 +7,16 @@
 
 <div class="margin-custom1">
 
+    <!-- Start Alerta de Erro no Banco de Dados-->
+    @if (Convert.ToString(Session["errodb.Msg"]) != "")
+    {
+        <div class="alert danger-alert bg-red fancybox-overlay-fixed">
+            <h3>@Session["errodb.Msg"]</h3>
+            <a class="close">&times;</a>
+        </div>
+    }
+    <!-- End Alerta de Erro no Banco de Dados-->
+
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Ligação de Curso e Disciplina

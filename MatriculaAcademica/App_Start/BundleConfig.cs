@@ -22,6 +22,7 @@ namespace MatriculaAcademica
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/jquery-3.4.1.js",
+                      "~/Scripts/jquery.inputmask.js",
                       "~/Scripts/DataTables/jquery.dataTables.min.js",
                       "~/Content/DataTables/css/jquery.dataTables.min.css"));
 

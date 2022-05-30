@@ -87,6 +87,7 @@ namespace MatriculaAcademica.Controllers
                         }
                         catch(Exception e)
                         {
+                            Session["errodb.Msg"] = e.Message;
                             Console.WriteLine(e);
                             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                         }
@@ -120,6 +121,7 @@ namespace MatriculaAcademica.Controllers
                     }
                     catch(Exception e)
                     {
+                        Session["errodb.Msg"] = e.Message;
                         Console.WriteLine(e);
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }

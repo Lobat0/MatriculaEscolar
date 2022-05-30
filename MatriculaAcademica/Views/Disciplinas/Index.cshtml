@@ -6,19 +6,15 @@
 }
 <div class="margin-custom1">
 
-    <!-- Start Alerta de Cadastro ou Alteração duplicada-->
-    @if (Convert.ToString(Session["errodb.Dup"]) != "")
+    <!-- Start Alerta de Erro no Banco de Dados-->
+    @if (Convert.ToString(Session["errodb.Msg"]) != "")
     {
         <div class="alert danger-alert bg-red fancybox-overlay-fixed">
-            <h3>Erro: Item já cadastrado</h3>
-            @if (Convert.ToString(Session["errodb.Dup"]) != "")
-            {
-                Session["errodb.Dup"] = "";
-            }
+            <h3>@Session["errodb.Msg"]</h3>
             <a class="close">&times;</a>
         </div>
     }
-    <!-- End Alerta de Cadastro ou Alteração duplicada-->
+    <!-- End Alerta de Erro no Banco de Dados-->
 
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">

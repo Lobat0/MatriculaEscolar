@@ -83,14 +83,22 @@ namespace MatriculaAcademica.Controllers
                         if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
                         {
                             //variavel do erro de cadastro duplicado
-                            Session["errodb.Dup"] = "erro";
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                             return RedirectToAction("Index");
                         }
                         else
                         {
-                            db.Disciplina.Add(disciplina);
-                            db.SaveChanges();
-                            return RedirectToAction("Index");
+                            try
+                            {
+                                db.Disciplina.Add(disciplina);
+                                db.SaveChanges();
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
                         }
                     }
 
@@ -140,14 +148,23 @@ namespace MatriculaAcademica.Controllers
                         if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
                         {
                             //variavel do erro de alteração duplicada
-                            Session["errodbDup"] = "erro";
+                            Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
                             return RedirectToAction("Index");
                         }
                         else
                         {
-                            db.Entry(disciplina).State = EntityState.Modified;
-                            db.SaveChanges();
-                            return RedirectToAction("Index");
+                            try
+                            {
+                                db.Entry(disciplina).State = EntityState.Modified;
+                                db.SaveChanges();
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                Console.WriteLine(e);
+                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            }
                         }
                     }
                     return View(disciplina);

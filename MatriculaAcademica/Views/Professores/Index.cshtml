@@ -6,6 +6,16 @@
 }
 <div class="margin-custom1">
 
+    <!-- Start Alerta de Erro no Banco de Dados-->
+    @if (Convert.ToString(Session["errodb.Msg"]) != "")
+    {
+        <div class="alert danger-alert bg-red fancybox-overlay-fixed">
+            <h3>@Session["errodb.Msg"]</h3>
+            <a class="close">&times;</a>
+        </div>
+    }
+    <!-- End Alerta de Erro no Banco de Dados-->
+
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Novo Professor
@@ -44,7 +54,6 @@
         </div>
     }
     <!-- End Modal Cadastro-->
-
     <!-- Start Modal Detalhe-->
     <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
         <div class="modal-dialog" role="document">
@@ -75,7 +84,6 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
-
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -112,7 +120,6 @@
         </div>
     </div>
     <!-- End Modal Edit-->
-
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
