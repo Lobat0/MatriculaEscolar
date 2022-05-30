@@ -6,6 +6,20 @@
 }
 <div class="margin-custom1">
 
+    <!-- Start Alerta de Cadastro ou Alteração duplicada-->
+    @if (Convert.ToString(Session["errodb.Dup"]) != "")
+    {
+        <div class="alert danger-alert bg-red fancybox-overlay-fixed">
+            <h3>Erro: Item já cadastrado</h3>
+            @if (Convert.ToString(Session["errodb.Dup"]) != "")
+            {
+                Session["errodb.Dup"] = "";
+            }
+            <a class="close">&times;</a>
+        </div>
+    }
+    <!-- End Alerta de Cadastro ou Alteração duplicada-->
+
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Nova Disciplina
@@ -36,7 +50,6 @@
         </div>
     }
     <!-- End Modal Cadastro-->
-
     <!-- Start Modal Detalhe-->
     <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
         <div class="modal-dialog" role="document">
@@ -63,7 +76,6 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
-
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -91,7 +103,6 @@
         </div>
     </div>
     <!-- End Modal Edit-->
-
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">

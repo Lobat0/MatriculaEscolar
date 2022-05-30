@@ -15,6 +15,7 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/alert.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -58,9 +59,19 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        </section>
-            @RenderBody()
-            @Scripts.Render("~/bundles/bootstrap")
-            @RenderSection("scripts", required: false)
-</bodystyle="background-color:powderblue;">
+    </section>
+    @RenderBody()
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    </bodystyle="background-color:powderblue;">
 </html>
+
+
+<script>
+    $(".close").click(function () {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+    });
+</script>
+

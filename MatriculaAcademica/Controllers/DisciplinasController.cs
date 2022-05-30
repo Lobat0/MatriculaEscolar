@@ -72,6 +72,7 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_disciplina,nome_disciplina")] Disciplina disciplina)
         {
+
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
@@ -79,9 +80,18 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Disciplina.Add(disciplina);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
+                        {
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Dup"] = "erro";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            db.Disciplina.Add(disciplina);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
                     }
 
                     return View(disciplina);
@@ -127,9 +137,18 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Entry(disciplina).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
+                        {
+                            //variavel do erro de alteração duplicada
+                            Session["errodbDup"] = "erro";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            db.Entry(disciplina).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
                     }
                     return View(disciplina);
                 }
