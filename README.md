@@ -34,3 +34,7 @@ Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 - Editar a página de erro???
 - Fazer as modais das tabelas intermediárias
 - Exibir informações do outras tabelas nas listas (ex: O Curso em que o Aluno é cadastrado, as Disciplinas que um Professor ministra).
+- Deixar todos campos de input como required
+- Arrumar o required dos campos input cpf e telefone
+- Fazer tratamento de erro de todos controllers
+- Verificar campos replicados no cadastro e editar em todos controllers
