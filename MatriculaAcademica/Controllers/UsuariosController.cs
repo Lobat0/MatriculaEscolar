@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MatriculaAcademica.Models;
 
@@ -79,12 +76,20 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Usuario.Add(usuario);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.Usuario.Add(usuario);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
                     }
 
-                    return View(usuario);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -127,11 +132,19 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Entry(usuario).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.Entry(usuario).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
                     }
-                    return View(usuario);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -170,10 +183,18 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
-                    Usuario usuario = db.Usuario.Find(id);
-                    db.Usuario.Remove(usuario);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        Usuario usuario = db.Usuario.Find(id);
+                        db.Usuario.Remove(usuario);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");

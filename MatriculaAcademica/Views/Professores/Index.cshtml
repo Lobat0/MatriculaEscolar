@@ -45,8 +45,76 @@
     }
     <!-- End Modal Cadastro-->
 
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Professor</h4>
+                </div>
+                <div class="modal-body">
+                    <dl class="dl-horizontal">
+                        <dt>Identificador do Professor</dt>
+                        <dd id="idDDDetalhes"></dd>
+
+                        <dt>Nome do Professor</dt>
+                        <dd id="nomeDDDetalhes"></dd>
+
+                        <dt>CPF do Professor</dt>
+                        <dd id="cpfDDDetalhes"></dd>
+
+                        <dt>Telefone do Professor</dt>
+                        <dd id="telefoneDDDetalhes"></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "Professores", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Cadastro do Professor</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            <input type="hidden" id="idInputEditar" name="id_professor" value="">
+
+                            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control" type="text" name="nome_professor" id="nomeInputEditar" value="" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="text" name="CPF" id="cpfInputEditar" value="" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Telefone", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="text" name="telefone" id="telefoneInputEditar" value="" style="border-color:red" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -102,9 +170,13 @@
                             @Html.DisplayFor(modelItem => item.telefone)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_professor }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id_professor }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor data-nome=@item.nome_professor>
+                            <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_professor data-nome="@item.nome_professor" data-cpf="@item.CPF" data-telefone=@item.telefone>
+                                Detalhes
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_professor data-nome="@item.nome_professor" data-cpf="@item.CPF" data-telefone=@item.telefone>
+                                Editar
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor data-nome="@item.nome_professor">
                                 Deletar
                             </a> |
                         </td>
@@ -126,6 +198,32 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDetalhes = botao.data('id');
+                var NomeItemDetalhes = botao.data('nome');
+                var CPFItemDetalhes = botao.data('cpf');
+                var TelefoneItemDetalhes = botao.data('telefone');
+                // seta as informações na modal fixa
+                $("#idDDDetalhes").text(IDItemDetalhes);
+                $("#nomeDDDetalhes").text(NomeItemDetalhes);
+                $("#cpfDDDetalhes").text(CPFItemDetalhes);
+                $("#telefoneDDDetalhes").text(TelefoneItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemEditando = botao.data('id');
+                var NomeItemEditando = botao.data('nome');
+                var CPFItemEditando = botao.data('cpf');
+                var TelefoneItemEditando = botao.data('telefone');
+                // seta as informações na modal fixa
+                $("input#idInputEditar").val(IDItemEditando);
+                $("input#nomeInputEditar").val(NomeItemEditando);
+                $("input#cpfInputEditar").val(CPFItemEditando);
+                $("input#telefoneInputEditar").val(TelefoneItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal

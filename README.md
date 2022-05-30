@@ -26,3 +26,11 @@ Se o projeto implicar com o pacote roslyn:
 Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 ```
 
+### Fazer
+- Deixar o modal de detalhes menos feio
+- Adicionar try e catch nos possíveis erros dos controllers
+- Exibir mensagens de erro caso ... de erro no post
+- Exibir mensagens de sucesso caso ... sucesso no post
+- Editar a página de erro???
+- Fazer as modais das tabelas intermediárias
+- Exibir informações do outras tabelas nas listas (ex: O Curso em que o Aluno é cadastrado, as Disciplinas que um Professor ministra).

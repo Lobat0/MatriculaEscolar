@@ -56,14 +56,86 @@
     }
     <!-- End Modal Cadastro-->
 
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Usuário</h4>
+                </div>
+                <div class="modal-body">
+                    <dl class="dl-horizontal">
+                        <dt>Identificador do Usuário</dt>
+                        <dd id="idDDDetalhes"></dd>
+
+                        <dt>login do Usuário</dt>
+                        <dd id="loginDDDetalhes"></dd>
+
+                        <dt>email do Usuário</dt>
+                        <dd id="emailDDDetalhes"></dd>
+
+                        <dt>Tipo de Usuário</dt>
+                        <dd id="tipoDDDetalhes"></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "Usuarios", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Cadastro do Usuário</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            <input type="hidden" id="idInputEditar" name="id_usuario" value="">
+
+                            @Html.Label("login", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control" type="text" name="login" id="loginInputEditar" value="" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("email", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="text" name="email" id="emailInputEditar" value="" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("senha", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="password" name="senha" id="senhaInputEditar" value="" style="border-color:red" />
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Tipo", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="text" name="tipo" id="tipoInputEditar" value="" style="border-color:red" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="modalDeletarTitulo">Deletar Usuário</h4>
-                    Tem certeza que quer deletar: <b id="nomeItemDeletar"></b>?
+                    Tem certeza que quer deletar: <b id="loginItemDeletar"></b>?
                 </div>
                 <div class="modal-footer">
                     @using (Html.BeginForm("Delete", "Usuarios", FormMethod.Post))
@@ -119,9 +191,13 @@
                             @Html.DisplayFor(modelItem => item.tipo)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_usuario }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id_usuario }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_usuario data-nome=@item.login>
+                            <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-tipo=@item.tipo>
+                                Detalhes
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-senha=@item.senha data-tipo=@item.tipo>
+                                Editar
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_usuario data-login="@item.login">
                                 Deletar
                             </a> |
                         </td>
@@ -144,13 +220,41 @@
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
             });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemDetalhes = botao.data('id');
+                var LoginItemDetalhes = botao.data('login');
+                var EmailItemDetalhes = botao.data('email');
+                var TipoItemDetalhes = botao.data('tipo');
+                // seta as informações na modal fixa
+                $("#idDDDetalhes").text(IDItemDetalhes);
+                $("#loginDDDetalhes").text(LoginItemDetalhes);
+                $("#emailDDDetalhes").text(EmailItemDetalhes);
+                $("#tipoDDDetalhes").text(TipoItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemEditando = botao.data('id');
+                var LoginItemEditando = botao.data('login');
+                var EmailItemEditando = botao.data('email');
+                var SenhaItemEditando = botao.data('senha');
+                var TipoItemEditando = botao.data('tipo');
+                // seta as informações na modal fixa
+                $("input#idInputEditar").val(IDItemEditando);
+                $("input#loginInputEditar").val(LoginItemEditando);
+                $("input#emailInputEditar").val(EmailItemEditando);
+                $("input#senhaInputEditar").val(SenhaItemEditando);
+                $("input#tipoInputEditar").val(TipoItemEditando);
+            });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
                 var botao = $(event.relatedTarget);
                 var IDItemDeletando = botao.data('id');
-                var NomeItemDeletando = botao.data('nome');
+                var LoginItemDeletando = botao.data('login');
                 // seta as informações na modal fixa
-                $("#nomeItemDeletar").text(NomeItemDeletando);
+                $("#loginItemDeletar").text(LoginItemDeletando);
                 $("input#idInputDeletar").val(IDItemDeletando);
             });
         });
