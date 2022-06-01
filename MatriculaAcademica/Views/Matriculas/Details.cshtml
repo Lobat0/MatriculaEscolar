@@ -47,7 +47,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Aluno.nome_aluno)
+                Nome do Aluno
             </dt>
 
             <dd>
@@ -55,7 +55,23 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Curso.nome_curso)
+                CPF
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aluno.CPF)
+            </dd>
+
+            <dt>
+                Data de Nascimento
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aluno.nascimento)
+            </dd>
+
+            <dt>
+                Nome do Curso
             </dt>
 
             <dd>
@@ -63,7 +79,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Usuario.login)
+                Responsavel pela matricula
             </dt>
 
             <dd>
