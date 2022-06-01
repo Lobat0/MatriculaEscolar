@@ -5,7 +5,14 @@
 }
 
 <head>
-
+    <style>
+        dt {
+            width: 40% !important;
+            text-align: right !important;
+            margin-bottom: 8px !important;
+            padding-right: 15px !important;
+        }
+    </style>
 </head>
 
 <div class="margin-custom1">
@@ -108,11 +115,11 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("CPF", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="text" name="CPF" id="cpfInputEditar" value="" style="border-color:red" />
+                            <input class="form-control col-md-10" type="text" name="CPF" id="cpfInputEditar" value="" placeholder="___.___.___-__" style="border-color:red" required="" />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Nascimento", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="date" name="nascimento" id="nascimentoInputEditar" value="" style="border-color:red" />
+                            <input class="form-control col-md-10" type="date" name="nascimento" id="nascimentoInputEditar" value="" style="border-color:red" required="" />
                         </div>
                     </div>
                     <div class="modal-footer">
