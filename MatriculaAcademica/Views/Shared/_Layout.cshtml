@@ -25,6 +25,12 @@
         Session["errodb.Msg"] = "";
     }
 
+    <!-- Reseta a variavel sucesso toda vez que muda de view-->
+    @if (Convert.ToString(Session["susdb.Msg"]) != "")
+    {
+        Session["susdb.Msg"] = "";
+    }
+
     <section style="background-color: white;">
         <nav class="navbar navbar-collapse" role="navigation" style="border: solid 20px white; margin-left: -20px; ">
             <div class="container">
@@ -81,6 +87,10 @@
            @if (Convert.ToString(Session["errodb.Msg"]) != "")
             {
                 Session["errodb.Msg"] = "";
+            }
+            @if (Convert.ToString(Session["susdb.Msg"]) != "")
+            {
+                Session["susdb.Msg"] = "";
             }
     });
     $(document).ready(function () {

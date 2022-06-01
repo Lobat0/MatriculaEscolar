@@ -34,15 +34,20 @@
                     <div class="modal-body form-horizontal">
                         <div class="form-group form-inline">
                             @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="nome_curso" id="nome_curso" style="border-color:red" />
+                            <input class="form-control col-md-10" type="text" name="nome_curso" id="nome_curso" style="border-color:red" required />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Duração", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="duracao" id="duracao" style="border-color:red" />
+                            <input class="form-control col-md-10" type="text" name="duracao" id="duracao" style="border-color:red" required />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="turno" id="turno" style="border-color:red" />
+                            <select class="form-select" id="turno" name="turno" required>
+                                <option value="Matutino">Matutino</option>
+                                <option value="Vespertino">Vespertino</option>
+                                <option value="Noturno">Noturno</option>
+                                <option value="Integral">Integral</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -71,7 +76,7 @@
                         <dd id="nomeDDDetalhes"></dd>
 
                         <dt>Duração do Curso</dt>
-                        <dd><span id="duracaoSpanDetalhes"></span> horas</dd>
+                        <dd><span id="duracaoSpanDetalhes"></span> Semestres</dd>
 
                         <dt>Turno</dt>
                         <dd id="turnoDDDetalhes"></dd>
@@ -171,7 +176,7 @@
                             @Html.DisplayFor(modelItem => item.nome_curso)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.duracao) horas
+                            @Html.DisplayFor(modelItem => item.duracao) Semestres
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.turno)

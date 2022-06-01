@@ -92,6 +92,7 @@ namespace MatriculaAcademica.Controllers
                             {
                                 db.Disciplina.Add(disciplina);
                                 db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                                 return RedirectToAction("Index");
                             }
                             catch (Exception e)
@@ -148,7 +149,7 @@ namespace MatriculaAcademica.Controllers
                         if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
                         {
                             //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
                             return RedirectToAction("Index");
                         }
                         else
@@ -157,6 +158,7 @@ namespace MatriculaAcademica.Controllers
                             {
                                 db.Entry(disciplina).State = EntityState.Modified;
                                 db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
                                 return RedirectToAction("Index");
                             }
                             catch (Exception e)
@@ -207,14 +209,16 @@ namespace MatriculaAcademica.Controllers
                 if (string.Equals(permissao, "admin"))
                 {
                     try
-                    {
+                    {   
                         Disciplina disciplina = db.Disciplina.Find(id);
                         db.Disciplina.Remove(disciplina);
                         db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: item excluido";
                         return RedirectToAction("Index");
                     }
                     catch(Exception e)
                     {
+                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                         Console.WriteLine(e);
                         return RedirectToAction("Index");
                     }
