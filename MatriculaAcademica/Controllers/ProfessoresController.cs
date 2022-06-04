@@ -17,7 +17,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     return View(db.Professor.ToList());
                 }
@@ -31,7 +31,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {
@@ -54,7 +54,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     return View();
                 }
@@ -72,20 +72,30 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (ModelState.IsValid)
                     {
-                        try
+                        if (db.Professor.Any(a1 => a1.CPF.Equals(professor.CPF)))
                         {
-                            db.Professor.Add(professor);
-                            db.SaveChanges();
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                             return RedirectToAction("Index");
                         }
-                        catch(Exception e)
+                        else
                         {
-                            Console.WriteLine(e);
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            try
+                            {
+                                db.Professor.Add(professor);
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
                         }
                     }
                     return RedirectToAction("Index");
@@ -100,7 +110,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {
@@ -127,20 +137,32 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (ModelState.IsValid)
                     {
-                        try
+                        var condicao = db.Professor.Where(u => u.nome_professor == professor.nome_professor && u.telefone == professor.telefone).FirstOrDefault();
+                        if (condicao == null)
                         {
-                            db.Entry(professor).State = EntityState.Modified;
-                            db.SaveChanges();
-                            return RedirectToAction("Index");
+                            try
+                            {
+                                db.Entry(professor).State = EntityState.Modified;
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                Console.WriteLine(e);
+                                return RedirectToAction("Index");
+                            }
                         }
-                        catch (Exception e)
+                        if (db.Professor.Any(a1 => a1.CPF.Equals(professor.CPF)))
                         {
-                            Console.WriteLine(e);
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            //variavel do erro de alteração duplicada
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            return RedirectToAction("Index");
                         }
                     }
                     return RedirectToAction("Index");
@@ -155,7 +177,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {
@@ -180,19 +202,21 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     try
                     {
                         Professor professor = db.Professor.Find(id);
                         db.Professor.Remove(professor);
                         db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: item excluido";
                         return RedirectToAction("Index");
                     }
                     catch (Exception e)
                     {
+                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                         Console.WriteLine(e);
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        return RedirectToAction("Index");
                     }
                 }
             }

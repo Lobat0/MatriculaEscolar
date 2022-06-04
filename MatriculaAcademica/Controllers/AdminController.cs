@@ -14,7 +14,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     return View();
                 }
