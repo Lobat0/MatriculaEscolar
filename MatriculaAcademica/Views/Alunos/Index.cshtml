@@ -4,17 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<head>
-    <style>
-        dt {
-            width: 40% !important;
-            text-align: right !important;
-            margin-bottom: 8px !important;
-            padding-right: 15px !important;
-        }
-    </style>
-</head>
-
 <div class="margin-custom1">
 
     <!-- Start Alerta de Erro no Banco de Dados-->
@@ -75,6 +64,7 @@
         </div>
     }
     <!-- End Modal Cadastro-->
+
     <!-- Start Modal Detalhe-->
     <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
         <div class="modal-dialog" role="document">
@@ -84,19 +74,17 @@
                     <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Aluno</h4>
                 </div>
                 <div class="modal-body">
-                    <dl class="dl-horizontal">
-                        <dt>Identificador do Aluno</dt>
-                        <dd id="idDDDetalhes"></dd>
-
-                        <dt>Nome do Aluno</dt>
-                        <dd id="nomeDDDetalhes"></dd>
-
-                        <dt>CPF do Aluno</dt>
-                        <dd id="cpfDDDetalhes"></dd>
-
-                        <dt>Nascimento do Aluno</dt>
-                        <dd id="nascimentoDDDetalhes"></dd>
-                    </dl>
+                    <h4><b>Identificador do Aluno</b></h4>
+                    <p id="idDDDetalhes"></p>
+                    <br />
+                    <h4><b>Nome do Aluno</b></h4>
+                    <p id="nomeDDDetalhes"></p>
+                    <br />
+                    <h4><b>CPF do Aluno</b></h4>
+                    <p id="cpfDDDetalhes"></p>
+                    <br />
+                    <h4><b>Nascimento do Aluno</b></h4>
+                    <p id="nascimentoDDDetalhes"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -105,6 +93,7 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
+
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -141,6 +130,7 @@
         </div>
     </div>
     <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">

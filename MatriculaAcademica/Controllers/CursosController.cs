@@ -112,27 +112,17 @@ namespace MatriculaAcademica.Controllers
             if (ModelState.IsValid)
             {
 
-                var condicao = db.Curso.Where(u => u.nome_curso == curso.nome_curso && u.turno == curso.turno).FirstOrDefault();
-                if (condicao != null)
+                try
                 {
-                    //variavel do erro de cadastro duplicado
-                    Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                    db.Entry(curso).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                     return RedirectToAction("Index");
                 }
-                else
+                catch (Exception e)
                 {
-                    try
-                    {
-                        db.Entry(curso).State = EntityState.Modified;
-                        db.SaveChanges();
-                        Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
-                        return RedirectToAction("Index");
-                    }
-                    catch (Exception e)
-                    {
-                        Session["errodb.Msg"] = e.Message;
-                        return RedirectToAction("Index");
-                    }
+                    Session["errodb.Msg"] = e.Message;
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index");

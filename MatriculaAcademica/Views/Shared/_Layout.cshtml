@@ -44,13 +44,12 @@
                     <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
                         @if (Session.Count != 0)
                         {
-                            <li class="nav-item">@Html.ActionLink("Aluno", "Index", "Alunos")</li>
-                            <li class="nav-item">@Html.ActionLink("Professor", "Index", "Professores")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso", "Index", "Cursos")</li>
-                            <li class="nav-item">@Html.ActionLink("Curso-Disciplina", "Index", "CursoDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Disciplina", "Index", "Disciplinas")</li>
+                            <li class="nav-item">@Html.ActionLink("Alunos", "Index", "Alunos")</li>
+                            <li class="nav-item">@Html.ActionLink("Professores", "Index", "Professores")</li>
+                            <li class="nav-item">@Html.ActionLink("Cursos", "Index", "Cursos")</li>
+                            <li class="nav-item">@Html.ActionLink("Disciplinas", "Index", "Disciplinas")</li>
                             <li class="nav-item">@Html.ActionLink("Professor-Disciplina", "Index", "ProfessoresDisciplinas")</li>
-                            <li class="nav-item">@Html.ActionLink("Matrícula", "Index", "Matriculas")</li>
+                            <li class="nav-item">@Html.ActionLink("Matrículas", "Index", "Matriculas")</li>
                             if (Session["Tipo"].ToString().ToUpper().Trim() == "ADMIN")
                             {
                                 <li class="nav-item">@Html.ActionLink("Usuário", "Index", "Usuarios")</li>

@@ -5,17 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <style>
-        dt {
-            width: 40% !important;
-            text-align: right !important;
-            margin-bottom: 8px !important;
-            padding-right: 15px !important;
-        }
-    </style>
-</head>
-
 <div class="margin-custom1">
 
     <!-- Start Alerta de Erro no Banco de Dados-->
@@ -68,6 +57,7 @@
         </div>
     }
     <!-- End Modal Cadastro-->
+
     <!-- Start Modal Detalhe-->
     <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
         <div class="modal-dialog" role="document">
@@ -78,13 +68,11 @@
                 </div>
                 <div class="modal-body form-horizontal">
                     <div class="form-group form-inline">
-                        <dl class="dl-horizontal">
-                            <dt>Identificador da Disciplina</dt>
-                            <dd id="idInputDetalhes"></dd>
-
-                            <dt>Nome da Disciplina</dt>
-                            <dd id="nomeInputDetalhes"></dd>
-                        </dl>
+                        <h4><b>Identificador da Disciplina</b></h4>
+                        <p id="idInputDetalhes"></p>
+                        <br />
+                        <h4><b>Nome da Disciplina</b></h4>
+                        <p id="nomeInputDetalhes"></p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -94,6 +82,7 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
+
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -121,6 +110,7 @@
         </div>
     </div>
     <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">

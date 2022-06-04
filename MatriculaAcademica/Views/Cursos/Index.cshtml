@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Duração", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="duracao" id="duracao" style="border-color:red" required />
+                            <input class="form-control col-md-10" type="text" name="duracao" id="duracao" min="1" style="border-color:red" required />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -68,8 +68,8 @@
             </div>
         </div>
     }
-
     <!-- End Modal Cadastro-->
+
     <!-- Start Modal Detalhe-->
     <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
         <div class="modal-dialog" role="document">
@@ -79,19 +79,17 @@
                     <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Curso</h4>
                 </div>
                 <div class="modal-body">
-                    <dl class="dl-horizontal">
-                        <dt>Identificador do Curso</dt>
-                        <dd id="idDDDetalhes"></dd>
-
-                        <dt>Nome do Curso</dt>
-                        <dd id="nomeDDDetalhes"></dd>
-
-                        <dt>Duração do Curso</dt>
-                        <dd><span id="duracaoSpanDetalhes"></span> Semestres</dd>
-
-                        <dt>Turno</dt>
-                        <dd id="turnoDDDetalhes"></dd>
-                    </dl>
+                    <h4><b>Identificador do Curso</b></h4>
+                    <p id="idDDDetalhes"></p>
+                    <br />
+                    <h4><b>Nome do Curso</b></h4>
+                    <p id="nomeDDDetalhes"></p>
+                    <br />
+                    <h4><b>Duração do Curso</b></h4>
+                    <p><span id="duracaoSpanDetalhes"></span> Semestres</p>
+                    <br />
+                    <h4><b>Turno</b></h4>
+                    <p id="turnoDDDetalhes"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -100,6 +98,7 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
+
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -116,11 +115,11 @@
                             <input type="hidden" id="idInputEditar" name="id_curso" value="">
 
                             @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control" type="text" name="nome_curso" id="nomeInputEditar" value="" style="border-color:red" />
+                            <input class="form-control" type="text" name="nome_curso" id="nomeInputEditar" value="" maxlength="250" style="border-color:red" />
                         </div>
                         <div class="form-group form-inline">
-                            @Html.Label("Duração", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="number" name="duracao" id="duracaoInputEditar" value="" style="border-color:red" />
+                            @Html.Label("Duração (semestres)", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input class="form-control col-md-10" type="number" name="duracao" id="duracaoInputEditar" min="1" style="border-color:red" />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-3" })
@@ -199,6 +198,7 @@
                             @Html.DisplayFor(modelItem => item.turno)
                         </td>
                         <td>
+                            @Html.ActionLink("Disciplinas", "Index", "CursoDisciplinas") |
                             <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_curso data-nome="@item.nome_curso" data-duracao="@item.duracao" data-turno=@item.turno>
                                 Detalhes
                             </a> |

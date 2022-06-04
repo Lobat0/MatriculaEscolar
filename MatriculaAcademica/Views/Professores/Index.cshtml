@@ -5,17 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <style>
-        dt {
-            width: 40% !important;
-            text-align: right !important;
-            margin-bottom: 8px !important;
-            padding-right: 15px !important;
-        }
-    </style>
-</head>
-
 <div class="margin-custom1">
 
     <!-- Start Alerta de Erro no Banco de Dados-->
@@ -85,19 +74,17 @@
                     <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes do Professor</h4>
                 </div>
                 <div class="modal-body">
-                    <dl class="dl-horizontal">
-                        <dt>Identificador do Professor</dt>
-                        <dd id="idDDDetalhes"></dd>
-
-                        <dt>Nome do Professor</dt>
-                        <dd id="nomeDDDetalhes"></dd>
-
-                        <dt>CPF do Professor</dt>
-                        <dd id="cpfDDDetalhes"></dd>
-
-                        <dt>Telefone do Professor</dt>
-                        <dd id="telefoneDDDetalhes"></dd>
-                    </dl>
+                    <h4><b>Identificador do Professor</b></h4>
+                    <p id="idDDDetalhes"></p>
+                    <br />
+                    <h4><b>Nome do Professor</b></h4>
+                    <p id="nomeDDDetalhes"></p>
+                    <br />
+                    <h4><b>CPF do Professor</b></h4>
+                    <p id="cpfDDDetalhes"></p>
+                    <br />
+                    <h4><b>Telefone do Professor</b></h4>
+                    <p id="telefoneDDDetalhes"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MatriculaAcademica.Models;
 
@@ -12,7 +8,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class AlunosController : Controller
     {
-        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
+        private readonly MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Alunos
         public ActionResult Index()
@@ -38,7 +34,7 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (id == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        return RedirectToAction("Error");
                     }
                     Aluno aluno = db.Aluno.Find(id);
                     if (aluno == null)
@@ -118,7 +114,7 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (id == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        return RedirectToAction("Error");
                     }
                     try
                     {
@@ -194,7 +190,7 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (id == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        return RedirectToAction("Error");
                     }
                     Aluno aluno = db.Aluno.Find(id);
                     if (aluno == null)
