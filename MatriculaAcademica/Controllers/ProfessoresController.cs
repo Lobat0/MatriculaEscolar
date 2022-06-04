@@ -41,7 +41,7 @@ namespace MatriculaAcademica.Controllers
                     if (professor == null)
                     {
                         return HttpNotFound();
-                    }            
+                    }
                     return View(professor);
                 }
             }
@@ -141,27 +141,17 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        var condicao = db.Professor.Where(u => u.nome_professor == professor.nome_professor && u.telefone == professor.telefone).FirstOrDefault();
-                        if (condicao == null)
+                        try
                         {
-                            try
-                            {
-                                db.Entry(professor).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return RedirectToAction("Index");
-                            }
+                            db.Entry(professor).State = EntityState.Modified;
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                            return RedirectToAction("Index");
                         }
-                        if (db.Professor.Any(a1 => a1.CPF.Equals(professor.CPF)))
+                        catch (Exception e)
                         {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
+                            Console.WriteLine(e);
                             return RedirectToAction("Index");
                         }
                     }

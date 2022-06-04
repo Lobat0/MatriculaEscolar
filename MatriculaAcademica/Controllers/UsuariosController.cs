@@ -76,18 +76,27 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        try
+                        var condicao = db.Usuario.Where(u => u.login == usuario.login || u.email == usuario.email).FirstOrDefault();
+                        if (condicao != null)
                         {
-                            db.Usuario.Add(usuario);
-                            db.SaveChanges();
-                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                             return RedirectToAction("Index");
                         }
-                        catch (Exception e)
+                        else
                         {
-                            Console.WriteLine(e);
-                            Session["errodb.Msg"] = e.Message;
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            try
+                            {
+                                db.Usuario.Add(usuario);
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
                         }
                     }
 
@@ -143,9 +152,9 @@ namespace MatriculaAcademica.Controllers
                         }
                         catch (Exception e)
                         {
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
                             Console.WriteLine(e);
-                            Session["errodb.Msg"] = e.Message;
-                            return RedirectToAction("Error");
+                            return RedirectToAction("Index");
                         }
                     }
                     return RedirectToAction("Index");
@@ -197,9 +206,9 @@ namespace MatriculaAcademica.Controllers
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
                         Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
                     }
                 }
             }

@@ -120,7 +120,8 @@ namespace MatriculaAcademica.Controllers
                 }
                 catch (Exception e)
                 {
-                    Session["errodb.Msg"] = e.Message;
+                    Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
+                    Console.WriteLine(e);
                     return RedirectToAction("Index");
                 }
             }

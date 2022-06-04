@@ -108,16 +108,16 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.data_matricula)
+                        Data da Matricula
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Aluno.nome_aluno)
+                        Nome do Aluno
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Curso.nome_curso)
+                        Nome do Curso
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Usuario.login)
+                        Usuario
                     </th>
                     <th></th>
                 </tr>
@@ -142,7 +142,7 @@
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id_matricula }) |
                             @Html.ActionLink("Imprimir", "Details", new { id = item.id_matricula }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.id_matricula>
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.Aluno.nome_aluno>
                                 Deletar
                             </a> |
                         </td>
