@@ -30,6 +30,9 @@ Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 #### Funcionalidades
 - Fazer as modais das tabelas intermediárias
 - Exibir informações de outras tabelas nas listas e modal de detalhes (ex: O Curso em que o Aluno é cadastrado, as Disciplinas que um Professor ministra).
+- Só fazer a checagem de admin na controller de usuários.
+- Tirar Curso-Disciplina e Professor-disciplina da navbar e adicionar nas páginas Curso e Professor
+- Exibir o nome do curso nos detalhes das tabelas intermediarias, não id.
 
 #### Erros
 - Fazer tratamento de erro de todos controllers
