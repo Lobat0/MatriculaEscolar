@@ -17,9 +17,8 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
-            ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
+            ViewBag.id_aluno = new MultiSelectList(db.Curso, "id_curso", "nome_aluno", "CPF");
+            ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
 
             if (Session["tipo"] != null)
             {
@@ -81,8 +80,6 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_matricula,data_matricula,id_curso,id_aluno,id_usuario")] Matricula matricula)
         {
-            ViewBag.teste = "teste";
-
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
@@ -90,22 +87,33 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        try
+
+                        var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
+                        if (condicao != null)
                         {
-                            db.Matricula.Add(matricula);
-                            db.SaveChanges();
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                             return RedirectToAction("Index");
                         }
-                        catch(Exception e)
+                        else
                         {
-                            Console.WriteLine(e);
-                            return RedirectToAction("Index");
+                            try
+                            {
+                                db.Matricula.Add(matricula);
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
                         }
                     }
 
-                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                    ViewBag.id_aluno = new MultiSelectList(db.Curso, "id_curso", "nome_aluno", "CPF");
+                    ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
                     return View(matricula);
                 }
             }
@@ -151,12 +159,42 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "Admin"))
                 {
+                    //if (ModelState.IsValid)
+                    //{
+                    //    db.Entry(matricula).State = EntityState.Modified;
+                    //    db.SaveChanges();
+                    //    return RedirectToAction("Index");
+                    //}
+
                     if (ModelState.IsValid)
                     {
-                        db.Entry(matricula).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
+                        if (condicao != null)
+                        {
+                            //variavel do erro de alteração duplicada
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                db.Entry(matricula).State = EntityState.Modified;
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                Console.WriteLine(e);
+                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            }
+                        }
                     }
+
+
+
                     ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
                     ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
                     ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
