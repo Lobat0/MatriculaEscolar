@@ -44,12 +44,12 @@
                     </div>
                     <div class="modal-body form-horizontal">
                         <div class="form-group form-inline">
-                            @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Nome do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.DropDownList("id_curso", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso" })
                         </div>
                         <div class="form-group form-inline">
-                            @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_aluno", @id = "id_aluno" })
+                            @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_disciplina", @id = "id_disciplina" })
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -61,8 +61,60 @@
         </div>
     }
     <!-- End Modal Cadastro-->
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Disciplinas dos Cursos</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Nome do Curso</p>
+                    <p id="cursoPDetalhes"></p>
+                    <br />
+                    <p>Nome da Disciplina</p>
+                    <p id="disciplinaPDetalhes"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "CursoDisciplinas", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Disciplinas do Curso</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_curso", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso_edit" })
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_disciplina", @id = "id_disciplina_edit" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,8 +172,12 @@
                         @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id_curso_disciplina }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id_curso_disciplina }) |
+                        <a href="" data-toggle="modal" data-target="#modalDetalhes" data-curso=@item.id_curso data-disciplina=@item.id_disciplina>
+                            Detalhes
+                        </a> |
+                        <a href="" data-toggle="modal" data-target="#modalEditar" data-curso=@item.id_curso data-disciplina=@item.id_disciplina>
+                            Editar
+                        </a> |
                         <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_curso_disciplina data-nome=@item.id_curso_disciplina>
                             Deletar
                         </a> |
@@ -144,6 +200,24 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var CursoItemDetalhes = botao.data('curso');
+                var DisciplinaItemDetalhes = botao.data('disciplina');
+                // seta as informações na modal fixa
+                $("#cursoPDetalhes").text(CursoItemDetalhes);
+                $("#disciplinaPDetalhes").text(DisciplinaItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var CursoItemEditando = botao.data('curso');
+                var DisciplinaItemEditando = botao.data('disciplina');
+                // seta as informações na modal fixa
+                $("#id_curso_edit").val(CursoItemEditando);
+                $("#id_disciplina_edit").val(DisciplinaItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
