@@ -1,5 +1,4 @@
-﻿@model MatriculaAcademica.Models.Matricula
-
+﻿@model MatriculaAcademica.Models.MyViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "";
@@ -25,33 +24,31 @@
 
 <div class="margin-custom1">
     <h2>Matricula da Escola Saber</h2>
-
     <div>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                Identificador da Matricula
+                Identificador da Matrícula
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => Model.id_matricula)
+                @Html.DisplayFor(model => model.matricula.id_matricula)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.data_matricula)
+                Data da Matrícula
             </dt>
             <dd>
                 @{
-                    string data_matricula = Model.data_matricula.Date.ToShortDateString();
+                    string data_matricula = Model.matricula.data_matricula.Date.ToShortDateString();
                 }
-                @Html.DisplayTextFor(m => data_matricula)
+                @Html.DisplayTextFor(model => data_matricula)
             </dd>
-
             <dt>
                 Nome do Aluno
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Aluno.nome_aluno)
+                @Html.DisplayFor(model => model.matricula.Aluno.nome_aluno)
             </dd>
 
             <dt>
@@ -59,7 +56,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Aluno.CPF)
+                @Html.DisplayFor(model => model.matricula.Aluno.CPF)
             </dd>
 
             <dt>
@@ -67,7 +64,10 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Aluno.nascimento)
+                @{
+                    string data_nascimento = Model.matricula.Aluno.nascimento.Date.ToShortDateString();
+                }
+                @Html.DisplayTextFor(model => data_nascimento)
             </dd>
 
             <dt>
@@ -75,19 +75,44 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Curso.nome_curso)
+                @Html.DisplayFor(model => model.matricula.Curso.nome_curso)
             </dd>
+
+            <dt>
+                Turno
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.matricula.Curso.turno)
+            </dd>
+
+            <dt>
+            </dt>
+
+            <dd>
+                @*@foreach (var item in Model.disciplina)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nome_disciplina)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nome_disciplina)
+                        </td>
+                    </tr>
+                 }*@
+                </dd>
 
             <dt>
                 Responsavel pela matricula
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Usuario.login)
+                @Html.DisplayFor(model => model.matricula.Usuario.login)
             </dd>
-
         </dl>
     </div>
     <p>
         @Html.ActionLink("Voltar", "Index")
     </p>
+

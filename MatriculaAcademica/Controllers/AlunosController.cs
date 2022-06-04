@@ -150,32 +150,20 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        var condicao = db.Aluno.Where(u => u.nome_aluno == aluno.nome_aluno && u.nascimento == aluno.nascimento).FirstOrDefault();
-                        if (condicao == null)
+                        try
                         {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            db.Entry(aluno).State = EntityState.Modified;
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Edição efetuada";
                             return RedirectToAction("Index");
                         }
-                        else
+                        catch (Exception e)
                         {
-                            try
-                            {
-                                db.Entry(aluno).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return RedirectToAction("Index");
-                            }
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            Console.WriteLine(e);
+                            return RedirectToAction("Index");
                         }
                     }
-                    Console.WriteLine(ModelState);
-                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");

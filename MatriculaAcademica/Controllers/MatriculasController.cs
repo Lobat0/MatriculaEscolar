@@ -47,12 +47,15 @@ namespace MatriculaAcademica.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
-                    Matricula matricula = db.Matricula.Find(id);
-                    if (matricula == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(matricula);
+
+                    var modelmat = new MyViewModel();
+                    modelmat.matricula = db.Matricula.Find(id);
+                    modelmat.cursodisciplina = db.CursoDisciplina.Find(modelmat.matricula.id_curso);
+                    modelmat.disciplina = db.Disciplina.Find(modelmat.cursodisciplina.id_disciplina);
+                    modelmat.professordisciplina = db.ProfessorDisciplina.Find(modelmat.disciplina.id_disciplina);
+                    modelmat.professor = db.Professor.Find(modelmat.professordisciplina.id_professor);
+                    return View(modelmat);
+
                 }
             }
             return RedirectToAction("Index", "Home");

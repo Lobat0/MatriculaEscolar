@@ -108,13 +108,19 @@
             <thead>
                 <tr>
                     <th>
-                        Data da Matricula
+                        Data da Matrícula
                     </th>
                     <th>
                         Nome do Aluno
                     </th>
                     <th>
+                        CPF
+                    </th>
+                    <th>
                         Nome do Curso
+                    </th>
+                    <th>
+                        Turno
                     </th>
                     <th>
                         Usuario
@@ -126,27 +132,33 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Convert.ToDateTime(item.data_matricula).ToString("dd/MM/yyyy")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Aluno.nome_aluno)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Curso.nome_curso)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Usuario.login)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_matricula }) |
-                            @Html.ActionLink("Imprimir", "Details", new { id = item.id_matricula }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.Aluno.nome_aluno>
-                                Deletar
-                            </a> |
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Convert.ToDateTime(item.data_matricula).ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Aluno.nome_aluno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Aluno.CPF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.nome_curso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.turno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuario.login)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id_matricula }) |
+                        @Html.ActionLink("Imprimir", "Details", new { id = item.id_matricula }) |
+                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.Aluno.nome_aluno>
+                            Deletar
+                        </a> |
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

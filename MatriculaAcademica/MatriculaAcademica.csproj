@@ -169,6 +169,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MatriculaAcademicaModelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyViewModel.cs" />
     <Compile Include="Models\Professor.cs">
       <DependentUpon>MatriculaAcademicaModelo.tt</DependentUpon>
     </Compile>
