@@ -16,6 +16,16 @@
     }
     <!-- End Alerta de Erro no Banco de Dados-->
 
+    <!-- Start Alerta de Sucesso no Banco de Dados-->
+    @if (Convert.ToString(Session["susdb.Msg"]) != "")
+    {
+        <div class="alert danger-alert bg-red fancybox-overlay-fixed" style="background-color: #00ff21;">
+            <h3>@Session["susdb.Msg"]</h3>
+            <a class="close">&times;</a>
+        </div>
+    }
+    <!-- End Alerta de Sucesso no Banco de Dados-->
+
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Novo Curso

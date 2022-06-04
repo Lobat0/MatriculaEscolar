@@ -83,11 +83,38 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
+                    //if (ModelState.IsValid)
+                    //{
+                    //    db.CursoDisciplina.Add(cursoDisciplina);
+                    //    db.SaveChanges();
+                    //    return RedirectToAction("Index");
+                    //}
+
                     if (ModelState.IsValid)
                     {
-                        db.CursoDisciplina.Add(cursoDisciplina);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        var condicao = db.CursoDisciplina.Where(u => u.id_curso == cursoDisciplina.id_curso && u.id_disciplina == cursoDisciplina.id_disciplina).FirstOrDefault();
+
+                        if (condicao != null)
+                        {
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                db.CursoDisciplina.Add(cursoDisciplina);
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
+                        }
                     }
 
                     ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", cursoDisciplina.id_curso);

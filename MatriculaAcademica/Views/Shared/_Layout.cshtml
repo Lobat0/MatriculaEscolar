@@ -96,13 +96,13 @@
     });
     $(document).ready(function () {
 
-        $("#CPF").inputmask("999.999.999-99");
+        $("#CPF").inputmask("999.999.999-99", { "clearIncomplete": true });
 
-        $("#cpfInputEditar").inputmask("999.999.999-99");
+        $("#cpfInputEditar").inputmask("999.999.999-99", { "clearIncomplete": true });
 
-        $('#telefone').inputmask("(99)9999[9]-9999");
+        $('#telefone').inputmask("(99)9999[9]-9999", { "clearIncomplete": true });
 
-        $('#telefoneInputEditar').inputmask("(99)9999[9]-9999");
+        $('#telefoneInputEditar').inputmask("(99)9999[9]-9999", { "clearIncomplete": true });;
 
     });
 </script>
