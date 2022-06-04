@@ -111,12 +111,11 @@ namespace MatriculaAcademica.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     db.Entry(curso).State = EntityState.Modified;
                     db.SaveChanges();
-                    Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                    Session["susdb.Msg"] = "Sucesso: Edição efetuada";
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)

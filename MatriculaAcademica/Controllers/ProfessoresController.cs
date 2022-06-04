@@ -214,8 +214,8 @@ namespace MatriculaAcademica.Controllers
                     }
                     catch (Exception e)
                     {
-                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                         Console.WriteLine(e);
+                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                         return RedirectToAction("Index");
                     }
                 }

@@ -90,7 +90,6 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-
                         var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
                         if (condicao != null)
                         {

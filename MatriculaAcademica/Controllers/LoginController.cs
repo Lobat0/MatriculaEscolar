@@ -11,7 +11,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class LoginController : Controller
     {
-        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
+        private readonly MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Login
         public ActionResult Index()
@@ -49,7 +49,7 @@ namespace MatriculaAcademica.Controllers
                         Session["id_usuario"] = usuario.id_usuario;
                         Session["dataAtual"] = DateTime.Now.ToString("yyyy-MM-dd");
                         ViewBag.Status = "200";
-                        return RedirectToAction("index", "Home");                    
+                        return RedirectToAction("index", "Home");
                     }
                 }
             }

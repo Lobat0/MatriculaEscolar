@@ -80,11 +80,13 @@ namespace MatriculaAcademica.Controllers
                         {
                             db.Usuario.Add(usuario);
                             db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                             return RedirectToAction("Index");
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
+                            Session["errodb.Msg"] = e.Message;
                             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                         }
                     }
@@ -136,12 +138,14 @@ namespace MatriculaAcademica.Controllers
                         {
                             db.Entry(usuario).State = EntityState.Modified;
                             db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Edição efetuada";
                             return RedirectToAction("Index");
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            Session["errodb.Msg"] = e.Message;
+                            return RedirectToAction("Error");
                         }
                     }
                     return RedirectToAction("Index");
@@ -188,11 +192,13 @@ namespace MatriculaAcademica.Controllers
                         Usuario usuario = db.Usuario.Find(id);
                         db.Usuario.Remove(usuario);
                         db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: item excluido";
                         return RedirectToAction("Index");
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
                 }
