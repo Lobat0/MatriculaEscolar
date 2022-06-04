@@ -73,7 +73,7 @@
           <Property Name="login" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="senha" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="tipo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <Association Name="FK_CursoDisciplina_Curso">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
@@ -282,7 +282,7 @@
           <Property Name="login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="senha" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Matricula" Relationship="MatriculaAcademicadbModel.FK_Matricula_Usuario" FromRole="Usuario" ToRole="Matricula" />
         </EntityType>
         <Association Name="FK_Matricula_Aluno">
