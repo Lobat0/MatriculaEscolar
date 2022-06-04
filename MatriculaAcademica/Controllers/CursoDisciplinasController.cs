@@ -177,7 +177,7 @@ namespace MatriculaAcademica.Controllers
                             {
                                 Session["errodb.Msg"] = e.Message;
                                 Console.WriteLine(e);
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                                return RedirectToAction("Index");
                             }
                         }
                     }
