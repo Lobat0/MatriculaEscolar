@@ -94,10 +94,13 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Curso.nome_curso)
+                        Nome do Curso
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Disciplina.nome_disciplina)
+                        Turno
+                    </th>
+                    <th>
+                        Nome da Disciplina
                     </th>
                     <th></th>
                 </tr>
@@ -106,21 +109,24 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Curso.nome_curso)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_curso_disciplina }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id_curso_disciplina }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_curso_disciplina data-nome=@item.id_curso_disciplina>
-                                Deletar
-                            </a> |
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.nome_curso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.turno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id_curso_disciplina }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id_curso_disciplina }) |
+                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_curso_disciplina data-nome=@item.id_curso_disciplina>
+                            Deletar
+                        </a> |
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

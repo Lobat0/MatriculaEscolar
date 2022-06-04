@@ -18,7 +18,7 @@ namespace MatriculaAcademica.Controllers
         public ActionResult Index()
         {
             ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
-            ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
+            ViewBag.id_professor = new MultiSelectList(db.Professor, "id_professor", "CPF", "nome_professor");
 
             if (Session["tipo"] != null)
             {
@@ -85,9 +85,29 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.ProfessorDisciplina.Add(professorDisciplina);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+
+                        var condicao = db.ProfessorDisciplina.Where(u => u.id_disciplina == professorDisciplina.id_disciplina && u.id_professor == professorDisciplina.id_professor).FirstOrDefault();
+                        if (condicao != null)
+                        {
+                            //variavel do erro de cadastro duplicado
+                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                db.ProfessorDisciplina.Add(professorDisciplina);
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                return RedirectToAction("Index");
+                            }
+                        }
                     }
 
                     ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
@@ -137,10 +157,31 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Entry(professorDisciplina).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        var condicao = db.ProfessorDisciplina.Where(u => u.id_disciplina == professorDisciplina.id_disciplina && u.id_professor == professorDisciplina.id_professor).FirstOrDefault();
+                        if (condicao != null)
+                        {
+                            //variavel do erro de alteração duplicada
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                db.Entry(professorDisciplina).State = EntityState.Modified;
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                Console.WriteLine(e);
+                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            }
+                        }
                     }
+
                     ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
                     ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
                     return View(professorDisciplina);
@@ -177,18 +218,20 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["tipo"] != null)
+            try
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
-                    db.ProfessorDisciplina.Remove(professorDisciplina);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
+                db.ProfessorDisciplina.Remove(professorDisciplina);
+                db.SaveChanges();
+                Session["susdb.Msg"] = "Sucesso: item excluido";
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception e)
+            {
+                Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                Console.WriteLine(e);
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

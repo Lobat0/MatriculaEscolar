@@ -16,11 +16,8 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    return View(db.Curso.ToList());
-                }
+                return View(db.Curso.ToList());
+
             }
             return RedirectToAction("Index", "Home");
         }
@@ -28,38 +25,30 @@ namespace MatriculaAcademica.Controllers
         // GET: Cursos/Details/5
         public ActionResult Details(int? id)
         {
+
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Curso curso = db.Curso.Find(id);
-                    if (curso == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(curso);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Curso curso = db.Curso.Find(id);
+                if (curso == null)
+                {
+                    return HttpNotFound();
+                }
+            return View(curso);
             }
             return RedirectToAction("Index", "Home");
+
         }
 
         // GET: Cursos/Create
         public ActionResult Create()
         {
-            if (Session["tipo"] != null)
-            {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Home");
+
+            return View();
+
         }
 
         // POST: Cursos/Create
@@ -69,52 +58,48 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_curso,nome_curso,duracao,turno")] Curso curso)
         {
-            if (Session["tipo"] != null)
+            if (ModelState.IsValid)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+
+                var condicao = db.Curso.Where(u => u.nome_curso == curso.nome_curso && u.turno == curso.turno).FirstOrDefault();
+                if (condicao != null)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        try
-                        {
-                            db.Curso.Add(curso);
-                            db.SaveChanges();
-                            return RedirectToAction("Index");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                        }
-                    }
+                    //variavel do erro de cadastro duplicado
+                    Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    try
+                    {
+                        db.Curso.Add(curso);
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         // GET: Cursos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["tipo"] != null)
+            if (id == null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Curso curso = db.Curso.Find(id);
-                    if (curso == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(curso);
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Index", "Home");
+            Curso curso = db.Curso.Find(id);
+            if (curso == null)
+            {
+                return HttpNotFound();
+            }
+            return View(curso);
         }
 
         // POST: Cursos/Edit/5
@@ -124,52 +109,48 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_curso,nome_curso,duracao,turno")] Curso curso)
         {
-            if (Session["tipo"] != null)
+            if (ModelState.IsValid)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+
+                var condicao = db.Curso.Where(u => u.nome_curso == curso.nome_curso && u.turno == curso.turno).FirstOrDefault();
+                if (condicao != null)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        try
-                        {
-                            db.Entry(curso).State = EntityState.Modified;
-                            db.SaveChanges();
-                            return RedirectToAction("Index");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                        }
-                    }
+                    //variavel do erro de cadastro duplicado
+                    Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    try
+                    {
+                        db.Entry(curso).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         // GET: Cursos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Session["tipo"] != null)
+            if (id == null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Curso curso = db.Curso.Find(id);
-                    if (curso == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(curso);
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Index", "Home");
+            Curso curso = db.Curso.Find(id);
+            if (curso == null)
+            {
+                return HttpNotFound();
+            }
+            return View(curso);
         }
 
         // POST: Cursos/Delete/5
@@ -177,26 +158,20 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["tipo"] != null)
+            try
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
-                {
-                    try
-                    {
-                        Curso curso = db.Curso.Find(id);
-                        db.Curso.Remove(curso);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                }
+                Curso curso = db.Curso.Find(id);
+                db.Curso.Remove(curso);
+                db.SaveChanges();
+                Session["susdb.Msg"] = "Sucesso: item excluido";
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception e)
+            {
+                Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                Console.WriteLine(e);
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

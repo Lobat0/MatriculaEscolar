@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("id_professor", null, htmlAttributes: new { @class = "form-control", @name = "id_aluno", @id = "id_aluno" })
+                            @Html.DropDownList("id_professor", null, htmlAttributes: new { @class = "form-control", @name = "id_professor", @id = "id_professor" })
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -106,10 +106,13 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Disciplina.nome_disciplina)
+                        Nome da Disciplina
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Professor.nome_professor)
+                        Nome do Professor
+                    </th>
+                    <th>
+                        CPF
                     </th>
                     <th></th>
                 </tr>
@@ -118,20 +121,23 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Professor.nome_professor)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor_disciplina data-nome=@item.id_professor_disciplina>
-                                Deletar
-                            </a> |
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Professor.nome_professor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Professor.CPF)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
+                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor_disciplina data-nome=@item.id_professor_disciplina>
+                            Deletar
+                        </a> |
+                </tr>
                 }
             </tbody>
         </table>

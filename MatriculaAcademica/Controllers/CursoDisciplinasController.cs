@@ -17,7 +17,7 @@ namespace MatriculaAcademica.Controllers
         // GET: CursoDisciplinas
         public ActionResult Index()
         {
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+            ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
             ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
 
             if (Session["tipo"] != null)
@@ -63,7 +63,7 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+                    ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
                     ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
                     return View();
                 }
@@ -83,17 +83,10 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "admin"))
                 {
-                    //if (ModelState.IsValid)
-                    //{
-                    //    db.CursoDisciplina.Add(cursoDisciplina);
-                    //    db.SaveChanges();
-                    //    return RedirectToAction("Index");
-                    //}
-
                     if (ModelState.IsValid)
                     {
-                        var condicao = db.CursoDisciplina.Where(u => u.id_curso == cursoDisciplina.id_curso && u.id_disciplina == cursoDisciplina.id_disciplina).FirstOrDefault();
 
+                        var condicao = db.CursoDisciplina.Where(u => u.id_curso == cursoDisciplina.id_curso && u.id_disciplina == cursoDisciplina.id_disciplina).FirstOrDefault();
                         if (condicao != null)
                         {
                             //variavel do erro de cadastro duplicado
@@ -164,10 +157,31 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Entry(cursoDisciplina).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        var condicao = db.CursoDisciplina.Where(u => u.id_curso == cursoDisciplina.id_curso && u.id_disciplina == cursoDisciplina.id_disciplina).FirstOrDefault();
+                        if (condicao != null)
+                        {
+                            //variavel do erro de alteração duplicada
+                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                db.Entry(cursoDisciplina).State = EntityState.Modified;
+                                db.SaveChanges();
+                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                                return RedirectToAction("Index");
+                            }
+                            catch (Exception e)
+                            {
+                                Session["errodb.Msg"] = e.Message;
+                                Console.WriteLine(e);
+                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            }
+                        }
                     }
+
                     ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", cursoDisciplina.id_curso);
                     ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", cursoDisciplina.id_disciplina);
                     return View(cursoDisciplina);
@@ -204,10 +218,20 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CursoDisciplina cursoDisciplina = db.CursoDisciplina.Find(id);
-            db.CursoDisciplina.Remove(cursoDisciplina);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                CursoDisciplina cursoDisciplina = db.CursoDisciplina.Find(id);
+                db.CursoDisciplina.Remove(cursoDisciplina);
+                db.SaveChanges();
+                Session["susdb.Msg"] = "Sucesso: item excluido";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                Console.WriteLine(e);
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <select class="form-select" id="turno" name="turno" required>
+                            <select class="form-control form-select" id="turno" name="turno" required>
                                 <option value="Matutino">Matutino</option>
                                 <option value="Vespertino">Vespertino</option>
                                 <option value="Noturno">Noturno</option>
@@ -124,7 +124,12 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="text" name="turno" id="turnoInputEditar" value="" style="border-color:red" />
+                            <select class="form-control form-select" id="turno" name="turno" required>
+                                <option value="Matutino">Matutino</option>
+                                <option value="Vespertino">Vespertino</option>
+                                <option value="Noturno">Noturno</option>
+                                <option value="Integral">Integral</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -136,6 +141,7 @@
         </div>
     </div>
     <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
