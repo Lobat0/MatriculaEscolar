@@ -23,7 +23,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     var professorDisciplina = db.ProfessorDisciplina.Include(p => p.Disciplina).Include(p => p.Professor);
                     return View(professorDisciplina.ToList());
@@ -38,7 +38,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {
@@ -61,7 +61,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
                     ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
@@ -81,7 +81,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (ModelState.IsValid)
                     {
@@ -124,7 +124,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {
@@ -153,7 +153,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (ModelState.IsValid)
                     {
@@ -196,7 +196,7 @@ namespace MatriculaAcademica.Controllers
             if (Session["tipo"] != null)
             {
                 string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "admin"))
+                if (string.Equals(permissao, "Admin"))
                 {
                     if (id == null)
                     {

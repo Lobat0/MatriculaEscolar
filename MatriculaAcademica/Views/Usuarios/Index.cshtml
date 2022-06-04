@@ -54,17 +54,13 @@
                             @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
                             <input class="form-control col-md-10" type="email" name="email" id="email" style="border-color:red" />
                         </div>
-                        @if (Session["tipo"] != null)
-                        {
-                            string permissao = (Session["tipo"] as string).Trim();
-                            if (string.Equals(permissao, "admin"))
-                            {
-                                <div class="form-group form-inline">
-                                    @Html.Label("Tipo", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <input class="form-control col-md-10" type="text" name="tipo" id="tipo" style="border-color:red" />
-                                </div>
-                            }
-                        }
+                        <div class="form-group form-inline">
+                        @Html.Label("Tipo", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <select class="form-control form-select" id="tipo" name="tipo" required>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Funcionario">Funcionario</option>
+                                </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -133,7 +129,10 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Tipo", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control col-md-10" type="text" name="tipo" id="tipoInputEditar" value="" style="border-color:red" />
+                            <select class="form-control form-select" id="tipo" name="tipo" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Funcionario">Funcionario</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -176,16 +175,16 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.login)
+                        Login
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.email)
+                        E-mail
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.senha)
+                        Senha
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.tipo)
+                        Tipo
                     </th>
                     <th></th>
                 </tr>
@@ -194,31 +193,31 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.login)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.senha)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tipo)
-                        </td>
-                        <td>
-                            <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-tipo=@item.tipo>
-                                Detalhes
-                            </a> |
-                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-senha=@item.senha data-tipo=@item.tipo>
-                                Editar
-                            </a> |
-                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_usuario data-login="@item.login">
-                                Deletar
-                            </a> |
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.senha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tipo)
+                    </td>
+                    <td>
+                        <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-tipo=@item.tipo>
+                            Detalhes
+                        </a> |
+                        <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_usuario data-login="@item.login" data-email="@item.email" data-senha=@item.senha data-tipo=@item.tipo>
+                            Editar
+                        </a> |
+                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_usuario data-login="@item.login">
+                            Deletar
+                        </a> |
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
