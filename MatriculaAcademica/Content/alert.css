@@ -22,14 +22,14 @@ h3 {
 
 .close {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 25px; /*30px*/
+    height: 25px;
     opacity: 0.5;
     border-width: 1px;
     border-style: solid;
     border-radius: 50%;
-    right: 15px;
-    top: 25px;
+    right: 15px; /*15px*/
+    top: 25px; /*25px*/
     text-align: center;
     font-size: 1.6em;
     cursor: pointer;
