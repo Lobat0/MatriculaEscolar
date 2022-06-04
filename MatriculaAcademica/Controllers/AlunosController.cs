@@ -150,7 +150,8 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (db.Aluno.Any(a1 => a1.CPF.Equals(aluno.CPF)))
+                        var condicao = db.Aluno.Where(u => u.nome_aluno == aluno.nome_aluno && u.nascimento == aluno.nascimento).FirstOrDefault();
+                        if (condicao == null)
                         {
                             //variavel do erro de alteração duplicada
                             Session["errodb.Msg"] = "Erro: Edição com itens iguais";

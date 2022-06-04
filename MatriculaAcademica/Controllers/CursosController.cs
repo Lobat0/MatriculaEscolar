@@ -116,12 +116,13 @@ namespace MatriculaAcademica.Controllers
                 {
                     db.Entry(curso).State = EntityState.Modified;
                     db.SaveChanges();
-                    Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                    Session["susdb.Msg"] = "Sucesso: Edição efetuada";
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
                 {
-                    Session["errodb.Msg"] = e.Message;
+                    Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
+                    Console.WriteLine(e);
                     return RedirectToAction("Index");
                 }
             }

@@ -165,13 +165,6 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "Admin"))
                 {
-                    //if (ModelState.IsValid)
-                    //{
-                    //    db.Entry(matricula).State = EntityState.Modified;
-                    //    db.SaveChanges();
-                    //    return RedirectToAction("Index");
-                    //}
-
                     if (ModelState.IsValid)
                     {
                         var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
@@ -198,9 +191,6 @@ namespace MatriculaAcademica.Controllers
                             }
                         }
                     }
-
-
-
                     ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
                     ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
                     ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
@@ -243,10 +233,20 @@ namespace MatriculaAcademica.Controllers
                 string permissao = (Session["tipo"] as string).Trim();
                 if (string.Equals(permissao, "Admin"))
                 {
-                    Matricula matricula = db.Matricula.Find(id);
-                    db.Matricula.Remove(matricula);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        Matricula matricula = db.Matricula.Find(id);
+                        db.Matricula.Remove(matricula);
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: item excluido";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
+                    }
                 }
             }
             return RedirectToAction("Index", "Home");

@@ -16,7 +16,6 @@
         </div>
     }
     <!-- End Alerta de Erro no Banco de Dados-->
-
     <!-- Start Alerta de Sucesso no Banco de Dados-->
     @if (Convert.ToString(Session["susdb.Msg"]) != "")
     {
@@ -26,7 +25,6 @@
         </div>
     }
     <!-- End Alerta de Sucesso no Banco de Dados-->
-
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Nova Disciplina
@@ -45,7 +43,7 @@
                     <div class="modal-body form-horizontal">
                         <div class="form-group form-inline">
                             @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control" type="text" name="nome_disciplina" id="nome_disciplina" style="border-color:red" required/>
+                            <input class="form-control" type="text" name="nome_disciplina" id="nome_disciplina" style="border-color:red" required />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -66,14 +64,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="modalDetalhesTitulo">Detalhes da Disciplina</h4>
                 </div>
-                <div class="modal-body form-horizontal">
-                    <div class="form-group form-inline">
+                <div class="modal-body">
                         <h4><b>Identificador da Disciplina</b></h4>
                         <p id="idInputDetalhes"></p>
                         <br />
                         <h4><b>Nome da Disciplina</b></h4>
                         <p id="nomeInputDetalhes"></p>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -82,7 +78,6 @@
         </div>
     </div>
     <!-- End Modal Detalhes-->
-
     <!-- Start Modal Edit-->
     <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
         <div class="modal-dialog" role="document">
@@ -110,7 +105,6 @@
         </div>
     </div>
     <!-- End Modal Edit-->
-
     <!-- Start Modal Delete-->
     <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
