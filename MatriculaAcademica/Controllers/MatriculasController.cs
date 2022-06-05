@@ -36,7 +36,42 @@ namespace MatriculaAcademica.Controllers
             {
                 if (id == null)
                 {
+<<<<<<< HEAD
                     return RedirectToAction("Index", "Home");
+=======
+                    if (id == null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    var modelmat = new MyViewModel();
+                    modelmat.matricula = db.Matricula.Find(id);
+                    modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
+                    modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
+                    // deve ter um jeito mais facil de catar todas as disciplinas
+                    List<ProfessorDisciplina> professores = new List<ProfessorDisciplina>();
+                    foreach (Disciplina disc in modelmat.disciplinas)
+                    {
+                        professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
+                    }
+                    modelmat.professordisciplina = professores;
+                    try 
+                    {
+                        foreach (var item in professores)
+                        {
+                            if (item.Professor.id_professor != item.id_professor)
+                            {
+                                Session["errodb.Msg"] = "Erro";
+                            }
+                        }
+                        modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                    }
+                    catch (Exception ex)    
+                    {
+                        Session["errodb.Msg"] = ex.Message;
+                        return RedirectToAction("Index");
+                    }
+                    return View(modelmat);
+>>>>>>> 6c6dc4eba031511cfd433c0c66179d821277a044
                 }
                 var modelmat = new MyViewModel();
                 modelmat.matricula = db.Matricula.Find(id);
