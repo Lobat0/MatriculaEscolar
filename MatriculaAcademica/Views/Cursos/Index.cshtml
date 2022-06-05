@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Duração", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input class="form-control col-md-10" type="text" name="duracao" id="duracao" min="1" style="border-color:red" required />
+                            <input class="form-control col-md-10" type="number" name="duracao" id="duracao" min="1" style="border-color:red" required />
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Turno", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -198,7 +198,7 @@
                             @Html.DisplayFor(modelItem => item.turno)
                         </td>
                         <td>
-                            @Html.ActionLink("Disciplinas", "Index", "CursoDisciplinas") |
+                            @Html.ActionLink("Disciplinas", "Disciplinas", "CursoDisciplinas", new { id = item.id_curso }, null) |
                             <a href="" data-toggle="modal" data-target="#modalDetalhes" data-id=@item.id_curso data-nome="@item.nome_curso" data-duracao="@item.duracao" data-turno=@item.turno>
                                 Detalhes
                             </a> |

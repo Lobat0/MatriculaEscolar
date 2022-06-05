@@ -9,7 +9,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class CursosController : Controller
     {
-        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
+        private readonly MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Cursos
         public ActionResult Index()
@@ -30,25 +30,27 @@ namespace MatriculaAcademica.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    Session["errodb.Msg"] = "Erro: Curso não encontrado";
+                    return RedirectToAction("Index");
                 }
                 Curso curso = db.Curso.Find(id);
                 if (curso == null)
                 {
                     return HttpNotFound();
                 }
-            return View(curso);
+                return View(curso);
             }
             return RedirectToAction("Index", "Home");
-
         }
 
         // GET: Cursos/Create
         public ActionResult Create()
         {
-
-            return View();
-
+            if (Session["tipo"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Cursos/Create
@@ -58,17 +60,9 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_curso,nome_curso,duracao,turno")] Curso curso)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-
-                var condicao = db.Curso.Where(u => u.nome_curso == curso.nome_curso && u.turno == curso.turno).FirstOrDefault();
-                if (condicao != null)
-                {
-                    //variavel do erro de cadastro duplicado
-                    Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
-                    return RedirectToAction("Index");
-                }
-                else
+                if (ModelState.IsValid)
                 {
                     try
                     {
@@ -83,23 +77,30 @@ namespace MatriculaAcademica.Controllers
                         return RedirectToAction("Index");
                     }
                 }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Cursos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Curso não encontrado";
+                    return RedirectToAction("Index");
+                }
+                Curso curso = db.Curso.Find(id);
+                if (curso == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Curso não encontrado";
+                    return RedirectToAction("Index");
+                }
+                return View(curso);
             }
-            Curso curso = db.Curso.Find(id);
-            if (curso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(curso);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Cursos/Edit/5
@@ -109,38 +110,48 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_curso,nome_curso,duracao,turno")] Curso curso)
         {
-            if (ModelState.IsValid)
+            if (Session["tipo"] != null)
             {
-                try
+                if (ModelState.IsValid)
                 {
-                    db.Entry(curso).State = EntityState.Modified;
-                    db.SaveChanges();
-                    Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(curso).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
+                    }
                 }
-                catch (Exception e)
-                {
-                    Session["errodb.Msg"] = "Erro: Edição com itens duplicados";
-                    Console.WriteLine(e);
-                    return RedirectToAction("Index");
-                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Cursos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["tipo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Curso não encontrado";
+                    return RedirectToAction("Index");
+                }
+                Curso curso = db.Curso.Find(id);
+                if (curso == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Curso não encontrado";
+                    return RedirectToAction("Index");
+                }
+                return View(curso);
             }
-            Curso curso = db.Curso.Find(id);
-            if (curso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(curso);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Cursos/Delete/5
@@ -148,20 +159,24 @@ namespace MatriculaAcademica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            try
+            if (Session["tipo"] != null)
             {
-                Curso curso = db.Curso.Find(id);
-                db.Curso.Remove(curso);
-                db.SaveChanges();
-                Session["susdb.Msg"] = "Sucesso: item excluido";
-                return RedirectToAction("Index");
+                try
+                {
+                    Curso curso = db.Curso.Find(id);
+                    db.Curso.Remove(curso);
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: item excluido";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                    Console.WriteLine(e);
+                    return RedirectToAction("Index");
+                }
             }
-            catch (Exception e)
-            {
-                Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
-                Console.WriteLine(e);
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
