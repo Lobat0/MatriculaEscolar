@@ -22,12 +22,8 @@ namespace MatriculaAcademica.Controllers
 
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    var professorDisciplina = db.ProfessorDisciplina.Include(p => p.Disciplina).Include(p => p.Professor);
-                    return View(professorDisciplina.ToList());
-                }
+                var professorDisciplina = db.ProfessorDisciplina.Include(p => p.Disciplina).Include(p => p.Professor);
+                return View(professorDisciplina.ToList());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -37,20 +33,18 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
-                    if (professorDisciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(professorDisciplina);
+                    Session["errodb.Msg"] = "Erro: ID da disciplina não encontrado.";
+                    return RedirectToAction("Index", "Professores");
                 }
+                ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
+                if (professorDisciplina == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Disciplina não encontrada.";
+                    return RedirectToAction("Index", "Professores");
+                }
+                return View(professorDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -60,13 +54,9 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
-                    ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
-                    return View();
-                }
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
+                ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor");
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -80,40 +70,36 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
-                    {
 
-                        var condicao = db.ProfessorDisciplina.Where(u => u.id_disciplina == professorDisciplina.id_disciplina && u.id_professor == professorDisciplina.id_professor).FirstOrDefault();
-                        if (condicao != null)
+                    var condicao = db.ProfessorDisciplina.Where(u => u.id_disciplina == professorDisciplina.id_disciplina && u.id_professor == professorDisciplina.id_professor).FirstOrDefault();
+                    if (condicao != null)
+                    {
+                        //variavel do erro de cadastro duplicado
+                        Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                        return RedirectToAction("Disciplinas", new { id = professorDisciplina.id_professor });
+                    }
+                    else
+                    {
+                        try
                         {
-                            //variavel do erro de cadastro duplicado
-                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
-                            return RedirectToAction("Index");
+                            db.ProfessorDisciplina.Add(professorDisciplina);
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
+                            return RedirectToAction("Disciplinas", new { id = professorDisciplina.id_professor });
                         }
-                        else
+                        catch (Exception e)
                         {
-                            try
-                            {
-                                db.ProfessorDisciplina.Add(professorDisciplina);
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                return RedirectToAction("Index");
-                            }
+                            Session["errodb.Msg"] = e.Message;
+                            return RedirectToAction("Index", "Professores");
                         }
                     }
-
-                    ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
-                    ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
-                    return View(professorDisciplina);
                 }
+
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
+                ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
+                return View(professorDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -123,22 +109,18 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
-                    if (professorDisciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
-                    ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
-                    return View(professorDisciplina);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
+                if (professorDisciplina == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
+                ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
+                return View(professorDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -176,25 +158,51 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: ProfessoresDisciplinas/Disciplinas/5
+        public ActionResult Disciplinas(int? id)
+        {
+            if (Session["tipo"] != null)
+            {
+                if (id == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Professor/Disciplinas não encontrados";
+                    return RedirectToAction("Index", "Professores");
+                }
+                Professor professor = db.Professor.Find(id);
+                if (professor == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Professor/Disciplinas não encontrados";
+                    return RedirectToAction("Index", "Professores");
+                }
+                IEnumerable<Disciplina> disciplinas = professor.ProfessorDisciplina.Select(pd => pd.Disciplina);
+                ViewBag.disciplinas = disciplinas;
+                ViewBag.professor = professor;
+
+                ViewBag.id_professor = new MultiSelectList(db.Professor, "id_professor", "nome_professor", "CPF");
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina");
+
+                return View(disciplinas);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: ProfessoresDisciplinas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
-                    if (professorDisciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(professorDisciplina);
+                    Session["errodb.Msg"] = "Erro: ID da disciplina não encontrado.";
+                    return RedirectToAction("Index", "Professores");
                 }
+                ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Find(id);
+                if (professorDisciplina == null)
+                {
+                    Session["errodb.Msg"] = "Erro: Disciplina não encontrada.";
+                    return RedirectToAction("Index", "Professores");
+                }
+                return View(professorDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -210,14 +218,39 @@ namespace MatriculaAcademica.Controllers
                 db.ProfessorDisciplina.Remove(professorDisciplina);
                 db.SaveChanges();
                 Session["susdb.Msg"] = "Sucesso: item excluido";
-                return RedirectToAction("Index");
+                return RedirectToAction("Disciplinas", new { id = professorDisciplina.id_professor });
             }
             catch (Exception e)
             {
                 Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
                 Console.WriteLine(e);
-                return RedirectToAction("Index");
+                return RedirectToAction("Disciplinas", new { id = id });
             }
+        }
+
+        // POST: ProfessorDisciplinas/DeleteSemId/5
+        [HttpPost, ActionName("DeleteSemId")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSemId(int id_professor, int id_disciplina)
+        {
+            if (Session["tipo"] != null)
+            {
+                try
+                {
+                    ProfessorDisciplina professorDisciplina = db.ProfessorDisciplina.Where(pd => pd.id_professor == id_professor && pd.id_disciplina == id_disciplina).FirstOrDefault();
+                    db.ProfessorDisciplina.Remove(professorDisciplina);
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: item excluido";
+                    return RedirectToAction("Disciplinas", new { id = professorDisciplina.id_professor });
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                    Console.WriteLine(e);
+                    return RedirectToAction("Disciplinas", new { id = id_professor });
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

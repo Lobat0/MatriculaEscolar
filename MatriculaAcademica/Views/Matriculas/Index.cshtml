@@ -27,7 +27,6 @@
         </div>
     }
     <!-- End Alerta de Erro no Banco de Dados-->
-
     <!-- Start Alerta de Sucesso no Banco de Dados-->
     @if (Convert.ToString(Session["susdb.Msg"]) != "")
     {
@@ -37,7 +36,6 @@
         </div>
     }
     <!-- End Alerta de Sucesso no Banco de Dados-->
-
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Nova Matricula
@@ -75,8 +73,44 @@
     }
     <!-- End Modal Cadastro-->
 
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-2" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "Matriculas", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Matrícula</h4>
+                    </div>
+
+                    <div class="modal-body form-horizontal">
+                        <input type="hidden" name="id_matricula" id="id_matricula_edit" />
+                        <input class="form-control col-md-10" type="hidden" name="data_matricula" id="data_matricula" value=@Session["dataAtual"] style="border-color:red" />
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_curso", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso_edit" })
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome do Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_aluno", null, htmlAttributes: new { @class = "form-control", @name = "id_aluno", @id = "id_aluno_edit" })
+                        </div>
+                        <input class="form-control col-md-10" type="hidden" name="id_usuario" id="id_usuario" value=@Session["id_usuario"] style="border-color:red" hidden />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-3" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,33 +166,35 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Convert.ToDateTime(item.data_matricula).ToString("dd/MM/yyyy")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Aluno.nome_aluno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Aluno.CPF)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Curso.nome_curso)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Curso.turno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Usuario.login)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id_matricula }) |
-                        @Html.ActionLink("Imprimir", "Details", new { id = item.id_matricula }) |
-                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.Aluno.nome_aluno>
-                            Deletar
-                        </a> |
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Convert.ToDateTime(item.data_matricula).ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aluno.nome_aluno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aluno.CPF)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Curso.nome_curso)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Curso.turno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario.login)
+                        </td>
+                        <td>
+                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_matricula data-curso=@item.id_curso data-aluno="@item.id_aluno">
+                                Editar
+                            </a> |
+                            @Html.ActionLink("Imprimir", "Details", new { id = item.id_matricula }) |
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_matricula data-nome=@item.Aluno.nome_aluno>
+                                Deletar
+                            </a> |
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -176,6 +212,17 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IdItemEditando = botao.data('id');
+                var CursoItemEditando = botao.data('curso');
+                var AlunoItemEditando = botao.data('aluno');
+                // seta as informações na modal fixa
+                $("input#id_matricula_edit").val(IdItemEditando);
+                $("#id_curso_edit").val(CursoItemEditando);
+                $("#id_aluno_edit").val(AlunoItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal

@@ -12,7 +12,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class MatriculasController : Controller
     {
-        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
+        private readonly MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: Matriculas
         public ActionResult Index()
@@ -23,12 +23,8 @@ namespace MatriculaAcademica.Controllers
 
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Curso).Include(m => m.Usuario);
-                    return View(matricula.ToList());
-                }
+                var matricula = db.Matricula.Include(m => m.Aluno).Include(m => m.Curso).Include(m => m.Usuario);
+                return View(matricula.ToList());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -38,27 +34,23 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    var modelmat = new MyViewModel();
-                    modelmat.matricula = db.Matricula.Find(id);
-                    modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
-                    modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
-                    // deve ter um jeito mais facil de catar todas as disciplinas
-                    List<ProfessorDisciplina> professores = new List<ProfessorDisciplina>();
-                    foreach (Disciplina disc in modelmat.disciplinas)
-                    {
-                        professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
-                    }
-                    modelmat.professordisciplina = professores;
-                    modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
-                    return View(modelmat);
+                    return RedirectToAction("Index", "Home");
                 }
+                var modelmat = new MyViewModel();
+                modelmat.matricula = db.Matricula.Find(id);
+                modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
+                modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
+                // deve ter um jeito mais facil de catar todas as disciplinas
+                List<ProfessorDisciplina> professores = new List<ProfessorDisciplina>();
+                foreach (Disciplina disc in modelmat.disciplinas)
+                {
+                    professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
+                }
+                modelmat.professordisciplina = professores;
+                modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                return View(modelmat);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -68,17 +60,13 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
-                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
-                    return View();
-                }
+                ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
+                ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+                ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
+                return View();
             }
             return RedirectToAction("Index", "Home");
-            
+
         }
 
         // POST: Matriculas/Create
@@ -90,42 +78,38 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
+                    if (condicao != null)
                     {
-                        var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
-                        if (condicao != null)
+                        //variavel do erro de cadastro duplicado
+                        Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        try
                         {
-                            //variavel do erro de cadastro duplicado
-                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                            db.Matricula.Add(matricula);
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                             return RedirectToAction("Index");
                         }
-                        else
+                        catch (Exception e)
                         {
-                            try
-                            {
-                                db.Matricula.Add(matricula);
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                return RedirectToAction("Index");
-                            }
+                            Session["errodb.Msg"] = e.Message;
+                            return RedirectToAction("Index");
                         }
                     }
-
-                    //ViewBag.id_aluno = new MultiSelectList(db.Curso, "id_curso", "nome_aluno", "CPF");
-                    //ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
-                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
-                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
-                    return View(matricula);
                 }
+
+                //ViewBag.id_aluno = new MultiSelectList(db.Curso, "id_curso", "nome_aluno", "CPF");
+                //ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
+                ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
+                ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+                ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
+                return View(matricula);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -136,23 +120,19 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Matricula matricula = db.Matricula.Find(id);
-                    if (matricula == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
-                    return View(matricula);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Matricula matricula = db.Matricula.Find(id);
+                if (matricula == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+                ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
+                ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                return View(matricula);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -166,40 +146,26 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    try
                     {
-                        var condicao = db.Matricula.Where(u => u.id_curso == matricula.id_curso && u.id_aluno == matricula.id_aluno).FirstOrDefault();
-                        if (condicao != null)
-                        {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            try
-                            {
-                                db.Entry(matricula).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                            }
-                        }
+                        db.Entry(matricula).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
                     }
-                    ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
-                    ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
-                    return View(matricula);
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
+                    }
                 }
+                ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno", matricula.id_aluno);
+                ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", matricula.id_curso);
+                ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login", matricula.id_usuario);
+                return View(matricula);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -209,20 +175,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Matricula matricula = db.Matricula.Find(id);
-                    if (matricula == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(matricula);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Matricula matricula = db.Matricula.Find(id);
+                if (matricula == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(matricula);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -234,23 +196,19 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                try
                 {
-                    try
-                    {
-                        Matricula matricula = db.Matricula.Find(id);
-                        db.Matricula.Remove(matricula);
-                        db.SaveChanges();
-                        Session["susdb.Msg"] = "Sucesso: item excluido";
-                        return RedirectToAction("Index");
-                    }
-                    catch (Exception e)
-                    {
-                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
-                        Console.WriteLine(e);
-                        return RedirectToAction("Index");
-                    }
+                    Matricula matricula = db.Matricula.Find(id);
+                    db.Matricula.Remove(matricula);
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: item excluido";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                    Console.WriteLine(e);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");

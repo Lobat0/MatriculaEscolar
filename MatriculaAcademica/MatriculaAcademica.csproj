@@ -620,6 +620,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CursoDisciplinas\Disciplinas.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\ProfessoresDisciplinas\Disciplinas.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

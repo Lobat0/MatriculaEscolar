@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<MatriculaAcademica.Models.Disciplina>
 
 @{
-    ViewBag.Title = "Disciplinas do Curso";
+    ViewBag.Title = "Disciplinas do Professor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="margin-custom1">
-    <h2>Disciplinas de @(ViewBag.curso.nome_curso)</h2>
+    <h2>Disciplinas de @(ViewBag.professor.nome_professor)</h2>
 
     <!-- Start Alerta de Erro no Banco de Dados-->
     @if (Convert.ToString(Session["errodb.Msg"]) != "")
@@ -28,13 +28,13 @@
     <!-- End Alerta de Sucesso no Banco de Dados-->
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
-        Adicionar Disciplina no Curso
+        Adicionar Disciplina do Professor
     </button>
     <a href="/Disciplinas" class="btn btn-primary btn-lg">
         Editar disciplinas
     </a>
     <hr />
-    @using (Html.BeginForm("Create", "CursoDisciplinas", FormMethod.Post))
+    @using (Html.BeginForm("Create", "ProfessoresDisciplinas", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel">
@@ -42,10 +42,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modalCadastro">Cadastro de Disciplina do Curso</h4>
+                        <h4 class="modal-title" id="modalCadastro">Cadastro de Disciplina do Professor</h4>
                     </div>
                     <div class="modal-body form-horizontal">
-                        <input type="hidden" id="id_curso" name="id_curso" value=@ViewBag.curso.id_curso>
+                        <input type="hidden" id="id_professor" name="id_professor" value=@ViewBag.professor.id_professor>
                         <div class="form-group form-inline">
                             @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_disciplina", @id = "id_disciplina" })
@@ -68,14 +68,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="modalDeletarTitulo">Remover Disciplina do Curso</h4>
-                    Tem certeza que quer remover disciplina: <b id="nomeItemDeletar"></b> do curso?
+                    <h4 class="modal-title" id="modalDeletarTitulo">Remover Disciplina do Professor</h4>
+                    Tem certeza que quer remover disciplina: <b id="nomeItemDeletar"></b> do professor?
                 </div>
                 <div class="modal-footer">
-                    @using (Html.BeginForm("DeleteSemId", "CursoDisciplinas", FormMethod.Post))
+                    @using (Html.BeginForm("DeleteSemId", "ProfessoresDisciplinas", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="hidden" id="cursoInputDeletar" name="id_curso" value=@ViewBag.curso.id_curso>
+                        <input type="hidden" id="professorInputDeletar" name="id_professor" value=@ViewBag.professor.id_professor>
                         <input type="hidden" id="disciplinaInputDeletar" name="id_disciplina" value="">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Deletar</button>
@@ -89,7 +89,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <table class="table table-striped table-bordered" id="TabelaCursoDisciplina">
+        <table class="table table-striped table-bordered" id="TabelaProfessorDisciplina">
             <thead>
                 <tr>
                     <th>
@@ -119,7 +119,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#TabelaCursoDisciplina").DataTable({
+            $("#TabelaProfessorDisciplina").DataTable({
                 "language": {
                     "lengthMenu": "Exibe _MENU_ Registros por página",
                     "search": "Procurar",
@@ -143,4 +143,3 @@
     </script>
 
 </div>
-

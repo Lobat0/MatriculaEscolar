@@ -35,12 +35,14 @@ namespace MatriculaAcademica.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    Session["errodb.Msg"] = "Erro: ID da disciplina não encontrado.";
+                    return RedirectToAction("Index", "Cursos");
                 }
                 CursoDisciplina cursoDisciplina = db.CursoDisciplina.Find(id);
                 if (cursoDisciplina == null)
                 {
-                    return HttpNotFound();
+                    Session["errodb.Msg"] = "Erro: Disciplina não encontrada.";
+                    return RedirectToAction("Index", "Cursos");
                 }
                 return View(cursoDisciplina);
             }
@@ -232,7 +234,7 @@ namespace MatriculaAcademica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: CursoDisciplinas/Delete/5
+        // POST: CursoDisciplinas/DeleteSemId/5
         [HttpPost, ActionName("DeleteSemId")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteSemId(int id_curso, int id_disciplina)
