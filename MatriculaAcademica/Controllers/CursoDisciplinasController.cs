@@ -152,40 +152,27 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    try
                     {
-                        var condicao = db.CursoDisciplina.Where(u => u.id_curso == cursoDisciplina.id_curso && u.id_disciplina == cursoDisciplina.id_disciplina).FirstOrDefault();
-                        if (condicao != null)
-                        {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            try
-                            {
-                                db.Entry(cursoDisciplina).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return RedirectToAction("Index");
-                            }
-                        }
+                        db.Entry(cursoDisciplina).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
                     }
 
-                    ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", cursoDisciplina.id_curso);
-                    ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", cursoDisciplina.id_disciplina);
-                    return View(cursoDisciplina);
                 }
+
+                ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso", cursoDisciplina.id_curso);
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", cursoDisciplina.id_disciplina);
+                return View(cursoDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }

@@ -12,7 +12,7 @@ namespace MatriculaAcademica.Controllers
 {
     public class ProfessoresDisciplinasController : Controller
     {
-        private MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
+        private readonly MatriculaAcademicadbEntities1 db = new MatriculaAcademicadbEntities1();
 
         // GET: ProfessoresDisciplinas
         public ActionResult Index()
@@ -152,40 +152,26 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    try
                     {
-                        var condicao = db.ProfessorDisciplina.Where(u => u.id_disciplina == professorDisciplina.id_disciplina && u.id_professor == professorDisciplina.id_professor).FirstOrDefault();
-                        if (condicao != null)
-                        {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            try
-                            {
-                                db.Entry(professorDisciplina).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                            }
-                        }
+                        db.Entry(professorDisciplina).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
                     }
-
-                    ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
-                    ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
-                    return View(professorDisciplina);
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
+                    }
                 }
+
+                ViewBag.id_disciplina = new SelectList(db.Disciplina, "id_disciplina", "nome_disciplina", professorDisciplina.id_disciplina);
+                ViewBag.id_professor = new SelectList(db.Professor, "id_professor", "nome_professor", professorDisciplina.id_professor);
+                return View(professorDisciplina);
             }
             return RedirectToAction("Index", "Home");
         }

@@ -97,6 +97,7 @@
                         <h4 class="modal-title" id="modalEditarTitulo">Editar Disciplinas do Curso</h4>
                     </div>
                     <div class="modal-body form-horizontal">
+                        <input type="hidden" id="id_curso_disciplina_edit" name="id_curso_disciplina" value="">
                         <div class="form-group form-inline">
                             @Html.Label("Nome do Curso", htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.DropDownList("id_curso", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso_edit" })
@@ -178,7 +179,7 @@
                         <a href="" data-toggle="modal" data-target="#modalDetalhes" data-curso=@item.id_curso data-disciplina=@item.id_disciplina>
                             Detalhes
                         </a> |
-                        <a href="" data-toggle="modal" data-target="#modalEditar" data-curso=@item.id_curso data-disciplina=@item.id_disciplina>
+                        <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_curso_disciplina data-curso=@item.id_curso data-disciplina=@item.id_disciplina>
                             Editar
                         </a> |
                         <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_curso_disciplina data-nome=@item.id_curso_disciplina>
@@ -216,9 +217,11 @@
             $("#modalEditar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
                 var botao = $(event.relatedTarget);
+                var IdItemEditando = botao.data("id");
                 var CursoItemEditando = botao.data('curso');
                 var DisciplinaItemEditando = botao.data('disciplina');
                 // seta as informações na modal fixa
+                $("#id_curso_disciplina_edit").val(IdItemEditando);
                 $("#id_curso_edit").val(CursoItemEditando);
                 $("#id_disciplina_edit").val(DisciplinaItemEditando);
             });

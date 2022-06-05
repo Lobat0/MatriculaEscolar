@@ -5,17 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <style>
-        dt {
-            width: 40% !important;
-            text-align: right !important;
-            margin-bottom: 8px !important;
-            padding-right: 15px !important;
-        }
-    </style>
-</head>
-
 <div class="margin-custom1">
 
     <!-- Start Alerta de Erro no Banco de Dados-->
@@ -27,7 +16,6 @@
         </div>
     }
     <!-- End Alerta de Erro no Banco de Dados-->
-
     <!-- Start Alerta de Sucesso no Banco de Dados-->
     @if (Convert.ToString(Session["susdb.Msg"]) != "")
     {
@@ -37,7 +25,6 @@
         </div>
     }
     <!-- End Alerta de Sucesso no Banco de Dados-->
-
     <!-- Start Modal Cadastro-->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalCadastro">
         Adicionar Ligação de Professor e Disciplina
@@ -56,7 +43,7 @@
                     <div class="modal-body form-horizontal">
                         <div class="form-group form-inline">
                             @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_curso", @id = "id_curso" })
+                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_disciplina", @id = "id_disciplina" })
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -72,8 +59,64 @@
         </div>
     }
     <!-- End Modal Cadastro-->
+
+    <!-- Start Modal Detalhe-->
+    <div class="modal fade" id="modalDetalhes" tabindex="-2" role="dialog" aria-labelledby="modalDetalhesLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDetalhesTitulo">Disciplinas do Professor</h4>
+                </div>
+                <div class="modal-body">
+                    <h4><b>Nome do Professor</b></h4>
+                    <p id="professorPDetalhes"></p>
+                    <br />
+                    <h4><b>Nome da Disciplina</b></h4>
+                    <p id="disciplinaPDetalhes"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Detalhes-->
+
+    <!-- Start Modal Edit-->
+    <div class="modal fade" id="modalEditar" tabindex="-3" role="dialog" aria-labelledby="modalEditarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @using (Html.BeginForm("Edit", "ProfessoresDisciplinas", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditarTitulo">Editar Disciplinas do Professor</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <input type="hidden" id="id_professor_disciplina_edit" name="id_professor_disciplina" value="">
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_professor", null, htmlAttributes: new { @class = "form-control", @name = "id_professor", @id = "id_professor_edit" })
+                        </div>
+                        <div class="form-group form-inline">
+                            @Html.Label("Nome da Disciplina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("id_disciplina", null, htmlAttributes: new { @class = "form-control", @name = "id_disciplina", @id = "id_disciplina_edit" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" value="Edit">Salvar Alterações</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit-->
+
     <!-- Start Modal Delete-->
-    <div class="modal fade" id="modalDeletar" tabindex="-2" role="dialog" aria-labelledby="modalDeletarLabel">
+    <div class="modal fade" id="modalDeletar" tabindex="-4" role="dialog" aria-labelledby="modalDeletarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,23 +164,28 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Professor.nome_professor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Professor.CPF)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id_professor_disciplina }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id_professor_disciplina }) |
-                        <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor_disciplina data-nome=@item.id_professor_disciplina>
-                            Deletar
-                        </a> |
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Disciplina.nome_disciplina)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Professor.nome_professor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Professor.CPF)
+                        </td>
+                        <td>
+                            <a href="" data-toggle="modal" data-target="#modalDetalhes" data-professor=@item.id_professor data-disciplina=@item.id_disciplina>
+                                Detalhes
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalEditar" data-id=@item.id_professor_disciplina data-professor=@item.id_professor data-disciplina=@item.id_disciplina>
+                                Editar
+                            </a> |
+                            <a href="" data-toggle="modal" data-target="#modalDeletar" data-id=@item.id_professor_disciplina data-nome=@item.id_professor_disciplina>
+                                Deletar
+                            </a> |
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -155,6 +203,26 @@
                     "infoEmpty": "Sem registros",
                     "infoFiltered": "(filtrado de _MAX_ regitros totais)"
                 }
+            });
+            $("#modalDetalhes").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var ProfessorItemDetalhes = botao.data('professor');
+                var DisciplinaItemDetalhes = botao.data('disciplina');
+                // seta as informações na modal fixa
+                $("#professorPDetalhes").text(ProfessorItemDetalhes);
+                $("#disciplinaPDetalhes").text(DisciplinaItemDetalhes);
+            });
+            $("#modalEditar").on('show.bs.modal', function (event) {
+                // procura o link que chamou a modal
+                var botao = $(event.relatedTarget);
+                var IDItemEditando = botao.data("id");
+                var ProfessorItemEditando = botao.data('professor');
+                var DisciplinaItemEditando = botao.data('disciplina');
+                // seta as informações na modal fixa
+                $("#id_professor_disciplina_edit").val(IDItemEditando);
+                $("#id_professor_edit").val(ProfessorItemEditando);
+                $("#id_disciplina_edit").val(DisciplinaItemEditando);
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
