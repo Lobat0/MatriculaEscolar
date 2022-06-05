@@ -17,10 +17,8 @@ namespace MatriculaAcademica.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
-            //ViewBag.id_aluno = new MultiSelectList(db.Curso, "id_curso", "nome_aluno", "CPF");
-            //ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
-            ViewBag.id_aluno = new SelectList(db.Aluno, "id_aluno", "nome_aluno");
-            ViewBag.id_curso = new SelectList(db.Curso, "id_curso", "nome_curso");
+            ViewBag.id_aluno = new MultiSelectList(db.Aluno, "id_aluno", "CPF", "nome_aluno");
+            ViewBag.id_curso = new MultiSelectList(db.Curso, "id_curso", "nome_curso", "turno");
             ViewBag.id_usuario = new SelectList(db.Usuario, "id_usuario", "login");
 
             if (Session["tipo"] != null)

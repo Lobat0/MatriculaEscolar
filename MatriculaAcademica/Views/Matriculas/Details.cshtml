@@ -22,7 +22,7 @@
 
 @Scripts.Render("~/bundles/bootstrap")
 
-<div class="margin-custom1">
+<div style=" /* margin-top: 100px; */ margin-bottom: 100px; margin-right: 150px; margin-left: 80px;">
     <h2>Matricula da Escola Saber</h2>
     <div>
         <hr />
@@ -86,34 +86,43 @@
                 @Html.DisplayFor(model => model.matricula.Curso.turno)
             </dd>
 
-            <dt>
-                Disciplinas
-            </dt>
-
             <dd>
-                @foreach (var item in Model.disciplinas)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nome_disciplina)
-                        </td>
-                    </tr>
-                }
-            </dd>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nome da Disciplina
+                            </th>
+                            <th>
+                                Nome do Professor
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-            <dt>
-                Professores
-            </dt>
+                    <tbody>
 
-            <dd>
-                @foreach (var item in Model.professores)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nome_professor)
-                        </td>
-                    </tr>
-                }
+                        @foreach (var cont in Model.professordisciplina)
+                        {
+                            foreach (var item in (from i1 in Model.disciplinas from i2 in Model.professores select Tuple.Create(i1, i2)))
+                            {
+                                if (item.Item1.id_disciplina == cont.id_disciplina && item.Item2.id_professor == cont.id_professor)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Item1.nome_disciplina)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Item2.nome_professor)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
             </dd>
 
             <dt>
@@ -125,7 +134,40 @@
             </dd>
         </dl>
     </div>
+    <div style="width: fit-content; margin-left: 10px;">
+        <div style="display: inline-block; float: left;">
+            <div style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px; float: left;">
+                <br><br>
+                <p>____________________</p>
+                <br>
+                <p>
+                    Assinatura do Aluno ou<br>
+                    Responsável pelo Aluno
+                </p>
+            </div>
+        </div>
+
+        <div style="display: inline-block; float: right; margin-left: 60px; ">
+            <div style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px; float: left;">
+                <br><br>
+                <p>____________________</p>
+                <br>
+                <p>Assinatura da Escola Saber</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: inline-block;margin-left: 0px; margin-top: 10px;">
+        <div style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
+            <p>Declaramos para os fins necessários que o aluno de nome @Html.DisplayFor(model => model.matricula.Aluno.nome_aluno), registrado sob o CPF de número @Html.DisplayFor(model => model.matricula.Aluno.CPF), se encontra devidamente matriculado no curso @Html.DisplayFor(model => model.matricula.Curso.nome_curso), no turno @Html.DisplayFor(model => model.matricula.Curso.turno),
+            sendo frequente no turno @Html.DisplayFor(model => model.matricula.Curso.turno), sendo parte do corpo discente da Instituição de ensino Escola Saber.
+            <br><br><p>Duque de Caxias, São Cristóvão, Rio Branco 29368-149, BR</p>
+            <p>Telefone: (011) 5342-6234 Email: info@escolasaber.edu.br</p>
+        </div>
+    </div>
+    <br><br><br>
     <p>
-        @Html.ActionLink("Voltar", "Index")
+        <button onclick="location.href='@Url.Action("Index", "Matriculas")';return false;">Voltar</button>
+        <button onclick="window.print();return false;">Imprimir</button>
     </p>
 
