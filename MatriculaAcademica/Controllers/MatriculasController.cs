@@ -36,9 +36,6 @@ namespace MatriculaAcademica.Controllers
             {
                 if (id == null)
                 {
-<<<<<<< HEAD
-                    return RedirectToAction("Index", "Home");
-=======
                     if (id == null)
                     {
                         return RedirectToAction("Index", "Home");
@@ -71,7 +68,6 @@ namespace MatriculaAcademica.Controllers
                         return RedirectToAction("Index");
                     }
                     return View(modelmat);
->>>>>>> 6c6dc4eba031511cfd433c0c66179d821277a044
                 }
                 var modelmat = new MyViewModel();
                 modelmat.matricula = db.Matricula.Find(id);
