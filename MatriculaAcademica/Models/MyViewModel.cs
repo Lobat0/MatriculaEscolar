@@ -12,8 +12,8 @@ namespace MatriculaAcademica.Models
         public Matricula matricula { get; set; }
         public ICollection<CursoDisciplina> cursodisciplina { get; set; }
         public IEnumerable<Disciplina> disciplinas { get; set; }
-        public IEnumerable<ICollection<ProfessorDisciplina>> professordisciplina { get; set; }
-        public IEnumerable<Professor> professor { get; set; }
+        public ICollection<ProfessorDisciplina> professordisciplina { get; set; }
+        public IEnumerable<Professor> professores { get; set; }
 
     }
 }

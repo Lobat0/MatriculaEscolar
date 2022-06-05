@@ -87,6 +87,7 @@
             </dd>
 
             <dt>
+                Disciplinas
             </dt>
 
             <dd>
@@ -96,12 +97,24 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.nome_disciplina)
                         </td>
+                    </tr>
+                }
+            </dd>
+
+            <dt>
+                Professores
+            </dt>
+
+            <dd>
+                @foreach (var item in Model.professores)
+                {
+                    <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.nome_disciplina)
+                            @Html.DisplayFor(modelItem => item.nome_professor)
                         </td>
                     </tr>
-                 }
-                </dd>
+                }
+            </dd>
 
             <dt>
                 Responsavel pela matricula

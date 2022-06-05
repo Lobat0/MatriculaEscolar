@@ -45,13 +45,20 @@ namespace MatriculaAcademica.Controllers
                 {
                     if (id == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        return RedirectToAction("Index", "Home");
                     }
                     var modelmat = new MyViewModel();
                     modelmat.matricula = db.Matricula.Find(id);
                     modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
                     modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
-                    modelmat.professordisciplina = modelmat.disciplinas.Select(d => d.ProfessorDisciplina);
+                    // deve ter um jeito mais facil de catar todas as disciplinas
+                    List<ProfessorDisciplina> professores = new List<ProfessorDisciplina>();
+                    foreach (Disciplina disc in modelmat.disciplinas)
+                    {
+                        professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
+                    }
+                    modelmat.professordisciplina = professores;
+                    modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
                     return View(modelmat);
                 }
             }

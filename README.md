@@ -28,21 +28,17 @@ Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 
 ### Fazer
 #### Funcionalidades
-- Fazer as modais das tabelas intermediárias
 - Exibir informações de outras tabelas nas listas e modal de detalhes (ex: O Curso em que o Aluno é cadastrado, as Disciplinas que um Professor ministra).
 - Só fazer a checagem de admin na controller de usuários.
-- Tirar Curso-Disciplina e Professor-disciplina da navbar e adicionar nas páginas Curso e Professor
+- Tirar Curso-Disciplina e Professor-disciplina da navbar e adicionar nas páginas Curso e Professor.
 - Exibir o nome do curso nos detalhes das tabelas intermediarias, não id.
 
 #### Erros
-- Fazer tratamento de erro de todos controllers
-- Adicionar try e catch nos possíveis erros dos controllers
-- Exibir mensagens de erro caso ... de erro no post
-- Exibir mensagens de sucesso caso ... sucesso no post
+- Fazer tratamento de erro de matrícula
 - Editar a página de erro???
-- Deixar todos campos de input como required
+- Deixar todos campos de input como required, limitar o numero de caracteres dos inputs de texto.
 - Arrumar o required dos campos input cpf e telefone
 - Verificar campos replicados no cadastro e editar em todos controllers
 
 #### Estética
-- Deixar o modal de detalhes menos feio
+- Deixar os modais de detalhes menos feio
