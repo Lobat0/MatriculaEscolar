@@ -56,7 +56,22 @@ namespace MatriculaAcademica.Controllers
                         professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
                     }
                     modelmat.professordisciplina = professores;
-                    modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                    try 
+                    {
+                        foreach (var item in professores)
+                        {
+                            if (item.Professor.id_professor != item.id_professor)
+                            {
+                                Session["errodb.Msg"] = "Erro";
+                            }
+                        }
+                        modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                    }
+                    catch (Exception ex)    
+                    {
+                        Session["errodb.Msg"] = ex.Message;
+                        return RedirectToAction("Index");
+                    }
                     return View(modelmat);
                 }
             }
