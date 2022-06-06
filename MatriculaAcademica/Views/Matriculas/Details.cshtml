@@ -104,21 +104,15 @@
 
                         @foreach (var cont in Model.professordisciplina)
                         {
-                            foreach (var item in (from i1 in Model.disciplinas from i2 in Model.professores select Tuple.Create(i1, i2)))
-                            {
-                                if (item.Item1.id_disciplina == cont.id_disciplina && item.Item2.id_professor == cont.id_professor)
-                                {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Item1.nome_disciplina)
+                                            @Html.DisplayFor(modelItem => cont.Disciplina.nome_disciplina)
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Item2.nome_professor)
+                                            @Html.DisplayFor(modelItem => cont.Professor.nome_professor)
                                         </td>
-                                    </tr>
-                                }
-                            }
+                                    </tr>        
                         }
 
                     </tbody>
