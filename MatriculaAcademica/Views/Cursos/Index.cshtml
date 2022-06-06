@@ -252,7 +252,7 @@
                 $("input#idInputEditar").val(IDItemEditando);
                 $("input#nomeInputEditar").val(NomeItemEditando);
                 $("input#duracaoInputEditar").val(DuracaoItemEditando);
-                $("input#turnoInputEditar").val(TurnoItemEditando).change();
+                $("#turnoInputEditar").val(TurnoItemEditando).change();
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal

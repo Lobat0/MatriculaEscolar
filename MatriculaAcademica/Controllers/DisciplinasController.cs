@@ -29,20 +29,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Disciplina disciplina = db.Disciplina.Find(id);
-                    if (disciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(disciplina);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Disciplina disciplina = db.Disciplina.Find(id);
+                if (disciplina == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(disciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -52,11 +48,7 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    return View();
-                }
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -71,36 +63,32 @@ namespace MatriculaAcademica.Controllers
 
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
                     {
-                        if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
+                        //variavel do erro de cadastro duplicado
+                        Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        try
                         {
-                            //variavel do erro de cadastro duplicado
-                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                            db.Disciplina.Add(disciplina);
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                             return RedirectToAction("Index");
                         }
-                        else
+                        catch (Exception e)
                         {
-                            try
-                            {
-                                db.Disciplina.Add(disciplina);
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                return RedirectToAction("Index");
-                            }
+                            Session["errodb.Msg"] = e.Message;
+                            return RedirectToAction("Index");
                         }
                     }
-
-                    return View(disciplina);
                 }
+
+                return View(disciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -110,20 +98,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Disciplina disciplina = db.Disciplina.Find(id);
-                    if (disciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(disciplina);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Disciplina disciplina = db.Disciplina.Find(id);
+                if (disciplina == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(disciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -137,36 +121,23 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    try
                     {
-                        if (db.Disciplina.Any(a1 => a1.nome_disciplina.Equals(disciplina.nome_disciplina)))
-                        {
-                            //variavel do erro de alteração duplicada
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            try
-                            {
-                                db.Entry(disciplina).State = EntityState.Modified;
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                Console.WriteLine(e);
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                            }
-                        }
+                        db.Entry(disciplina).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
                     }
-                    return View(disciplina);
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = e.Message;
+                        Console.WriteLine(e);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                 }
+                return View(disciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -176,20 +147,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Disciplina disciplina = db.Disciplina.Find(id);
-                    if (disciplina == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(disciplina);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                Disciplina disciplina = db.Disciplina.Find(id);
+                if (disciplina == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(disciplina);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -201,23 +168,19 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                try
                 {
-                    try
-                    {   
-                        Disciplina disciplina = db.Disciplina.Find(id);
-                        db.Disciplina.Remove(disciplina);
-                        db.SaveChanges();
-                        Session["susdb.Msg"] = "Sucesso: item excluido";
-                        return RedirectToAction("Index");
-                    }
-                    catch(Exception e)
-                    {
-                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
-                        Console.WriteLine(e);
-                        return RedirectToAction("Index");
-                    }
+                    Disciplina disciplina = db.Disciplina.Find(id);
+                    db.Disciplina.Remove(disciplina);
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: item excluido";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                    Console.WriteLine(e);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");

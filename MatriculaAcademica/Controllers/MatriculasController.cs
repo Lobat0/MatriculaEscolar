@@ -36,40 +36,9 @@ namespace MatriculaAcademica.Controllers
             {
                 if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    var modelmat = new MyViewModel();
-                    modelmat.matricula = db.Matricula.Find(id);
-                    modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
-                    modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
-                    // deve ter um jeito mais facil de catar todas as disciplinas
-                    List<ProfessorDisciplina> professores = new List<ProfessorDisciplina>();
-                    foreach (Disciplina disc in modelmat.disciplinas)
-                    {
-                        professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
-                    }
-                    modelmat.professordisciplina = professores;
-                    try 
-                    {
-                        foreach (var item in professores)
-                        {
-                            if (item.Professor.id_professor != item.id_professor)
-                            {
-                                Session["errodb.Msg"] = "Erro";
-                            }
-                        }
-                        modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
-                    }
-                    catch (Exception ex)    
-                    {
-                        Session["errodb.Msg"] = ex.Message;
-                        return RedirectToAction("Index");
-                    }
-                    return View(modelmat);
+                    return RedirectToAction("Index", "Home");
                 }
-                var modelmat = new MyViewModel();
+                ImpressaoVO modelmat = new ImpressaoVO();
                 modelmat.matricula = db.Matricula.Find(id);
                 modelmat.cursodisciplina = modelmat.matricula.Curso.CursoDisciplina;
                 modelmat.disciplinas = modelmat.cursodisciplina.Select(cd => cd.Disciplina);
@@ -80,7 +49,22 @@ namespace MatriculaAcademica.Controllers
                     professores.Add(db.ProfessorDisciplina.Where(pd => pd.id_disciplina == disc.id_disciplina).FirstOrDefault());
                 }
                 modelmat.professordisciplina = professores;
-                modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                try
+                {
+                    foreach (var item in professores)
+                    {
+                        if (item.Professor.id_professor != item.id_professor)
+                        {
+                            Session["errodb.Msg"] = "Erro";
+                        }
+                    }
+                    modelmat.professores = modelmat.professordisciplina.Select(pd => pd.Professor);
+                }
+                catch (Exception ex)
+                {
+                    Session["errodb.Msg"] = ex.Message;
+                    return RedirectToAction("Index");
+                }
                 return View(modelmat);
             }
             return RedirectToAction("Index", "Home");

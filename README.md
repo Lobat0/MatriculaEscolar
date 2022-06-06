@@ -42,3 +42,4 @@ Install-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 
 #### Estética
 - Deixar os modais de detalhes menos feio
+- Deletar views e métodos inúteis

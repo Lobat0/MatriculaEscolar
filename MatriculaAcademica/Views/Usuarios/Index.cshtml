@@ -129,7 +129,7 @@
                         </div>
                         <div class="form-group form-inline">
                             @Html.Label("Tipo", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <select class="form-control form-select" id="tipo" name="tipo" required>
+                            <select class="form-control form-select" id="tipoInputEditar" name="tipo" required>
                                 <option value="Admin">Admin</option>
                                 <option value="Funcionario">Funcionario</option>
                             </select>
@@ -263,7 +263,7 @@
                 $("input#loginInputEditar").val(LoginItemEditando);
                 $("input#emailInputEditar").val(EmailItemEditando);
                 $("input#senhaInputEditar").val(SenhaItemEditando);
-                $("input#tipoInputEditar").val(TipoItemEditando);
+                $("#tipoInputEditar").val(TipoItemEditando).change();
             });
             $("#modalDeletar").on('show.bs.modal', function (event) {
                 // procura o link que chamou a modal
@@ -276,3 +276,5 @@
             });
         });
     </script>
+
+</div>

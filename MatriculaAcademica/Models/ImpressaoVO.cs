@@ -7,7 +7,7 @@ using MatriculaAcademica.Models;
 
 namespace MatriculaAcademica.Models
 {
-    public class MyViewModel
+    public class ImpressaoVO
     {
         public Matricula matricula { get; set; }
         public ICollection<CursoDisciplina> cursodisciplina { get; set; }

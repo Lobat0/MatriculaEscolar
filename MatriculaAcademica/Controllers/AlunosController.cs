@@ -15,11 +15,7 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    return View(db.Aluno.ToList());
-                }
+                return View(db.Aluno.ToList());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -29,20 +25,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return RedirectToAction("Error");
-                    }
-                    Aluno aluno = db.Aluno.Find(id);
-                    if (aluno == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(aluno);
+                    return RedirectToAction("Error");
                 }
+                Aluno aluno = db.Aluno.Find(id);
+                if (aluno == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(aluno);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -52,11 +44,7 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
-                {
-                    return View();
-                }
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -70,36 +58,32 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    if (db.Aluno.Any(a1 => a1.CPF.Equals(aluno.CPF)))
                     {
-                        if (db.Aluno.Any(a1 => a1.CPF.Equals(aluno.CPF)))
+                        //variavel do erro de cadastro duplicado
+                        Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        try
                         {
-                            //variavel do erro de cadastro duplicado
-                            Session["errodb.Msg"] = "Erro: Cadastro com itens duplicados";
+                            db.Aluno.Add(aluno);
+                            db.SaveChanges();
+                            Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
                             return RedirectToAction("Index");
                         }
-                        else
+                        catch (Exception e)
                         {
-                            try
-                            {
-                                db.Aluno.Add(aluno);
-                                db.SaveChanges();
-                                Session["susdb.Msg"] = "Sucesso: Cadastro efetuado";
-                                return RedirectToAction("Index");
-                            }
-                            catch (Exception e)
-                            {
-                                Session["errodb.Msg"] = e.Message;
-                                return RedirectToAction("Index");
-                            }
+                            Session["errodb.Msg"] = e.Message;
+                            return RedirectToAction("Index");
                         }
                     }
-
-                    return RedirectToAction("Index");
                 }
+
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index", "Home");
         }
@@ -109,28 +93,24 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
+                    return RedirectToAction("Error");
+                }
+                try
+                {
+                    Aluno aluno = db.Aluno.Find(id);
+                    if (aluno == null)
                     {
-                        return RedirectToAction("Error");
+                        return HttpNotFound();
                     }
-                    try
-                    {
-                        Aluno aluno = db.Aluno.Find(id);
-                        if (aluno == null)
-                        {
-                            return HttpNotFound();
-                        }
-                        return RedirectToAction("Index");
-                    }
-                    catch(Exception e)
-                    {
-                        Session["errodb.Msg"] = e.Message;
-                        Console.WriteLine(e);
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = e.Message;
+                    Console.WriteLine(e);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -145,24 +125,20 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    try
                     {
-                        try
-                        {
-                            db.Entry(aluno).State = EntityState.Modified;
-                            db.SaveChanges();
-                            Session["susdb.Msg"] = "Sucesso: Edição efetuada";
-                            return RedirectToAction("Index");
-                        }
-                        catch (Exception e)
-                        {
-                            Session["errodb.Msg"] = "Erro: Edição com itens iguais";
-                            Console.WriteLine(e);
-                            return RedirectToAction("Index");
-                        }
+                        db.Entry(aluno).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Session["susdb.Msg"] = "Sucesso: Edição efetuada";
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception e)
+                    {
+                        Session["errodb.Msg"] = "Erro: Edição com itens iguais";
+                        Console.WriteLine(e);
+                        return RedirectToAction("Index");
                     }
                 }
             }
@@ -174,20 +150,16 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                if (id == null)
                 {
-                    if (id == null)
-                    {
-                        return RedirectToAction("Error");
-                    }
-                    Aluno aluno = db.Aluno.Find(id);
-                    if (aluno == null)
-                    {
-                        return HttpNotFound();
-                    }
-
+                    return RedirectToAction("Error");
                 }
+                Aluno aluno = db.Aluno.Find(id);
+                if (aluno == null)
+                {
+                    return HttpNotFound();
+                }
+
             }
             return RedirectToAction("Index", "Home");
         }
@@ -199,23 +171,19 @@ namespace MatriculaAcademica.Controllers
         {
             if (Session["tipo"] != null)
             {
-                string permissao = (Session["tipo"] as string).Trim();
-                if (string.Equals(permissao, "Admin"))
+                try
                 {
-                    try
-                    {
-                        Aluno aluno = db.Aluno.Find(id);
-                        db.Aluno.Remove(aluno);
-                        db.SaveChanges();
-                        Session["susdb.Msg"] = "Sucesso: item excluido";
-                        return RedirectToAction("Index");
-                    }
-                    catch(Exception e)
-                    {
-                        Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
-                        Console.WriteLine(e);
-                        return RedirectToAction("Index");
-                    }
+                    Aluno aluno = db.Aluno.Find(id);
+                    db.Aluno.Remove(aluno);
+                    db.SaveChanges();
+                    Session["susdb.Msg"] = "Sucesso: item excluido";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    Session["errodb.Msg"] = "Erro: Item com referências não pode ser deletado";
+                    Console.WriteLine(e);
+                    return RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index", "Home");
