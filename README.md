@@ -1,11 +1,12 @@
 # Matrícula estudantil
 
-Aplicativo web de matrícula de estudantes, criado na plataforma .NET Framework, com banco de dados Microsoft SQL.
+Aplicativo web de matrícula de estudantes, criado na plataforma .NET Framework, com banco de dados Microsoft SQL, linguagem C#.
 
 ## Instruções
 ### Rodar o projeto
 
-1. Dá teu jeito.
+1. Baixar o projeto.
+2. Abrir no Microsoft Studio e dar play.
 
 ### Git
 Sempre que for começar a usar o projeto:
